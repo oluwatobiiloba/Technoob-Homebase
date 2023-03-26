@@ -1,0 +1,27 @@
+{
+  "name": "Technoob",
+  "version": "1.0.0",
+  "description": "A webapp for tech enthusiasts",
+  "main": "main.js",
+  "scripts": {
+    "webpack": "cross-env NODE_ENV=development webpack-dev-server --config=build/webpack.dev.config.js",
+    "build": "cross-env  NODE_ENV=production webpack -p --config=build/webpack.prod.config.js --progress --hide-modules"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.21.3",
+    "cross-env": "^7.0.3",
+    "extract-css-chunks-webpack-plugin": "^4.9.0",
+    "html-webpack-plugin": "^5.5.0",
+    "merge": "^2.1.1",
+    "vue-loader": "^17.0.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.1"
+  }
+}
