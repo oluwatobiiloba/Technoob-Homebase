@@ -2,13 +2,13 @@ const services = require("../services/index")
 const users = services.user
 
 module.exports = {
-    async getAllUsers(_req, res) {
+    async dashboard(_req, res) {
 
         try {
-            const user = await users.findall()
+
             return res.status(201).json({
                 status: "success",
-                message: `${user.length} Users found`,
+                message: `Welcome to the dashboard`,
 
             })
         } catch (err) {
