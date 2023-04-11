@@ -1,0 +1,185 @@
+const mongoose = require('mongoose');
+const env = process.env.NODE_ENV || 'development';
+const config = require(`${__dirname}/../config/config.js`)[env];
+const Schema = mongoose.Schema;
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const SALT_ROUNDS = config.SALT_ROUNDS
+const TOKEN_EXPIRATION_TIME = config.TOKEN_EXPIRATION_TIME;
+
+
+const user = new Schema({
+    firstname: {
+        type: String,
+        required: [true, 'Please tell us your name!'],
+        trim: true,
+        maxlength: [40, 'A user name must have less or equal then 40 characters']
+
+    },
+    lastname: {
+        type: String,
+        required: [true, 'Please tell us your name!'],
+        trim: true
+    },
+    username: {
+        type: String,
+        required: [true, 'Please provide your username'],
+        unique: [true, 'This username is already taken'],
+        trim: true
+
+    },
+    google_id: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    github_id: {
+        type: String,
+        unique: true,
+        sparse: true
+
+    },
+    github_meta: {
+        type: Object,
+        default: {}
+    },
+    email: {
+        type: String,
+        required: [true, 'Please provide your email'],
+        unique: true,
+        lowercase: true,
+        validate: [validator.isEmail, 'Please provide a valid email']
+    },
+    stack: {
+        type: Array,
+        required: [true, 'Please provide your stack']
+    },
+    photo: {
+        type: String,
+        default: 'default.jpg'
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    password: {
+        type: String,
+        required: [true, 'Please provide a password'],
+        minlength: [8, 'A password must have more or equal then 8 characters'],
+        select: false
+    },
+
+    passwordConfirm: {
+        type: String,
+        required: [true, 'Please confirm your password'],
+        validate: {
+            // This only works on CREATE and SAVE!!!
+            validator: function (el) {
+                return el === this.password;
+            }
+        },
+        message: 'Passwords are not the same!'
+
+    },
+    passwordChangedAt: {
+        type: Date
+    },
+    passwordResetToken: {
+        type: String
+    },
+    passwordResetExpires: {
+        type: Date
+    },
+    active: {
+        type: Boolean,
+        default: true,
+        select: false
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    }
+
+
+});
+
+user.pre('save', async function (next) {
+    try {
+        // Only run this function if password was actually modified
+        if (!this.isModified('password')) return next();
+
+        const salt = await bcrypt.genSalt(12);
+        // Hash the password with cost of 12
+        this.password = await bcrypt.hash(this.password, salt);
+
+        // Delete passwordConfirm field
+        this.passwordConfirm = undefined;
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
+user.pre('save', function (next) {
+    if (!this.isModified('password') || this.isNew) return next();
+
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
+}
+);
+
+user.pre(/^find/, function (next) {
+    // this points to the current query
+    this.find({ active: { $ne: false } });
+    next();
+}
+);
+
+user.methods.comparePassword = async function (password) {
+    if (!password) {
+        return false;
+    }
+    console.log(password, this.password)
+
+    const isMatch = await bcrypt.compare(password, this.password);
+    return isMatch;
+}
+
+
+user.methods.changedPasswordAfter = function (JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+
+        return JWTTimestamp < changedTimestamp;
+    }
+
+    // False means NOT changed
+    return false;
+}
+
+user.methods.createPasswordResetToken = function () {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+
+    this.passwordResetToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex');
+
+    console.log({ resetToken }, this.passwordResetToken);
+
+    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+    return resetToken;
+}
+
+module.exports = mongoose.model('User', user);

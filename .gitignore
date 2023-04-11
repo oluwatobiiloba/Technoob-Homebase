@@ -1,0 +1,6 @@
+Server/node_modules/@mapbox/node-pre-gyp/bin/node-pre-gyp.cmd
+Server/node_modules
+*.env
+
+Server/.env
+Server/.env

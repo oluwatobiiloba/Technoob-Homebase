@@ -1,6 +1,4 @@
 
 module.exports = {
-    async findall() {
 
-    },
 }
