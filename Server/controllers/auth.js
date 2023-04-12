@@ -13,7 +13,7 @@ module.exports = {
 
     async register(req, res, next) {
         try {
-            const user = auth.register(req.body);
+            const user = await auth.register(req.body);
             req.login(user, err => {
                 if (err) return next(err);
                 res.redirect('/user/dashboard');

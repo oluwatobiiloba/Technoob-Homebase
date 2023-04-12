@@ -1,3 +1,7 @@
 const auth = require('./auth')
+const multer = require('./multer')
 
-module.exports = { auth }
+module.exports = {
+    auth,
+    multer
+}

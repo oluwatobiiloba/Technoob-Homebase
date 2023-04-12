@@ -1,9 +1,7 @@
 let User = require('../models/user');
 const middleware = require('../middleware/index');
 const crypto = require('crypto');
-
-
-
+const mailer = require('../utils/azure_mailer')
 
 module.exports = {
     init: function () {
@@ -18,6 +16,27 @@ module.exports = {
             const { email, password, firstname, username, lastname, stack, passwordConfirm } = body;
             const user = new User({ email, password, firstname, username, lastname, stack, passwordConfirm });
             await user.save();
+
+            try {
+                const constants = {
+                    username: user.username,
+                    verification_link: `html/api/v1/users/verify-email?token=${user.email}`
+                }
+
+                const mailOptions = {
+                    email: user.email,
+                    subject: 'Welcome to TechNoob!',
+                    constants,
+                    template_id: "Test Welcome",
+                    username: user.username
+
+                }
+                await mailer.sendEmail(mailOptions)
+            } catch (err) {
+                console.log(err)
+            }
+
+
             return user
         } catch (err) {
             throw err
