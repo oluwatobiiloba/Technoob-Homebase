@@ -108,7 +108,16 @@ const user = new Schema({
     updatedAt: {
         type: Date,
         default: Date.now()
-    }
+    },
+    verificationToken: {
+        type: String
+    },
+    active: {
+        type: Boolean,
+        default: true,
+        select: false
+    },
+
 
 
 });
@@ -149,7 +158,7 @@ user.methods.comparePassword = async function (password) {
     if (!password) {
         return false;
     }
-    console.log(password, this.password)
+
 
     const isMatch = await bcrypt.compare(password, this.password);
     return isMatch;
@@ -167,19 +176,6 @@ user.methods.changedPasswordAfter = function (JWTTimestamp) {
     return false;
 }
 
-user.methods.createPasswordResetToken = function () {
-    const resetToken = crypto.randomBytes(32).toString('hex');
 
-    this.passwordResetToken = crypto
-        .createHash('sha256')
-        .update(resetToken)
-        .digest('hex');
-
-    console.log({ resetToken }, this.passwordResetToken);
-
-    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-
-    return resetToken;
-}
 
 module.exports = mongoose.model('User', user);

@@ -1,14 +1,112 @@
-let User = require('../models/user');
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config')[env];
+const User = require('../models/user');
 const middleware = require('../middleware/index');
 const crypto = require('crypto');
 const mailer = require('../utils/azure_mailer')
+const jwt = require('jsonwebtoken');
+const Admin = require('../models/admin');
 
 module.exports = {
-    init: function () {
-
+    signToken(id) {
+        const signedToken = jwt.sign({ id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
+        return signedToken;
     },
     login(req, res) {
         middleware.auth.authenticateMiddleware(req, res);
+    },
+    async verifyUserEmail(token) {
+        try {
+            const decoded = jwt.verify(token, config.JWT_SECRET);
+            const user = await User.findById(decoded.id);
+            if (!user) {
+                return false
+            }
+            user.verified = true;
+            await user.save();
+            return true
+        } catch (err) {
+            throw err
+        }
+    },
+    async forgotPasswordEmail(data) {
+        try {
+            const { email } = data;
+            const user = await User.findOne({ email });
+            if (!user) {
+                return false
+            }
+            const resetToken = this.signToken(user._id);
+            user.passwordResetToken = resetToken;
+            await user.save();
+            const constants = {
+                username: user.username,
+                reset_link: `${config.LIVE_BASE_URL}/api/v1/users/reset-password?token=${resetToken}`
+            }
+            const mailOptions = {
+                email: user.email,
+                subject: 'You requested a password reset',
+                constants,
+                template_id: "Reset Password",
+                username: user.username
+            }
+            await mailer.sendEmail(mailOptions)
+            return true
+        } catch (error) {
+            console.log(error)
+            throw error
+        }
+
+    },
+
+    async resetPassword(token, password, passwordConfirm) {
+        try {
+            const decoded = jwt.verify(token, config.JWT_SECRET);
+            if (!decoded) {
+                return false
+            }
+            const user = await User.findById(decoded.id);
+            if (!user) {
+                return false
+            }
+            user.password = password;
+            user.passwordConfirm = passwordConfirm;
+            user.passwordResetToken = undefined;
+            user.passwordChangedAt = Date.now() - 1000;
+            await user.save();
+            return true
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async updatePassword(id, password, passwordConfirm, previousPassword) {
+        try {
+            const user = await User.findById(id);
+            const isMatch = await user.comparePassword(previousPassword);
+            if (!isMatch) {
+                return false
+            }
+            user.password = password;
+            user.passwordConfirm = passwordConfirm;
+            await user.save();
+            const constants = {
+                username: user.username,
+            }
+            const mailOptions = {
+                email: user.email,
+                subject: 'Your password has been changed',
+                constants,
+                template_id: "Password Changed",
+                username: user.username
+            }
+            await mailer.sendEmail(mailOptions)
+            return true
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
     },
 
     async register(body) {
@@ -40,6 +138,57 @@ module.exports = {
             return user
         } catch (err) {
             throw err
+        }
+    },
+    async inviteAdmin(email) {
+        try {
+            //check if user already exists
+            const user = await User.findOne({ email });
+            if (!user) {
+                return new Error('User not found')
+            }
+
+            user.role = 'admin'
+            await user.save();
+            const constants = {
+                username: user.username
+            }
+            const mailOptions = {
+                email: user.email,
+                subject: 'You have been invited to be an admin',
+                constants,
+                template_id: "Admin Invite",
+                username: user.username
+            }
+            await mailer.sendEmail(mailOptions)
+            return user
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+    async removeAdmin(email) {
+        try {
+            const user = User.findOne({ email })
+            if (!user) {
+                return new Error('User not found')
+            }
+            user.role = 'user'
+            await user.save();
+            const constants = {
+                username: user.name
+            }
+            const mailOptions = {
+                email: email,
+                subject: "Your admin access has been revoked",
+                constants,
+                template_id: "Admin Removed",
+                username: user.username
+            }
+            await mailer.sendEmail(mailOptions)
+            return user
+        } catch (err) {
+
         }
     },
     google(req, res) {

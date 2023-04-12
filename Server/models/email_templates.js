@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/../config/config.js`)[env];
 const Schema = mongoose.Schema;
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 
 const email = new Schema({
     template: {

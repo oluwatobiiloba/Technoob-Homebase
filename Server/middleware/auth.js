@@ -3,6 +3,7 @@ let LocalStrategy = require('passport-local').Strategy;
 let User = require('../models/user');
 let bcrypt = require('bcryptjs');
 let crypto = require('crypto');
+const Admin = require('../models/admin');
 
 
 const authenticateMiddleware = passport.authenticate('local', {
@@ -34,6 +35,36 @@ module.exports = {
     googleCallbackAuthenticateMiddleware,
     googleAuthenticateMiddleware,
     githubAuthenticateMiddleware,
-    githubCallbackAuthenticateMiddleware
+    githubCallbackAuthenticateMiddleware,
+    isAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect('/login');
+    },
+    isAdmin(req, res, next) {
+        if (req.isAuthenticated() && req.user.role === 'admin') {
+            return next();
+        }
+        res.redirect('/login');
+    },
+    async hasPermission(permission) {
+        return async (req, res, next) => {
+            try {
+                const admin = await Admin.findOne({ user_id: req.user?._id });
+
+                if (!admin || !admin.permissions.includes(permission)) {
+                    throw new Error('Unauthorized access');
+                }
+
+                next();
+            } catch (err) {
+                next(err);
+            }
+        };
+    }
+
+
+
 
 };
