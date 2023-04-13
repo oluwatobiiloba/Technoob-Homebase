@@ -237,7 +237,7 @@ module.exports = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "test"
+            template_id: "Test Welcome 3"
         }
 
         try {
@@ -263,7 +263,7 @@ module.exports = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "test"
+            template_id: "Test Welcome 3"
         }
 
         try {

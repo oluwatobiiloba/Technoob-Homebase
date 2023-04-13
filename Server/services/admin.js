@@ -1,5 +1,5 @@
 const Templates = require('../models/email_templates');
-const { uuid } = require('uuidv4');
+const uuid = require('uuid');
 const Admin = require('../models/admin');
 const Permissions = require('../models/permissions');
 const User = require('../models/user');
@@ -10,7 +10,7 @@ module.exports = {
         return await Templates.create({
             name: data.name,
             template: data.template,
-            id: uuid()
+            id: uuid.v4()
         })
     },
     async inviteAdmin(email) {

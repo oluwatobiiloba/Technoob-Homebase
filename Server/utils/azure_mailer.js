@@ -40,7 +40,7 @@ module.exports = {
 
             let content = template.template.toString();
             Object.keys(options.constants).forEach((key) => {
-                content = content.split(`\${${key}}`).join(options.constants[key]);
+                content = content.split(`\#{${key}}`).join(options.constants[key]);
             });
             const mailOptions = {
                 senderAddress: "Stacklite_Admin@2befcba4-7986-41ed-920a-5185024b5538.azurecomm.net",
@@ -105,7 +105,7 @@ module.exports = {
                         default:
                             value = options.constants[key]; // default value if key doesn't match any case
                     }
-                    content = content.split(`\${${key}}`).join(value);
+                    content = content.split(`\#{${key}}`).join(value);
                 });
                 const mailOptions = {
                     senderAddress: "Stacklite_Admin@2befcba4-7986-41ed-920a-5185024b5538.azurecomm.net",
