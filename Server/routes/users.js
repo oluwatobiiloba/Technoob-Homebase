@@ -6,5 +6,6 @@ let users = controller.users;
 
 /* GET users listing. */
 router.get('/dashboard', users.dashboard);
+router.post('/dashboard', users.dashboard);
 
 module.exports = router;

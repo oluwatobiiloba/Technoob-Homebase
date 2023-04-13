@@ -8,6 +8,8 @@ const User = require('../models/user');
 
 /* GET users listing. */
 router.post('/login', auth.login);
+// router.post('/login', passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/failed', failureFlash: true }));
+
 router.post('/register', auth.register);
 router.post('/logout', auth.logout);
 router.get('/oauth2/google', auth.googlelogin);
