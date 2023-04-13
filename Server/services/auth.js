@@ -5,16 +5,14 @@ const middleware = require('../middleware/index');
 const crypto = require('crypto');
 const mailer = require('../utils/azure_mailer')
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/admin');
+
 
 module.exports = {
     signToken(id) {
         const signedToken = jwt.sign({ id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
         return signedToken;
     },
-    login(req, res) {
-        middleware.auth.authenticateMiddleware(req, res);
-    },
+
     async verifyUserEmail(token) {
         try {
             const decoded = jwt.verify(token, config.JWT_SECRET);
@@ -140,57 +138,7 @@ module.exports = {
             throw err
         }
     },
-    async inviteAdmin(email) {
-        try {
-            //check if user already exists
-            const user = await User.findOne({ email });
-            if (!user) {
-                return new Error('User not found')
-            }
 
-            user.role = 'admin'
-            await user.save();
-            const constants = {
-                username: user.username
-            }
-            const mailOptions = {
-                email: user.email,
-                subject: 'You have been invited to be an admin',
-                constants,
-                template_id: "Admin Invite",
-                username: user.username
-            }
-            await mailer.sendEmail(mailOptions)
-            return user
-        } catch (err) {
-            console.log(err)
-            throw err
-        }
-    },
-    async removeAdmin(email) {
-        try {
-            const user = User.findOne({ email })
-            if (!user) {
-                return new Error('User not found')
-            }
-            user.role = 'user'
-            await user.save();
-            const constants = {
-                username: user.name
-            }
-            const mailOptions = {
-                email: email,
-                subject: "Your admin access has been revoked",
-                constants,
-                template_id: "Admin Removed",
-                username: user.username
-            }
-            await mailer.sendEmail(mailOptions)
-            return user
-        } catch (err) {
-
-        }
-    },
     google(req, res) {
         return middleware.auth.googleAuthenticateMiddleware(req, res);
     },

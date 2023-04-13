@@ -16,16 +16,42 @@ const admin = new Schema({
         required: [true, 'Please provide role'],
         trim: true
     },
-    permissions: {
-        type: Array,
-        required: [true, 'Please provide permissions'],
-        trim: true
-    },
+    permissions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Permissions'
+    }],
     isActive: {
         type: Boolean,
         default: true,
         trim: true
     },
-})
+});
+
+// Define findOrCreate static method
+admin.statics.findOrCreate = async function (user_id, role, permissions) {
+    try {
+        const admin = await this.findOne({ user_id });
+        if (admin) {
+            return admin;
+        } else {
+            return this.create({ user_id, role, permissions });
+        }
+    } catch (err) {
+        throw new Error(`Error finding or creating admin: ${err}`);
+    }
+};
+
+admin.statics.checkStatus = async function (user_id) {
+    try {
+        const admin = await this.findOne({ user_id });
+        if (admin.isActive) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        throw new Error(`Error checking admin: ${err}`);
+    }
+};
 
 module.exports = mongoose.model('Admin', admin);
