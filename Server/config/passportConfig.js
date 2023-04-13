@@ -15,14 +15,14 @@ passport.use(
         },
         async (username, password, done) => {
             try {
-
+                console.log(username, password);
                 const user = await User.findOne({ username }).select('+password');
                 if (!user) return done(null, false, { message: 'Incorrect email or password.' });
                 const isMatch = await user.comparePassword(password);
                 if (!isMatch) return done(null, false, { message: 'Incorrect email or password.' });
                 return done(null, user);
             } catch (err) {
-                return done(err);
+                throw err;
             }
         },
     ),
@@ -115,7 +115,8 @@ passport.use(
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+
+    done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
