@@ -251,7 +251,8 @@ module.exports = {
 
             const constants = {
                 message: content.message,
-                username: null
+                username: null,
+                subject: content.subject
             }
 
             const mailOptions = {
@@ -282,7 +283,8 @@ module.exports = {
 
             const constants = {
                 message: content.message,
-                username: "Noobies"
+                username: "Noobies",
+                subject: content.subject
             }
 
             const mailOptions = {
