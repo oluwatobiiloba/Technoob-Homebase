@@ -34,9 +34,8 @@ const emailClient = new EmailClient(connectionString);
 module.exports = {
     async sendEmail(options) {
         try {
-            console.log(options)
             // 1) retrieve email template from database
-            const template = await templates.findOne({ name: options.template_id });
+            const template = await templates.findById(options.template_id);
 
             let content = template.template.toString();
             Object.keys(options.constants).forEach((key) => {
@@ -80,9 +79,9 @@ module.exports = {
 
     async sendToMany(options) {
         try {
-            console.log(options)
+            
             // 1) retrieve email template from database
-            const template = await templates.findOne({ name: options.template_id });
+            const template = await templates.findById(options.template_id);
             let content = template.template.toString();
 
             let log = {
@@ -108,7 +107,7 @@ module.exports = {
                     content = content.split(`\#{${key}}`).join(value);
                 });
                 const mailOptions = {
-                    senderAddress: "Stacklite_Admin@2befcba4-7986-41ed-920a-5185024b5538.azurecomm.net",
+                    senderAddress: "Technoob@2befcba4-7986-41ed-920a-5185024b5538.azurecomm.net",
                     content: {
                         subject: options.subject,
                         html: content,
@@ -163,7 +162,7 @@ module.exports = {
     async sendToManyStatic(options) {
         try {
             // 1) retrieve email template from database
-            const template = await templates.findOne({ name: options.template_id });
+            const template = await templates.findById(options.template_id);
             let content = template.template.toString();
             Object.keys(options.constants).forEach((key) => {
                 content = content.split(`\${${key}}`).join(options.constants[key]);

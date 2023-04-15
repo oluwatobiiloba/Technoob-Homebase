@@ -116,14 +116,14 @@ module.exports = {
             try {
                 const constants = {
                     username: user.username,
-                    verification_link: `html/api/v1/users/verify-email?token=${user.email}`
+                    verification_link: `${config.LIVE_BASE_URL}/api/v1/users/verify-email?token=${user.email}`
                 }
 
                 const mailOptions = {
                     email: user.email,
                     subject: 'Welcome to TechNoob!',
                     constants,
-                    template_id: "Test Welcome",
+                    template_id: "6435a97404c5b38f7ba81a35",
                     username: user.username
 
                 }

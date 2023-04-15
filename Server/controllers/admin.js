@@ -232,12 +232,12 @@ module.exports = {
     },
 
     async sendNotificationEmail(req, res) {
-        const { emails, subject, message } = req.body;
+        const { emails, subject, message ,template_id } = req.body;
         const content = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "Test Welcome 3"
+            template_id: template_id
         }
 
         try {
@@ -258,12 +258,12 @@ module.exports = {
     },
 
     async sendNotificationEmailStatic(req, res) {
-        const { emails, subject, message } = req.body;
+        const { emails, subject, message,template_id } = req.body;
         const content = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "Test Welcome 3"
+            template_id: template_id
         }
 
         try {

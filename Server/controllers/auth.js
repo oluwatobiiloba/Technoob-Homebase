@@ -38,7 +38,7 @@ module.exports = {
 
     async register(req, res, next) {
         try {
-            const user = await auth.register(req.body);
+            await auth.register(req.body);
             this.login(req, res, next);
         } catch (err) {
             next(err);
