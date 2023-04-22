@@ -18,6 +18,7 @@
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-prometheus-middleware": "^1.2.0",
     "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.3",
     "http-errors": "~1.6.3",
@@ -31,10 +32,12 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "prisma": "^4.11.0",
+    "prom-client": "^14.2.0",
     "sharp": "^0.32.0",
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13",
-    "validator": "^13.9.0"
+    "validator": "^13.9.0",
+    "xss": "^1.0.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

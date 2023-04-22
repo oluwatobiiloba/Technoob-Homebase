@@ -8,12 +8,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-04-14T15:27:01.499Z",
-    "modified": "2023-04-14T15:27:01.499Z",
+    "modified": "2023-04-15T22:03:51.088Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Test Welcome 3\",\n  \"template\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n\\n<head>\\n    <meta charset=\\\"UTF-8\\\" />\\n    <link rel=\\\"preconnect\\\" href=\\\"https://fonts.googleapis.com\\\">\\n    <link rel=\\\"preconnect\\\" href=\\\"https://fonts.gstatic.com\\\" crossorigin>\\n    <link href=\\\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap\\\" rel=\\\"stylesheet\\\">\\n    <title>Welcome to our Community</title>\\n    <style>\\n        /* Email CSS styles */\\n        body {\\n            font-family: 'Montserrat', sans-serif;\\n        }\\n\\n        .container {\\n            max-width: 600px;\\n            margin: 0 auto;\\n            padding: 20px;\\n            background-color: #f7f5f5;\\n            display: flex;\\n            flex-direction: column;\\n            justify-content: center;\\n            align-items: flex-start;\\n        }\\n\\n        h1 {\\n            color: #000;\\n            font-size: 18px;\\n            width:100%;\\n        }\\n\\n        p {\\n            font-size: 16px;\\n            width:100%;\\n        }\\n\\n        .button {\\n            width: 150px;\\n            background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);\\n            color: #ffffff;\\n            padding: 16px 16px;\\n            text-decoration: none;\\n            text-align: center;\\n            border-radius: 8px;\\n            font-size: 18px;\\n            margin-top: 32px;\\n            font-size: larger;\\n            font-weight: bolder;\\n        }\\n\\n        .note {\\n            font-size: 14px;\\n            margin-top: 24px;\\n            text-align: center;\\n            color: #888;\\n        }\\n    </style>\\n</head>\\n\\n<body>\\n    <div class=\\\"container\\\">\\n        <h1>Welcome to Stacklite ❤️</h1>\\n        <p>Hi${username} 🙂,</p>\\n        <p>Thank you for joining our community! We're excited to have you on board.</p>\\n        <p>To get started, please click the button below to verify your email address:</p>\\n        <a href=\\\"${verification_link}\\\" class=\\\"button\\\">Verify Email</a>\\n        <p class=\\\"note\\\">Note: This verification link will expire in 10 minutes.</p>\\n        <p>If you have any questions or concerns, please don't hesitate to reach out.</p>\\n        <p>Best regards,</p>\\n        <p>The Stacklite Team ✨</p>\\n    </div>\\n</body>\\n\\n</html>\"\n}",
+      "raw": "{\n  \"name\": \"Test Welcome 4\",\n  \"template\": \"<!DOCTYPE html>\\n<html lang=\\\"en\\\">\\n\\n<head>\\n    <meta charset=\\\"UTF-8\\\" />\\n    <link rel=\\\"preconnect\\\" href=\\\"https://fonts.googleapis.com\\\">\\n    <link rel=\\\"preconnect\\\" href=\\\"https://fonts.gstatic.com\\\" crossorigin>\\n    <link href=\\\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap\\\" rel=\\\"stylesheet\\\">\\n    <title>Welcome to our Community</title>\\n    <style>\\n        /* Email CSS styles */\\n        body {\\n            font-family: 'Montserrat', sans-serif;\\n        }\\n\\n        .container {\\n            max-width: 600px;\\n            margin: 0 auto;\\n            padding: 20px;\\n            background-color: #f7f5f5;\\n            display: flex;\\n            flex-direction: column;\\n            justify-content: center;\\n            align-items: flex-start;\\n        }\\n\\n        h1 {\\n            color: #000;\\n            font-size: 18px;\\n            width:100%;\\n        }\\n\\n        p {\\n            font-size: 16px;\\n            width:100%;\\n        }\\n\\n        .button {\\n            width: 150px;\\n            background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);\\n            color: #ffffff;\\n            padding: 16px 16px;\\n            text-decoration: none;\\n            text-align: center;\\n            border-radius: 8px;\\n            font-size: 18px;\\n            margin-top: 32px;\\n            font-size: larger;\\n            font-weight: bolder;\\n        }\\n\\n        .note {\\n            font-size: 14px;\\n            margin-top: 24px;\\n            text-align: center;\\n            color: #888;\\n        }\\n    </style>\\n</head>\\n\\n<body>\\n    <div class=\\\"container\\\">\\n        <h1>Welcome to Stacklite ❤️</h1>\\n        <p>Hi${username} 🙂,</p>\\n        <p>Thank you for joining our community! We're excited to have you on board.</p>\\n        <p>To get started, please click the button below to verify your email address:</p>\\n        <a href=\\\"${verification_link}\\\" class=\\\"button\\\">Verify Email</a>\\n        <p class=\\\"note\\\">Note: This verification link will expire in 10 minutes.</p>\\n        <p>If you have any questions or concerns, please don't hesitate to reach out.</p>\\n        <p>Best regards,</p>\\n        <p>The Stacklite Team ✨</p>\\n    </div>\\n</body>\\n\\n</html>\"\n}",
       "form": []
     },
     "tests": []
@@ -154,12 +154,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-14T15:27:01.509Z",
-    "modified": "2023-04-14T15:31:42.731Z",
+    "modified": "2023-04-16T15:21:48.336Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"firstname\": \"Test\",\n  \"lastname\": \"Test\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a@gmail.com\",\n  \"username\": \"Test\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
+      "raw": "{\n  \"firstname\": \"Test\",\n  \"lastname\": \"test 2\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a@gmail.com\",\n  \"username\": \"emailtemp\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
       "form": []
     },
     "tests": []
@@ -230,12 +230,12 @@
     "method": "POST",
     "sortNum": 27500,
     "created": "2023-04-14T15:27:01.513Z",
-    "modified": "2023-04-14T15:27:01.513Z",
+    "modified": "2023-04-18T12:45:31.967Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n \"name\": \"Manage Email Templates\",\n \"description\": \"Manage Admins\",\n \"team\": \"admin\"\n   \n}",
+      "raw": "{\n \"name\": \"Fake Permission\",\n \"description\": \"Manage Admins\",\n \"team\": \"admin\"\n   \n}",
       "form": []
     },
     "tests": []
@@ -249,12 +249,12 @@
     "method": "POST",
     "sortNum": 28750,
     "created": "2023-04-14T15:27:01.514Z",
-    "modified": "2023-04-14T15:27:01.514Z",
+    "modified": "2023-04-18T12:45:48.024Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n \"email\": \"ooluwatobiiloba@gmail.com\",\n \"permission\": \"admin:SendMailNotifications\"\n   \n}",
+      "raw": "{\n \"email\": \"ooluwatobiiloba@gmail.com\",\n \"permission\": \"admin:FakePermission\"\n   \n}",
       "form": []
     },
     "tests": []
@@ -268,12 +268,12 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2023-04-14T15:27:01.515Z",
-    "modified": "2023-04-14T15:27:01.515Z",
+    "modified": "2023-04-21T23:35:58.625Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"password\": \"testing00\",\n  \"username\": \"oluwatobiiloba\"\n}",
+      "raw": "{\n  \"password\": \"testing000\",\n  \"username\": \"oluwatobiiloba\"\n}",
       "form": []
     },
     "tests": []
@@ -350,6 +350,158 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"password\": \"testing00\",\n  \"username\": \"oluwatobiiloba\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c48ca0b0-6154-416f-99b5-50855270e646",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "989657fd-e737-4500-be1d-d671bac6dcdd",
+    "name": "Remove Permission",
+    "url": "127.0.0.1:3000/api/v1/admin/permission/remove",
+    "method": "POST",
+    "sortNum": 29375,
+    "created": "2023-04-18T12:35:31.814Z",
+    "modified": "2023-04-18T12:46:14.351Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n \"email\": \"ooluwatobiiloba@gmail.com\",\n \"permission\": \"admin:FakePermission\"\n   \n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "458ae097-bd43-42db-aa62-153a4e96878d",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Get all Users",
+    "url": "127.0.0.1:3000/api/v1/user",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-04-21T22:59:29.858Z",
+    "modified": "2023-04-21T23:07:59.790Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Test Welcome 3\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "7ab32724-4009-4ac5-bcf3-76c67193c156",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Get User by ID",
+    "url": "127.0.0.1:3000/api/v1/user/643492bb86360e05476576f9",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-04-21T23:07:00.277Z",
+    "modified": "2023-04-21T23:08:03.157Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Test Welcome 3\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "392c9fbe-b02d-4838-bdf3-a1f613382a12",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Edit User",
+    "url": "127.0.0.1:3000/api/v1/user/edit",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-04-21T23:08:07.653Z",
+    "modified": "2023-04-21T23:11:32.825Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"update_params\": {\n    \"lastname\": \"Aremu\"\n  }\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "fc91f752-27cc-4882-864f-46b8bcf95771",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Update Password",
+    "url": "127.0.0.1:3000/api/v1/user/edit-password",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-04-21T23:11:45.447Z",
+    "modified": "2023-04-21T23:29:45.293Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"password\": \"testing00\",\n  \"previous_password\": \"testing000\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a1bfbc0d-33ff-4d93-911d-7cc8c8cbdad4",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Upload Image",
+    "url": "127.0.0.1:3000/api/v1/user/edit-photo",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2023-04-21T23:31:58.958Z",
+    "modified": "2023-04-21T23:32:48.579Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"photo\": \"testing00\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "8f7aaa81-f408-40d8-b334-4a66f34e7aaf",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Deactivate",
+    "url": "127.0.0.1:3000/api/v1/user/activate",
+    "method": "POST",
+    "sortNum": 60000,
+    "created": "2023-04-21T23:34:17.409Z",
+    "modified": "2023-04-21T23:35:36.958Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"active\": \"false\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f1cfb509-e814-4cdc-af25-7162caaf60fb",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Activate",
+    "url": "127.0.0.1:3000/api/v1/user/activate",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2023-04-21T23:35:21.948Z",
+    "modified": "2023-04-21T23:37:50.443Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"active\": \"false\"\n}",
       "form": []
     },
     "tests": []

@@ -5,17 +5,62 @@ const flash = require('connect-flash');
 let createError = require('http-errors');
 const rateLimit = require('express-rate-limit');
 let express = require('express');
+let app = express();
 let path = require('path');
 const passport = require('passport');
 const session = require('express-session');
-let cookieParser = require('cookie-parser');
+let cookieParser = require('cookie-parser'); 
 let logger = require('morgan');
 
 
+const prometheus = require('prom-client');
+const { register } = prometheus;
 let indexRouter = require('./routes/index');
 
+const httpRequestDurationMicroseconds = new prometheus.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in microseconds',
+  labelNames: ['method', 'route', 'code'],
+  buckets: [0.1, 0.5, 1, 5, 10, 30, 60, 120, 240, 480, 960],
+});
 
-let app = express();
+const cpuUsageGauge = new prometheus.Gauge({
+  name: 'cpu_usage',
+  help: 'Amount of CPU time used by the application',
+});
+
+const memoryUsageGauge = new prometheus.Gauge({
+  name: 'memory_usage',
+  help: 'Amount of memory used by the application',
+});
+
+
+
+const requestCount = new prometheus.Counter({
+  name: 'http_request_count',
+  help: 'Total number of HTTP requests received',
+  labelNames: ['method', 'path', 'code'],
+});
+
+const errorCount = new prometheus.Counter({
+  name: 'http_request_error_count',
+  help: 'Total number of HTTP requests resulting in an error response',
+  labelNames: ['method', 'path', 'code'],
+});
+
+const concurrentConnections = new prometheus.Gauge({
+  name: 'concurrent_connections',
+  help: 'Number of concurrent connections',
+});
+
+const networkTrafficBytes = new prometheus.Counter({
+  name: 'network_traffic_bytes',
+  help: 'Total network traffic in bytes',
+  labelNames: ['direction'], // 'in' or 'out'
+});
+
+
+app.use(logger('combined'));
 
 app.use(session({
   secret: config.SESSION_SECRET,
@@ -41,7 +86,7 @@ require('./config/passportConfig');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+
 app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -71,7 +116,64 @@ app.use(function (err, req, res, next) {
   res.render('error', { title: 'Error' });
 });
 
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    httpRequestDurationMicroseconds
+      .labels(req.route.path, req.method, res.statusCode)
+      .observe(duration/1000);
+  });
+  next();
+});
 
+setInterval(() => {
+  cpuUsageGauge.set(process.cpuUsage().user / 1000000);
+  memoryUsageGauge.set(process.memoryUsage().rss);
+}, 10000);
 
+// Middleware to update metrics for network traffic
+app.use((req, res, next) => {
+  const onData = (chunk) => {
+    networkTrafficBytes.inc({ direction: 'in' }, chunk.length);
+  };
+  const onEnd = () => {
+    networkTrafficBytes.inc({ direction: 'out' }, res.get('Content-Length') || 0);
+    res.removeListener('data', onData);
+    res.removeListener('end', onEnd);
+  };
+  res.on('data', onData);
+  res.on('end', onEnd);
+  next();
+});
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    const query = req.query && Object.keys(req.query).length > 0 ? JSON.stringify(req.query) : '-';
+    dbQueryDurationMilliseconds.observe({ query }, duration);
+  });
+  next();
+});
+
+app.use((req, res, next) => {
+  concurrentConnections.inc();
+  res.on('finish', () => {
+    concurrentConnections.dec();
+  });
+  next();
+});
+ 
+app.use((req, res, next) => {
+  requestCount.inc({ method: req.method, path: req.path, code: res.statusCode });
+  if (res.statusCode >= 400) {
+    errorCount.inc({ method: req.method, path: req.path, code: res.statusCode });
+  }
+  next();
+});
+
+const collectDefaultMetrics = prometheus.collectDefaultMetrics;
+collectDefaultMetrics();
 
 module.exports = app;

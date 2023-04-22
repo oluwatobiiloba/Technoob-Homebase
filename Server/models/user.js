@@ -147,18 +147,16 @@ user.pre('save', function (next) {
 }
 );
 
-user.pre(/^find/, function (next) {
-    // this points to the current query
-    this.find({ active: { $ne: false } });
-    next();
-}
-);
+// user.pre(/^find/, function (next) {
+//     this.find({ active: { $ne: false } });
+//     next();
+// }
+// );
 
 user.methods.comparePassword = async function (password) {
     if (!password) {
         return false;
     }
-
 
     const isMatch = await bcrypt.compare(password, this.password);
     return isMatch;
