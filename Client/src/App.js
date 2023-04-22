@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import {NavBar, Home,AboutUs,Resources,
-  ContactUs,
-  CTA,
+import {NavBar, Home,_AboutUs,_Resources,
+  _ContactUs,
+  _CTA,
   Footer} from './components/index.js'
 import Page2 from './components/Page2';
 import Page3 from './components/Page3';

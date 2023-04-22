@@ -1,4 +1,4 @@
-import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, send, shield, star  } from "./assets/asset";
+import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, _send, _shield, _star  } from "./assets/asset";
 import { icon1,icon2, icon3, icon4, icon5, icon6 } from "./assets";
 
 export const navLinks = [
