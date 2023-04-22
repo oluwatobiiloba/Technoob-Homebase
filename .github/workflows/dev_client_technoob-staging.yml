@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - dev_client
-defaults:
-  run:
-    working-directory: Client
 
 jobs:
   build-and-deploy:
@@ -21,10 +18,10 @@ jobs:
         node-version: '16.x'
 
     - name: Install Dependencies
-      run: npm install
+      run: npm install --prefix Client
 
     - name: Build
-      run: npm install && npm run build
+      run: npm run build --prefix Client
 
     - name: Deploy to Heroku
       uses: akhileshns/heroku-deploy@v3.12.12
@@ -34,9 +31,7 @@ jobs:
         heroku_email: ooluwatobiiloba@gmail.com
         deploy_path: Client/build/
         buildpack: mars/create-react-app
-        app_base: 'my-app/build/'
+        app_base: 'Client'
 
     - name: Restart Dyno
       run: heroku ps:restart --app technoob-client-staging
-
-
