@@ -6,6 +6,7 @@ const User = require('../models/user');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const crypto = require('crypto');
 const GithubStrategy = require('passport-github2').Strategy;
+const mailer = require('../utils/azure_mailer')
 
 passport.use(
     new LocalStrategy(
@@ -15,14 +16,13 @@ passport.use(
         },
         async (username, password, done) => {
             try {
-
-                const user = await User.findOne({ username }).select('+password');
+                const user = await User.findOne({ username }).select('+password').select('+active');
                 if (!user) return done(null, false, { message: 'Incorrect email or password.' });
                 const isMatch = await user.comparePassword(password);
                 if (!isMatch) return done(null, false, { message: 'Incorrect email or password.' });
                 return done(null, user);
             } catch (err) {
-                return done(err);
+                throw err;
             }
         },
     ),
@@ -35,7 +35,7 @@ passport.use(
         {
             clientID: config.GOOGLE_CLIENT_ID,
             clientSecret: config.GOOGLE_CLIENT_SECRET,
-            callbackURL: 'http://127.0.0.1:3000/authenticate/oauth2/google/callback',
+            callbackURL: 'http://127.0.0.1:3000/api/v1/authenticate/oauth2/google/callback',
         },
         async (accessToken, refreshToken, profile, cb) => {
 
@@ -55,6 +55,29 @@ passport.use(
                         verified: true,
                         photo: profile.photos[0].value
                     });
+
+                    if (user) {
+                        
+                    try {
+                        const constants = {
+                            username: user.username,
+                            verification_link: `${config.LIVE_BASE_URL}/api/v1/users/verify-email?token=${user.email}`,
+                            password: temp_password
+                        }
+
+                        const mailOptions = {
+                            email: user.email,
+                            subject: 'Welcome to TechNoob!',
+                            constants,
+                            template_id: "6435a97404c5b38f7ba81a35",
+                            username: user.username
+
+                        }
+                        await mailer.sendEmail(mailOptions)
+                    } catch (err) {
+                        console.log(err)
+                    }
+                    }
                     return cb(null, user);
                 }
                 return cb(null, profile);
@@ -73,11 +96,13 @@ passport.use(
         {
             clientID: config.GITHUB_CLIENT_ID,
             clientSecret: config.GITHUB_CLIENT_SECRET,
-            callbackURL: 'http://127.0.0.1:3000/authenticate/oauth2/github/callback',
+            callbackURL: 'http://127.0.0.1:3000/api/v1/authenticate/oauth2/github/callback',
             passReqToCallback: true // Set passReqToCallback to true
         },
         async (req, accessToken, refreshToken, profile, cb) => {
             try {
+                req.session.github_access_token = accessToken;
+                req.session.github_refresh_token = refreshToken;
                 let user = await User.findOne({ github_id: profile.id });
                 if (user) {
                     return cb(null, user);
@@ -87,6 +112,16 @@ passport.use(
                     // If email is not included in Github profile, send form to user to request email
                     req.session.github_profile = profile;
                     return cb(null, false, { profile: profile });
+                }
+
+                if (req.user) {
+                    const id = req.user._id;
+                    //update user profile instead of creating a new one
+                    user = await User.findByIdAndUpdate({ _id: id },{
+                        github_id: profile.id,
+                        github_meta: profile
+                    })
+                    return cb(null, user);
                 }
 
                 const temp_password = crypto.randomBytes(20).toString('hex');
@@ -103,6 +138,7 @@ passport.use(
                     firstname: profile.username,
                 });
 
+
                 return cb(null, user);
             } catch (err) {
                 return cb(err);
@@ -115,7 +151,7 @@ passport.use(
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
