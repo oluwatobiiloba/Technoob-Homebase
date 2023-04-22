@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {NavBar, Home,_AboutUs,
+import {NavBar, Home,
   Footer} from './components/index.js'
 import Page2 from './components/Page2';
 import Page3 from './components/Page3';
