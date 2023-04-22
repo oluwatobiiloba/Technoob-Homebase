@@ -1,16 +1,18 @@
 const Templates = require('../models/email_templates');
-const { uuid } = require('uuidv4');
+const uuid = require('uuid');
 const Admin = require('../models/admin');
 const Permissions = require('../models/permissions');
 const User = require('../models/user');
 const mailer = require('../utils/azure_mailer');
 
+
 module.exports = {
     async saveMailTemplate(data) {
+        
         return await Templates.create({
             name: data.name,
             template: data.template,
-            id: uuid()
+            id: uuid.v4()
         })
     },
     async inviteAdmin(email) {
@@ -213,7 +215,7 @@ module.exports = {
             if (!user) {
                 throw new Error('User not found')
             }
-            console.log(user)
+          
             const check_user_permission = await Admin.findOne({ user_id: user._id });
             if (!check_user_permission) {
                 await Admin.create({ user_id: user._id, role: 'user', permissions: [] })
@@ -238,6 +240,35 @@ module.exports = {
         }
     },
 
+    async remove_permission(email, permission) {
+        try {
+            const user = await User.findOne({ email });
+            if (!user) {
+                throw new Error('User not found')
+            }
+            const check_user_permission = await Admin.findOne({ user_id: user._id });
+            if (!check_user_permission) {
+                throw new Error("This User is not an admin")
+            }
+            const check_permission = await Permissions.findOne({ permission });
+            if (!check_permission) {
+                throw new Error('Permission not found')
+            }
+
+            if (!check_user_permission?.permissions?.includes(check_permission._id)) {
+                throw new Error('User does not have this permission / permission not found')
+            }
+
+            const new_perms = check_user_permission.permissions.filter(perm => perm.toString() !== check_permission._id.toString())
+            check_user_permission.permissions = new_perms
+            await check_user_permission.save();
+            return check_user_permission
+
+        } catch (err) {
+            throw err
+        }
+    },
+
     async sendNotificationEmail(content) {
         try {
             const emailObjects = await Promise.all(content.emails.map(async (email) => {
@@ -251,7 +282,8 @@ module.exports = {
 
             const constants = {
                 message: content.message,
-                username: null
+                username: null,
+                subject: content.subject
             }
 
             const mailOptions = {
@@ -282,7 +314,8 @@ module.exports = {
 
             const constants = {
                 message: content.message,
-                username: "Noobies"
+                username: "Noobies",
+                subject: content.subject
             }
 
             const mailOptions = {

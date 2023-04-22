@@ -1,11 +1,10 @@
-
-const services = require("../services/index")
-const admin = services.admin
+const { admin } = require("../services/index")
 
 module.exports = {
     async saveMailTemplate(req, res) {
         try {
             const email_response = await admin.saveMailTemplate(req.body);
+            
             return res.status(201).json({
                 status: "success",
                 message: `Added email template to database`,
@@ -223,21 +222,40 @@ module.exports = {
             })
         }
         catch (err) {
+            console.log(err)
 
-            return res.status(404).json({
+            return res.status(500).json({
                 status: "error",
                 message: err.message
             })
         }
     },
 
+    async remove_permission(req, res) {
+        const { email, permission } = req.body;
+        try {
+            const result = await admin.remove_permission(email, permission)
+            return res.status(200).json({
+                status: "Success",
+                message: "Permission removed successfully",
+                data: result
+            })
+        } catch (err) {
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+        }
+
+    },
+
     async sendNotificationEmail(req, res) {
-        const { emails, subject, message } = req.body;
+        const { emails, subject, message ,template_id } = req.body;
         const content = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "test"
+            template_id: template_id
         }
 
         try {
@@ -258,12 +276,12 @@ module.exports = {
     },
 
     async sendNotificationEmailStatic(req, res) {
-        const { emails, subject, message } = req.body;
+        const { emails, subject, message,template_id } = req.body;
         const content = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "test"
+            template_id: template_id
         }
 
         try {
