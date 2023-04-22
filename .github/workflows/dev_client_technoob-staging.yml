@@ -6,7 +6,7 @@ on:
       - dev_client
 defaults:
   run:
-    working-directory: Server
+    working-directory: Client
     shell: bash
 
 jobs:
