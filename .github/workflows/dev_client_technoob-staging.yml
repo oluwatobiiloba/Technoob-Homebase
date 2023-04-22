@@ -35,6 +35,8 @@ jobs:
           heroku_email: ooluwatobiiloba@gmail.com
           deploy_path: Client/build/
           buildpack: mars/create-react-app
+          app_base: 'Client'
+          env: APP_BASE=Client
 
       - name: Restart Dyno
         run: heroku ps:restart --app technoob-client-staging
