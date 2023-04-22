@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Set base directory
+        run: |
+          echo "APP_BASE=Client" >> $GITHUB_ENV
+          echo "web: cd Client && npm start" >> Procfile
+
       - name: Build
         env:
           APP_BASE: Client
