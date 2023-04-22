@@ -24,14 +24,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Set base directory
-        run: |
-          echo "APP_BASE=Client" >> $GITHUB_ENV
-          echo "web: cd Client && npm start" >> Procfile
-
       - name: Build
-        env:
-          APP_BASE: Client
         run: npm run build
 
       - name: Deploy to Heroku
@@ -40,10 +33,6 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: technoob-client-staging
           heroku_email: ooluwatobiiloba@gmail.com
-          deploy_path: Client/build/
-          buildpack: mars/create-react-app
-          app_base: 'Client'
-          env: APP_BASE=Client
 
       - name: Restart Dyno
         run: heroku ps:restart --app technoob-client-staging
