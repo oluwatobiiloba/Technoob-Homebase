@@ -19,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      - name: Checkout to dir
-        run: cd /Server
-      
       - uses: actions/checkout@v2
 
       - name: Set up Node.js version
