@@ -7,7 +7,6 @@ on:
 defaults:
   run:
     working-directory: Client
-    shell: bash
 
 jobs:
   build-and-deploy:
@@ -34,6 +33,10 @@ jobs:
         heroku_app_name: technoob-client-staging
         heroku_email: ooluwatobiiloba@gmail.com
         deploy_path: Client/build/
+        buildpack: mars/create-react-app
+        app_base: 'my-app/build/'
 
     - name: Restart Dyno
       run: heroku ps:restart --app technoob-client-staging
+
+
