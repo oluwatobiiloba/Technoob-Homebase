@@ -21,8 +21,8 @@ module.exports = {
         GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
         AZURE_STORAGE_ACCOUNT_NAME: process.env.AZURE_STORAGE_ACCOUNT_NAME,
         COMMUNICATION_SERVICES_CONNECTION_STRING: process.env.COMMUNICATION_SERVICES_CONNECTION_STRING,
-        LIVE_BASE_URL: process.env.LIVE_BASE_URL || 'http://127.0.0.1:3000',
-        HONEYBADGER_KEY: process.env.HONEYBADGER_KEY,
+        LIVE_BASE_URL: process.env.LIVE_BASE_URL || 'technoob-staging.azurewebsites.net',
+        HONEYBADGER_KEY: process.env.HONEYBADGER_KEY
     },
     test: {
         NODE_ENV: "test"
