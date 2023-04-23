@@ -1,8 +1,8 @@
 module.exports = {
   apps : [{
     name: 'technoob',
-    script: 'node ./bin/www',
-    env_development: {
+    script: './bin/www',
+    env: {
       NODE_ENV: "development",
     },
     env_production: {
