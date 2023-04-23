@@ -1,1 +1,31 @@
-[]
+[
+  {
+    "_id": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "colName": "technoob",
+    "created": "2023-04-14T15:27:01.497Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "a4c49403-94e6-437d-82e3-f871718f62c4",
+        "name": "auth",
+        "containerId": "",
+        "created": "2023-04-14T15:27:01.499Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "989657fd-e737-4500-be1d-d671bac6dcdd",
+        "name": "Admin",
+        "containerId": "",
+        "created": "2023-04-14T15:27:01.500Z",
+        "sortNum": 20000
+      },
+      {
+        "_id": "dfca4953-0961-43c4-9426-2150d984026e",
+        "name": "User",
+        "containerId": "",
+        "created": "2023-04-21T22:59:25.226Z",
+        "sortNum": 30000
+      }
+    ]
+  }
+]

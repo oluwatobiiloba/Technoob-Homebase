@@ -21,11 +21,13 @@ const googleCallbackAuthenticateMiddleware = passport.authenticate('google', {
 });
 
 const githubAuthenticateMiddleware = passport.authenticate('github', {
-    scope: ['read:user', 'user:email', "user:follow"]
+    scope: ['read:user', 'user:email', "user:follow"],
+    successFlash: 'Welcome!',
 });
 
 const githubCallbackAuthenticateMiddleware = passport.authenticate('github', {
     failureRedirect: 'auth/failed',
+    successFlash: 'Welcome dev!',
 
 });
 
@@ -38,7 +40,6 @@ module.exports = {
     isAuthenticated(req, res, next) {
 
         if (req.isAuthenticated()) {
-            console.log('req.user:', req.user);
             return next();
         }
 
@@ -64,16 +65,14 @@ module.exports = {
                 const permission = await Permissions.findOne({ permission: perm });
                 const permissionId = new mongoose.Types.ObjectId(permission._id);
                 const admin = await Admin.findOne({ user_id: req.user?._id, permissions: { $in: [permissionId] } });
-                console.log('permission:', permissionId)
-                console.log('admin:', admin)
 
                 if (!admin || !admin.isActive) {
                     return res.status(401).json({
                         status: 'fail',
-                        message: 'Unauthorized access yet'
+                        message: 'You do not have permission to access this resource'
                     })
                 }
-                console.log('has permission')
+                
                 next();
             } catch (err) {
                 next(err);
