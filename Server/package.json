@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "stop": "pm2 stop ecosystem.config.js --env development",
     "dev": "node ./bin/www"
   },
   "engines": {
