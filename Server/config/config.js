@@ -5,6 +5,7 @@ const OS = require('os');
 module.exports = {
     development: {
         NODE_ENV: process.env.NODE_ENV,
+        UV_THREADPOOL_SIZE: OS.cpus().length,
         DATABASE_URL: process.env.DATABASE_URL,
         PORT: process.env.PORT || 3000,
         JWT_SECRET: process.env.JWT_SECRET,
@@ -20,7 +21,8 @@ module.exports = {
         GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
         AZURE_STORAGE_ACCOUNT_NAME: process.env.AZURE_STORAGE_ACCOUNT_NAME,
         COMMUNICATION_SERVICES_CONNECTION_STRING: process.env.COMMUNICATION_SERVICES_CONNECTION_STRING,
-        LIVE_BASE_URL: process.env.LIVE_BASE_URL || 'http://127.0.0.1:3000'
+        LIVE_BASE_URL: process.env.LIVE_BASE_URL || 'http://127.0.0.1:3000',
+        HONEYBADGER_KEY: process.env.HONEYBADGER_KEY,
     },
     test: {
         NODE_ENV: "test"

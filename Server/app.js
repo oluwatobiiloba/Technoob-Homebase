@@ -2,21 +2,31 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/config/config.js`)[env];
 const flash = require('connect-flash');
 
-let createError = require('http-errors');
+const createError = require('http-errors');
 const rateLimit = require('express-rate-limit');
-let express = require('express');
-let path = require('path');
+const express = require('express');
+const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const Honeybadger = require('./utils/honeybadger');
+const helmet = require('helmet')
+const sanitizer = require("perfect-express-sanitizer");
+const indexRouter = require('./routes/index');
+// Set the number of threads to equal the number of cores 
+process.env.UV_THREADPOOL_SIZE = config.UV_THREADPOOL_SIZE
 
+const app = express();
 
-let indexRouter = require('./routes/index');
-
-
-let app = express();
-
+app.use(sanitizer.clean({
+  xss: true,
+  noSql: true,
+  sql: true
+}));
+app.use(Honeybadger.requestHandler)
+app.use(Honeybadger.errorHandler)
+app.use(helmet());    
 app.use(session({
   secret: config.SESSION_SECRET,
   resave: false,
@@ -70,8 +80,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', { title: 'Error' });
 });
-
-
 
 
 module.exports = app;
