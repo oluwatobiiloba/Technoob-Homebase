@@ -23,7 +23,7 @@ process.env.UV_THREADPOOL_SIZE = config.UV_THREADPOOL_SIZE
 const app = express();
 
 const prometheus = require('prom-client');
-const { register } = prometheus;
+
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
   name: 'http_request_duration_seconds',
