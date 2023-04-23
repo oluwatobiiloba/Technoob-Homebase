@@ -25,8 +25,9 @@ app.use(sanitizer.clean({
   noSql: true,
   sql: true
 }));
-app.use(Honeybadger.requestHandler)
-app.use(Honeybadger.errorHandler)
+
+Honeybadger.notify('Starting/Restarting Technoob Server');
+app.use(Honeybadger.requestHandler);
 app.use(helmet());    
 app.use(session({
   secret: config.SESSION_SECRET,
@@ -64,7 +65,7 @@ app.use('/', limiter);  // implementing rate limiter middleware
 
 app.use('/', indexRouter);
 
-
+app.use(Honeybadger.errorHandler)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
