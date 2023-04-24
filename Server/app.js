@@ -1,21 +1,21 @@
 const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/config/config.js`)[env];
+const express = require('express');
 const flash = require('connect-flash');
-
-let createError = require('http-errors');
+const createError = require('http-errors');
 const rateLimit = require('express-rate-limit');
-let express = require('express');
-let app = express();
-let path = require('path');
 const passport = require('passport');
 const session = require('express-session');
-let cookieParser = require('cookie-parser'); 
-let logger = require('morgan');
-
-
+const MongoStore = require('connect-mongo');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const Honeybadger = require('./utils/honeybadger');
+const helmet = require('helmet')
+const sanitizer = require("perfect-express-sanitizer");
+const indexRouter = require('./routes/index');
+const app = express();
 const prometheus = require('prom-client');
-const { register } = prometheus;
-let indexRouter = require('./routes/index');
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
   name: 'http_request_duration_seconds',
@@ -33,8 +33,6 @@ const memoryUsageGauge = new prometheus.Gauge({
   name: 'memory_usage',
   help: 'Amount of memory used by the application',
 });
-
-
 
 const requestCount = new prometheus.Counter({
   name: 'http_request_count',
@@ -61,15 +59,24 @@ const networkTrafficBytes = new prometheus.Counter({
 
 
 app.use(logger('combined'));
+// Honeybadger.notify('Starting/Restarting Technoob Server');
 
 app.use(session({
   secret: config.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: config.DATABASE_URL,
+    ttl: 60 * 60 , // 1 hour
+    autoRemove: 'native'
+  }),
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
+require('./config/passportConfig');
+app.use(Honeybadger.requestHandler);
+app.use(helmet());    
+
 
 
 // Set up rate limit on our APIs
@@ -81,7 +88,6 @@ const limiter = rateLimit({
 
 require('./config/passportConfig');
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -92,13 +98,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sanitizer.clean({
+  xss: true,
+  noSql: true,
+  sql: true
+}));
 
 /* GET home page. */
 app.use('/', limiter);  // implementing rate limiter middleware
 
 app.use('/', indexRouter);
 
-
+app.use(Honeybadger.errorHandler)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

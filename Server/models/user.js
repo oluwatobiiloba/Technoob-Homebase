@@ -175,5 +175,6 @@ user.methods.changedPasswordAfter = function (JWTTimestamp) {
 }
 
 
+const UserModel = mongoose.model('User', user);
+module.exports = UserModel;
 
-module.exports = mongoose.model('User', user);
