@@ -64,3 +64,20 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1ED0C7AB1FD14BCEBAE4D5C3C50431DF }}
           package: .
+
+      - name: Delete artifacts
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const artifacts = await github.actions.listArtifactsForRepo({
+              per_page: 100
+            });
+            for (const artifact of artifacts.data.artifacts) {
+              if (artifact.name === 'my-artifact') {
+                await github.actions.deleteArtifact({
+                  artifact_id: artifact.id
+                });
+              }
+            }
+
