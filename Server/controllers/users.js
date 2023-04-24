@@ -1,15 +1,20 @@
 const services = require("../services/index")
 const users = services.user
+const db_worker = require('../utils/child')
 
 module.exports = {
     async dashboard(req, res) {
      
         try {
-            return res.status(201).json({
-                status: "success",
-                message: `Welcome ${req.user.username}, you successfully logged in with Github`,
-
-            })
+            db_worker.send({ modelName: 'User', method: 'findById', payload: req.user._id });
+            db_worker.on('message', (result) => {
+                return res.status(201).json({
+                    status: "success",
+                    message: `Welcome ${req.user.username}, you successfully logged in with Github`,
+                    data: result
+    
+                })
+            });   
         } catch (err) {
             console.log(err)
             return res.status(500).json(err)
