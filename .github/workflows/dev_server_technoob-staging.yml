@@ -34,15 +34,14 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: Compress artifact
-        run: zip -r node-app.zip . -x "Client/*"
+      - name: Compress files for artifact upload
+        run: tar -czf node-app.tar.gz .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: node-app.zip
-          path: .
-            
+          name: node-app
+          path: node-app.tar.gz
 
 
   deploy:
@@ -56,7 +55,10 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: node-app.zip
+          name: node-app
+
+      - name: Extract files from artifact
+        run: tar -xzf node-app.tar.gz
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -67,18 +69,18 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1ED0C7AB1FD14BCEBAE4D5C3C50431DF }}
           package: .
 
-      # - name: Delete artifacts
-      #   uses: actions/github-script@v4
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     script: |
-      #       const artifacts = await github.actions.listArtifactsForRepo({
-      #         per_page: 100
-      #       });
-      #       for (const artifact of artifacts.data.artifacts) {
-      #         if (artifact.name === 'my-artifact') {
-      #           await github.actions.deleteArtifact({
-      #             artifact_id: artifact.id
-      #           });
-      #         }
-      #       }
+      - name: Delete artifacts
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const artifacts = await github.actions.listArtifactsForRepo({
+              per_page: 100
+            });
+            for (const artifact of artifacts.data.artifacts) {
+              if (artifact.name === 'node-app') {
+                await github.actions.deleteArtifact({
+                  artifact_id: artifact.id
+                });
+              }
+            }
