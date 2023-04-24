@@ -1,4 +1,4 @@
-name: staging-server-deployment-to-azure
+name: staging-server-deployment-to-azure-app
 
 on:
   push:
