@@ -1,11 +1,14 @@
-name: staging-server-deployment-to-azure-app
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Staging Server Deployment to Azure.
 
 on:
   push:
     branches:
       - dev_server
   workflow_dispatch:
-
+  
 defaults:
   run:
     working-directory: Server
@@ -29,16 +32,11 @@ jobs:
           npm install pm2@latest
           npm run build --if-present
           npm run test --if-present
-
-      - name: Create archive of Server directory
-        run: tar -czf server.tar.gz .
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: server-app
-          path: server.tar.gz
-
+          name: node-app
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,10 +49,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: server-app
-
-      - name: Extract server archive
-        run: tar -xzf server.tar.gz
+          name: node-app
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
