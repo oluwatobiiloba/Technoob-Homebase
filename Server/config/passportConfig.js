@@ -16,10 +16,23 @@ passport.use(
         },
         async (username, password, done) => {
             try {
-                const user = await User.findOne({ username }).select('+password').select('+active');
+                let user = await User.findOne({ username }).select('+password').select('+active');
                 if (!user) return done(null, false, { message: 'Incorrect email or password.' });
                 const isMatch = await user.comparePassword(password);
                 if (!isMatch) return done(null, false, { message: 'Incorrect email or password.' });
+                user = {
+                    _id: user._id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    username: user.username,
+                    email: user.email,
+                    stack: user.stack,
+                    photo: user.photo,
+                    active: user.active,
+                    role: user.admin,
+                    verified: user.verified
+                    
+                }
                 return done(null, user);
             } catch (err) {
                 throw err;

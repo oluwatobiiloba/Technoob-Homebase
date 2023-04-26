@@ -127,12 +127,13 @@ user.pre('save', async function (next) {
         // Only run this function if password was actually modified
         if (!this.isModified('password')) return next();
 
-        const salt = await bcrypt.genSalt(12);
+        const salt = await bcrypt.genSalt(SALT_ROUNDS);
         // Hash the password with cost of 12
         this.password = await bcrypt.hash(this.password, salt);
 
         // Delete passwordConfirm field
         this.passwordConfirm = undefined;
+        this.passwordChangedAt = Date.now() - 1000
         next();
     } catch (error) {
         next(error);
@@ -147,11 +148,11 @@ user.pre('save', function (next) {
 }
 );
 
-// user.pre(/^find/, function (next) {
-//     this.find({ active: { $ne: false } });
-//     next();
-// }
-// );
+user.pre(/^find/, function (next) {
+    this.find({ active: { $ne: false } });
+    next();
+}
+);
 
 user.methods.comparePassword = async function (password) {
     if (!password) {

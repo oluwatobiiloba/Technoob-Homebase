@@ -420,12 +420,12 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2023-04-21T23:08:07.653Z",
-    "modified": "2023-04-21T23:11:32.825Z",
+    "modified": "2023-04-25T14:15:13.363Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"update_params\": {\n    \"lastname\": \"Aremu\"\n  }\n}",
+      "raw": "{\n  \"update_params\": {\n    \"lastname\": \"Aremu\",\n    \"firstname\": \"Oluwatobiloba\"\n  }\n}",
       "form": []
     },
     "tests": []
@@ -521,6 +521,44 @@
     "body": {
       "type": "json",
       "raw": "{\n  \"name\": \"Test Welcome 3\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b088a677-d1e6-489c-8d97-91461e5645d5",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Add to Mailing list",
+    "url": "127.0.0.1:3000/api/v1/user/mailing-list",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2023-04-25T12:35:01.983Z",
+    "modified": "2023-04-25T15:41:54.469Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"oluwatobiloba.f.a@gmail.com\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a8a2b275-2760-4e66-bcae-e6832432eb32",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Contact Us",
+    "url": "127.0.0.1:3000/api/v1/user/contact-us",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-04-25T13:33:21.489Z",
+    "modified": "2023-04-25T15:06:40.737Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"oluwatobiloba.@gmail.com\",\n  \"name\": \"Oluwatobi\",\n  \"message\": \"Improve your speed with node \"\n}",
       "form": []
     },
     "tests": []
