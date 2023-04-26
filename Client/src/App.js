@@ -1,40 +1,38 @@
 import React from 'react';
 import './App.css';
-import {NavBar, Home,
-  Footer} from './components/index.js'
-import Page2 from './components/Page2';
-import Page3 from './components/Page3';
-import Page4 from './components/Page4';
-import Page5 from './components/Page5';
-import Page6 from './components/Page6';
+
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {NavBar,Footer} from './components/index.js';
+import { ContactUs, Resources, AboutUs,Home } from './pages/LandingPage';
+
 
 function App() {
   return (
-    <div className="bg-primary w-full overflow-hidden">
+    <BrowserRouter>
+      <div className="bg-primary w-full overflow-hidden">
       <div className='flex flex-start'>
-        <div className='w-full'>
+        <div className='w-full  '>
           <NavBar/>
         </div>
       </div>
-      
-      <div className='flex flex-start mb-20'>
-        <div className='w-full'>
-          <Home/>
-        </div>
-      </div>
+      <main>
+        <Routes>
+          <Route path= "/" element={<Home/>}/>
+          <Route path= "/About-Us" element={<AboutUs/>}/>
+          <Route path= "/Contact-Us" element={<ContactUs/>}/>
+          <Route path= "/Resources" element={<Resources/>}/>
 
-      <div className='flex flex-col gap-2'>
-        <div className='w-full'>
-          <Page2/>
-          <Page3/>
-          <Page4/>
-          <Page5/>
-          <Page6/>
-        </div>
-          <Footer/>
+        </Routes>
+  </main> 
+
+      <div>
+        <Footer/>
       </div>
+      
+     
      
     </div>
+    </BrowserRouter>
   );
 }
 
