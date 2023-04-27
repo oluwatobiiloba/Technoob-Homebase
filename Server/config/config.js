@@ -11,7 +11,7 @@ module.exports = {
         JWT_SECRET: process.env.JWT_SECRET,
         JWT_EXPIRES: process.env.JWT_EXPIRES,
         JWT_COOKIE_EXPIRES_IN: process.env.JWT_COOKIE_EXPIRES_IN,
-        SALT_ROUNDS: process.env.SALT_ROUNDS || 12,
+        SALT_ROUNDS: process.env.SALT_ROUNDS * 1 || 12,
         TOKEN_EXPIRATION_TIME: process.env.TOKEN_EXPIRATION_TIME || '10m',
         SESSION_SECRET: process.env.SESSION_SECRET || 'technoob',
         HOST: OS.hostname(),

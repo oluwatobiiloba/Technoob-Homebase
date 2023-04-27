@@ -1,7 +1,7 @@
 const Contact = require('../models/contact_us');
 const mailing_list = require('../models/mailing_list');
 const User = require('../models/user');
-const db_worker = require('../utils/child');
+
 
 
 module.exports = {
@@ -16,13 +16,6 @@ module.exports = {
         }
         
         try {
-        
-        //    return  db_worker({
-        //     modelName: 'User',
-        //     method: 'findOneAndUpdate',
-        //     payload: { _id: id, params }
-        // })
-
             const user = await User.findOneAndUpdate({ _id: id }, params, { new: true })
             return user
         } catch (err) {
@@ -112,13 +105,6 @@ module.exports = {
     async contact_us(name, email, message) {
         try {
             if (!name || !email || !message) throw new Error('Name, Email and Message are required')
-            // const contact = await db_worker(
-            //     {
-            //         modelName: 'Contact_us',
-            //         method: 'create',
-            //         payload: { email,name,message }
-            //     }
-            // )
             const contact = await Contact.create({ name, email, message })
             return contact
         } catch (err) {
@@ -139,12 +125,7 @@ module.exports = {
         }
 
         const response = await mailing_list.create({ email })
-        // return db_worker({
-        //     modelName: 'Mailing_list',
-        //     method: 'create',
-        //     payload: { email }
-        // })
-        return response
+       return response
 
          }
 

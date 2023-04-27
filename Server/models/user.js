@@ -7,7 +7,8 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const SALT_ROUNDS = config.SALT_ROUNDS
 const TOKEN_EXPIRATION_TIME = config.TOKEN_EXPIRATION_TIME;
-
+const child_worker = require('../utils/child');
+const Honeybadger = require('../utils/honeybadger');
 
 const user = new Schema({
     firstname: {
@@ -126,10 +127,22 @@ user.pre('save', async function (next) {
     try {
         // Only run this function if password was actually modified
         if (!this.isModified('password')) return next();
-
-        const salt = await bcrypt.genSalt(SALT_ROUNDS);
-        // Hash the password with cost of 12
-        this.password = await bcrypt.hash(this.password, salt);
+        let hash
+        try {
+              hash = await child_worker( {
+                activity: 'Hashing',
+                payload: { password: this.password }
+             })
+            
+        } catch (error) {
+            Honeybadger.notify('Password hashing failed');
+        }
+            if (hash) {
+                this.password = hash;
+            }else { 
+                const salt = await bcrypt.genSalt(SALT_ROUNDS );
+                this.password = await bcrypt.hash(this.password, salt);
+            }
 
         // Delete passwordConfirm field
         this.passwordConfirm = undefined;

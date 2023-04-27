@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     signToken(id,token=null) {
-        const signedToken = jwt.sign({ id ,token}, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
+        const signedToken = jwt.sign({ id ,token}, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES });
         return signedToken;
     },
     generateToken(length = 32) {
