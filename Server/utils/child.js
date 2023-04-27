@@ -9,6 +9,10 @@ for (let i = 0; i < 5; i++) {
 // Export a function that returns a Promise
 module.exports = (params) => {
   return new Promise((resolve, reject) => {
+    if (pool.length === 0) {
+      reject(new Error('No child processes available in the pool'));
+      return;
+    }
     const child = pool.shift();
     console.log('pool size:', pool.length);
     child.send({
