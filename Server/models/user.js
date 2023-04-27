@@ -124,34 +124,27 @@ const user = new Schema({
 });
 
 user.pre('save', async function (next) {
-    try {
-        // Only run this function if password was actually modified
-        if (!this.isModified('password')) return next();
-        let hash
-        try {
-              hash = await child_worker( {
-                activity: 'Hashing',
-                payload: { password: this.password }
-             })
-            
-        } catch (error) {
-            Honeybadger.notify('Password hashing failed');
-        }
-            if (hash) {
-                this.password = hash;
-            }else { 
-                const salt = await bcrypt.genSalt(SALT_ROUNDS );
-                this.password = await bcrypt.hash(this.password, salt);
-            }
+  try {
+    // Only run this function if password was actually modified
+    if (!this.isModified('password')) return next();
 
-        // Delete passwordConfirm field
-        this.passwordConfirm = undefined;
-        this.passwordChangedAt = Date.now() - 1000
-        next();
-    } catch (error) {
-        next(error);
-    }
+    const [hash, salt] = await Promise.all([
+      child_worker({ activity: 'Hashing', payload: { password: this.password } }).catch(err => {
+        Honeybadger.notify('Password hashing failed');
+        return null;
+      }),
+      bcrypt.genSalt(SALT_ROUNDS)
+    ]);
+
+    this.password = hash ? hash : await bcrypt.hash(this.password, salt);
+    this.passwordConfirm = undefined;
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
+
 
 user.pre('save', function (next) {
     if (!this.isModified('password') || this.isNew) return next();

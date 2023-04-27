@@ -11,7 +11,6 @@ const SALT_ROUNDS = config.SALT_ROUNDS
 module.exports = {
      async hashPassword(password) {
         const salt = await bcrypt.genSalt(SALT_ROUNDS);
-        console.log('salt', salt);
         return bcrypt.hash(password, salt);;
     }
 }
