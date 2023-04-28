@@ -4,6 +4,8 @@ const Admin = require('../models/admin');
 const Permissions = require('../models/permissions');
 const User = require('../models/user');
 const mailer = require('../utils/azure_mailer');
+const mailing_list = require('../models/mailing_list');
+const contact_us = require('../models/contact_us');
 
 
 module.exports = {
@@ -329,6 +331,62 @@ module.exports = {
             const mail_response = await mailer.sendToManyStatic(mailOptions)
             return mail_response
         } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async getMailingList() {
+        try {
+            const mailingList = await mailing_list.find();
+            return mailingList
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+    
+    async getContactUs() {
+        try {
+            const contactUs = await contact_us.find();
+            return contactUs
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async deleteContactUs(id) {
+        try {
+            const contactUs = await contact_us.findByIdAndRemove(id);
+            if (!contactUs) {
+                throw new Error('Contact Us not found')
+            }
+            const response = {
+                message: 'Contact Us deleted successfully',
+                contactUs
+            }
+            return response
+        }
+        catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async deleteMailingList(id) {
+        try {
+            const mailingList = await mailing_list.findByIdAndRemove(id);
+            if (!mailingList) {
+                throw new Error('Mailing List not found')
+            }
+            const response = {
+                message: 'Mailing List deleted successfully',
+                mailingList
+            }
+            return response
+        }
+        catch (err) {
             console.log(err)
             throw err
         }
