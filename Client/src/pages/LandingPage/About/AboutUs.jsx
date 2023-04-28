@@ -1,16 +1,9 @@
-import Header from './components/Header'
-import Section from './components/Section'
-import Footer from './components/Footer'
+import React from 'react'
 
-var AboutUs = () => {
-    return (
-        <div>
-            <Header/>
-            <Section/>
-            <Footer/>
-        </div>
-    )
-};
+const AboutUs = () => {
+  return (
+    <div>AboutUs</div>
+  )
+}
 
-
-export default AboutUs;
+export default AboutUs
