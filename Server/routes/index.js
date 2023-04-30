@@ -3,6 +3,7 @@ let router = express.Router();
 const user = require('./users');
 const auth = require('./auth');
 const admin = require('./admin');
+const resources = require('./resources');
 const base = `/api/v1`
 
 const prometheus = require('prom-client');
@@ -18,6 +19,7 @@ router.get('/', (req, res) => {
 router.use(`${base}/user`, user);
 router.use(`${base}/authenticate`, auth);
 router.use(`${base}/admin`, admin);
+router.use(`${base}/resources`, resources);
 
 // Prometheus middleware
 router.get('/metrics', async (req, res) => {
