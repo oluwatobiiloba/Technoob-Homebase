@@ -9,3 +9,8 @@
     font-family: 'Nunito Sans', sans-serif;
                                                 
 }
+
+.bgcontact{
+    /* background-image: linear-gradient(120deg,  #dbf5df 100%, #F0F4FE 25%); */
+    background-image: linear-gradient(161.75deg, rgba(225, 249, 227, 0.5) 0.2%, rgba(240, 244, 254, 0.25) 109.04%);
+}
