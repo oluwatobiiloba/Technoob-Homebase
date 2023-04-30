@@ -7,14 +7,8 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
-    const [active, setActive] = useState('Home');
     const [toggle, setToggle] = useState(false)
 
-
-    const handleClick = (e) => {
-        setActive(e.target.value);
-        console.log(active)
-    }
 
   return (
     <nav className='w-full bg-[#fff] shadow-md '>
@@ -29,7 +23,7 @@ const NavBar = () => {
                        
                         <li key={i} className={`text-lg hover:text-[#27AE60]`}>
                            
-                            <Link className={`${active === nav.title ? 'text-[#27AE60]' : ''}`} to={`/${nav.link}`}  onClick={handleClick}>{nav.title}</Link>
+                            <Link className={`${'text-[#27AE60]'}`} to={`/${nav.link}`}>{nav.title}</Link>
                         </li>
                     
                     ))}
@@ -48,7 +42,7 @@ const NavBar = () => {
                             
                                 <li key={i} className={`text-lg hover:text-[#27AE60]`}>
                                 
-                                <Link className={`sidebar ${active === nav.title ? 'text-[#27AE60]' : ''}`}  to={`/${nav.link}`}  onClick={()=> setToggle((prev) => !prev)}>{nav.title}</Link>
+                                <Link className={`sidebar ${'text-[#27AE60]'}`}  to={`/${nav.link}`}  onClick={()=> setToggle((prev) => !prev)}>{nav.title}</Link>
                             </li>
 
                         ))}

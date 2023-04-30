@@ -78,7 +78,7 @@ const Footer = () => {
                 {footerItems.map((footerItem, i) => (
                   
                   <div key={i} className={`flex ${i !== footerItem.length -1 ? 'mr-4' : 'mr-0'}  items-center justify-center`}>
-                    {console.log(footerItem.item)}
+                    
                     <p key={i} className='text-sm'>{footerItem.item}</p>
                     {i !== footerItems.length -1 ? (<div className='h-[13px] w-[2px] ml-3 bg-[#878E99]'/>) : ''}
                   </div>
