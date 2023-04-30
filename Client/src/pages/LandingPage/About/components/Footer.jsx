@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
         <form>
             <input type="text" placeholder='Enter your email address' className=' rounded m-1 border-tblue border px-10 py-4 italic' />
-            <button className=' rounded px-10 py-4 m-1 bg-tblue text-twhite'>Subscribe</button>
+            <button className=' rounded px-24 py-4 m-1 bg-tblue text-twhite'>Subscribe</button>
         </form>
     </footer>
   )
