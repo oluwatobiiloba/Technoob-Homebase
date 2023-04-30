@@ -23,7 +23,7 @@ const NavBar = () => {
                        
                         <li key={i} className={`text-lg hover:text-[#27AE60]`}>
                            
-                            <Link className={`${'text-[#27AE60]'}`} to={`/${nav.link}`}  onClick={handleClick}>{nav.title}</Link>
+                            <Link className={`${'text-[#27AE60]'}`} to={`/${nav.link}`}>{nav.title}</Link>
                         </li>
                     
                     ))}
