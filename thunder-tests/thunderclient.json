@@ -572,12 +572,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-30T05:25:14.824Z",
-    "modified": "2023-04-30T06:14:09.519Z",
+    "modified": "2023-04-30T14:33:16.641Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Nodejs For Nigerian Devs\",\n  \"version\": 2,\n  \"stack\": \"backend\",\n  \"description\": \"backend for newbies\",\n  \"type\": \"e-book\",\n  \"file\": \"test.com\"\n}",
+      "raw": "{\n  \"name\": \"Eloquent Javascript 6\",\n  \"version\": 3,\n  \"stack\": \"backend\",\n  \"description\": \"A guide to Clean javascript\",\n  \"type\": \"e-book\",\n  \"file\": \"https://stackliteblob.blob.core.windows.net/pdf/2023-04-30T14-08-10.922Z-2023-04-30T11-04-08.821Z-Eloquent_JavaScript_small.pdf\\n\",\n  \"image_placeholder\": \"https://stackliteblob.blob.core.windows.net/images/2023-04-30T14-30-37.359Z-cover.png\"\n}",
       "form": []
     },
     "tests": []
@@ -612,6 +612,34 @@
         "isPath": false
       }
     ],
+    "tests": []
+  },
+  {
+    "_id": "1186a432-6ffb-49ee-af60-a7577da10997",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Get Resource Count",
+    "url": "127.0.0.1:3000/api/v1/resources/count",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-04-30T07:02:58.145Z",
+    "modified": "2023-04-30T07:03:33.636Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "604be090-d1dd-49a5-9fd3-7b729bca149d",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "be57d965-dd10-410a-91fa-b97a9612c7f6",
+    "name": "upload file",
+    "url": "127.0.0.1:3000/api/v1/utils/upload-file",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2023-04-30T07:12:40.002Z",
+    "modified": "2023-04-30T07:34:05.935Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]

@@ -22,7 +22,8 @@ module.exports = {
         AZURE_STORAGE_ACCOUNT_NAME: process.env.AZURE_STORAGE_ACCOUNT_NAME,
         COMMUNICATION_SERVICES_CONNECTION_STRING: process.env.COMMUNICATION_SERVICES_CONNECTION_STRING,
         LIVE_BASE_URL: process.env.LIVE_BASE_URL || 'technoob-staging.azurewebsites.net',
-        HONEYBADGER_KEY: process.env.HONEYBADGER_KEY
+        HONEYBADGER_KEY: process.env.HONEYBADGER_KEY,
+        AZURE_STORAGE_CONNECTION_STRING: process.env.AZURE_STORAGE_CONNECTION_STRING,
     },
     test: {
         NODE_ENV: "test"

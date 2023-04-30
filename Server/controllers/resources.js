@@ -2,7 +2,7 @@ const services = require('../services/index');
 const resource = services.resources;
 
 module.exports = {
-     async get_all (req, res, next) { 
+     async get_all (req, res) { 
         const query = req.query
         try {
             const resources = await resource.get_all(query)
@@ -12,7 +12,10 @@ module.exports = {
                 data: resources
             })
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
         }
     },
 
@@ -29,7 +32,10 @@ module.exports = {
                 data: resources
             })
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
         }
     },
 
@@ -42,7 +48,10 @@ module.exports = {
                 data: count
             })
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
         }
     },
 
@@ -56,7 +65,10 @@ module.exports = {
                 data: resources
             })
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
         }
     },
 
@@ -74,7 +86,10 @@ module.exports = {
                 data: resources
             })
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
         }
     }
 }
