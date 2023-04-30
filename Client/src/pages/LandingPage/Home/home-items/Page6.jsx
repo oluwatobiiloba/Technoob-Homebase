@@ -1,9 +1,49 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { image5 } from '../../../../data/assets';
 
 import Button from '../../../../utility/button';
 
 const Page6 = () => {
+
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('')
+  const [subscribe, setSubscribe] = useState({
+    email: ""
+  });
+
+
+const handleClick = (e) =>{
+  const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9*-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
+  if(regEx.test(email)){
+    setMessage('Email is valid')
+  } else if(!regEx.test(email) && email !== '') {
+    setMessage('Email is not valid')
+  } else{
+    setMessage('');
+    
+  }
+  console.log(subscribe)
+};
+
+  const handleChange = (e) =>{
+    setEmail(e.target.value);
+    
+    setSubscribe({email: e.target.value});
+  };
+  useEffect(() => {
+    async function fetchData(){
+    const URL = "https://fakestoreapi.com/products";
+    const response = await fetch(URL);
+    const JSON =  await response.json();
+    console.log(JSON)
+      
+  }
+  fetchData();
+}, [handleClick])
+
+
+  
+
   return (
     <div className='flex justify-center items-center bg-[#F5F5F5] w-full h-auto py-20'>
         <div className='flex flex-col w-full'>
@@ -20,8 +60,9 @@ const Page6 = () => {
                      subscribe to our list</p>
 
                      <div className='flex flex-col justify-center items-center sm:flex-row my-16 sm:my-6 gap-2'>
-                        <input placeholder='Enter your email address' className='bg-white w-[335px] h-[56px] border rounded-md ring-2 outline-0 text-base pl-4 italic'/>
-                        <Button name={'Subscribe'}/>
+                        <input placeholder='Enter your email address' onChange={handleChange} type='email'  className='bg-white w-[335px] h-[56px] border rounded-md ring-2 outline-0 text-base pl-4 placeholder:italic'/>
+                        <Button name={'Subscribe'} handleClick={handleClick} type={'submit'}/>
+                        <h6>{message}</h6>
                      </div>
             </div>
 

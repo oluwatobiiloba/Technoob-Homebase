@@ -13,7 +13,6 @@ const NavBar = () => {
 
     const handleClick = (e) => {
         setActive(e.target.value);
-        console.log(active)
     }
 
   return (
