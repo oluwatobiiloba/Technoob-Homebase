@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
-    const [active, setActive] = useState('Home');
     const [toggle, setToggle] = useState(false)
 
 
