@@ -62,7 +62,7 @@ const Page6 = () => {
                      <div className='flex flex-col justify-center items-center sm:flex-row my-16 sm:my-6 gap-2'>
                         <input placeholder='Enter your email address' type='email'  className='bg-white w-[335px] h-[56px] border rounded-md ring-2 outline-0 text-base pl-4 placeholder:italic'/>
                         <Button name={'Subscribe'} type={'submit'}/>
-                        <h6>{message}</h6>
+                        {/* <h6>{message}</h6> */}
                      </div>
             </div>
 
