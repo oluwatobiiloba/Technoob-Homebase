@@ -10,10 +10,6 @@ const NavBar = () => {
     const [toggle, setToggle] = useState(false)
 
 
-    const handleClick = (e) => {
-        setActive(e.target.value);
-    }
-
   return (
     <nav className='w-full bg-[#fff] shadow-md '>
         <div className='w-full mt-3 py-2 px-5 sm:px-20 flex justify-between items-center'>
