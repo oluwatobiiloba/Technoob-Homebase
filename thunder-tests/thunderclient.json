@@ -641,5 +641,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "a0721290-1608-45ad-8ade-0113e21990c5",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "be57d965-dd10-410a-91fa-b97a9612c7f6",
+    "name": "Upload Image",
+    "url": "127.0.0.1:3000/api/v1/utils/upload-image",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2023-04-30T14:56:53.907Z",
+    "modified": "2023-04-30T14:57:03.879Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

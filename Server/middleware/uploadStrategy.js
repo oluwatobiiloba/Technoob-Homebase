@@ -36,7 +36,6 @@ const uploadParams = {
 
     module.exports = {
         image: (req, res, next) => {
-            console.log(req.headers)
         multer({ storage: inMemoryStorage, fileFilter: multerFilter }).single('image')(req, res, (err) => {
             if (err instanceof multer.MulterError) {
                 // handle multer errors
