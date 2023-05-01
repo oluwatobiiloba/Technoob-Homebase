@@ -55,6 +55,7 @@
     "prom-client": "^14.2.0",
     "promisify": "^0.0.3",
     "sharp": "^0.32.0",
+    "stream": "^0.0.2",
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13",
     "validator": "^13.9.0",

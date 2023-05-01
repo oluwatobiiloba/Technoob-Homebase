@@ -95,14 +95,17 @@ app.set('view engine', 'jade');
 
 app.use(flash());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(sanitizer.clean({
-  xss: true,
-  noSql: true,
-  sql: true
-}));
+
+// app.use(sanitizer.clean({
+//   xss: true,
+//   noSql: true,
+//   sql: true,
+//   sanitize: {
+//     image: false
+//   }
+// }));
 
 /* GET home page. */
 app.use('/', limiter);  // implementing rate limiter middleware

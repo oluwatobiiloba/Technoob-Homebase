@@ -266,9 +266,9 @@
     "name": "login",
     "url": "127.0.0.1:3000/api/v1/authenticate/login",
     "method": "POST",
-    "sortNum": 30000,
+    "sortNum": 27500,
     "created": "2023-04-14T15:27:01.515Z",
-    "modified": "2023-04-21T23:35:58.625Z",
+    "modified": "2023-04-30T05:25:16.639Z",
     "headers": [],
     "params": [],
     "body": {
@@ -561,6 +561,99 @@
       "raw": "{\n  \"email\": \"oluwatobiloba.@gmail.com\",\n  \"name\": \"Oluwatobi\",\n  \"message\": \"Improve your speed with node \"\n}",
       "form": []
     },
+    "tests": []
+  },
+  {
+    "_id": "dc415915-1f68-405c-bccb-8d94f056c568",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Create Resource",
+    "url": "127.0.0.1:3000/api/v1/resources/create",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-04-30T05:25:14.824Z",
+    "modified": "2023-04-30T14:33:16.641Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Eloquent Javascript 6\",\n  \"version\": 3,\n  \"stack\": \"backend\",\n  \"description\": \"A guide to Clean javascript\",\n  \"type\": \"e-book\",\n  \"file\": \"https://stackliteblob.blob.core.windows.net/pdf/2023-04-30T14-08-10.922Z-2023-04-30T11-04-08.821Z-Eloquent_JavaScript_small.pdf\\n\",\n  \"image_placeholder\": \"https://stackliteblob.blob.core.windows.net/images/2023-04-30T14-30-37.359Z-cover.png\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "bf713389-61c9-49b6-8761-020a9c662799",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Get Resource",
+    "url": "127.0.0.1:3000/api/v1/resources/all?username=oluwatobiiloba",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-04-30T05:45:12.385Z",
+    "modified": "2023-04-30T06:30:09.671Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "stack",
+        "value": "backend",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "type",
+        "value": "e-book",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "username",
+        "value": "oluwatobiiloba",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "1186a432-6ffb-49ee-af60-a7577da10997",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Get Resource Count",
+    "url": "127.0.0.1:3000/api/v1/resources/count",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-04-30T07:02:58.145Z",
+    "modified": "2023-04-30T07:03:33.636Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "604be090-d1dd-49a5-9fd3-7b729bca149d",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "be57d965-dd10-410a-91fa-b97a9612c7f6",
+    "name": "upload file",
+    "url": "127.0.0.1:3000/api/v1/utils/upload-file",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2023-04-30T07:12:40.002Z",
+    "modified": "2023-04-30T07:34:05.935Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "a0721290-1608-45ad-8ade-0113e21990c5",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "be57d965-dd10-410a-91fa-b97a9612c7f6",
+    "name": "Upload Image",
+    "url": "127.0.0.1:3000/api/v1/utils/upload-image",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2023-04-30T14:56:53.907Z",
+    "modified": "2023-04-30T14:57:03.879Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]
