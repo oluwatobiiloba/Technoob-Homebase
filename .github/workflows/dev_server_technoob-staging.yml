@@ -60,13 +60,11 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1ED0C7AB1FD14BCEBAE4D5C3C50431DF }}
           package: .
       
-      - name: Run terminal command on Azure App Service
-        uses: azure/webapps-ssh-deploy@v2
+      - name: Login to Azure CLI
+        uses: azure/login@v1
         with:
-          app-name: 'technoob-staging'
-          slot-name: 'Production'
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          commands: |
-            cd /home/site/wwwroot
-            npm install
-            npm run start-worker
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: Run command on Azure App Service
+        run: az webapp ssh -g Technoob -n technoob-staging --command "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js"
+
