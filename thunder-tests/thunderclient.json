@@ -154,12 +154,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-14T15:27:01.509Z",
-    "modified": "2023-04-27T10:29:53.754Z",
+    "modified": "2023-05-01T06:41:21.176Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"firstname\": \"Test 2\",\n  \"lastname\": \"test 22\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"test@test.com\",\n  \"username\": \"workertest\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
+      "raw": "{\n  \"firstname\": \"Azure\",\n  \"lastname\": \"Queue\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a@gmail.com\",\n  \"username\": \"queuetest22\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
       "form": []
     },
     "tests": []
@@ -439,12 +439,12 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-04-21T23:11:45.447Z",
-    "modified": "2023-04-21T23:29:45.293Z",
+    "modified": "2023-05-01T05:46:29.721Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"password\": \"testing00\",\n  \"previous_password\": \"testing000\"\n}",
+      "raw": "{\n  \"password\": \"testing000\",\n  \"previous_password\": \"testing00\"\n}",
       "form": []
     },
     "tests": []
