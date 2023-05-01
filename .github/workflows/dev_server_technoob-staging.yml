@@ -64,8 +64,10 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Create SSH tunnel to web app
+        run: az webapp ssh --resource-group Technoob --name technoob --timeout 300
+      - name: Run command on web app terminal
+        run: ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile=/dev/null" -o "LogLevel=ERROR" -p 2222 tunneled@127.0.0.1 "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js"
           
-      - name: Run command on Azure App Service
-        run: az webapp exec -g Technoob  -n technoob-staging --command "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js"
 
 
