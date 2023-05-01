@@ -66,5 +66,6 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: Run command on Azure App Service
-        run: az webapp ssh -g Technoob -n technoob-staging --command "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js"
+        run: az webapp exec -g Technoob  -n technoob-staging --command "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js"
+
 
