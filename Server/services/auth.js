@@ -5,6 +5,7 @@ const middleware = require('../middleware/index');
 const crypto = require('crypto');
 const mailer = require('../utils/azure_mailer')
 const jwt = require('jsonwebtoken');
+const queue = require('../azure_Queue/init');
 
 
 module.exports = {
@@ -51,7 +52,16 @@ module.exports = {
                 template_id: "Reset Password",
                 username: user.username
             }
-            await mailer.sendEmail(mailOptions)
+
+            await queue.sendMessage({
+                name: "SingleEmail",
+                import: "../utils/azure_mailer",
+                service: "mailer",
+                method: "sendEmail",
+                data: mailOptions
+            })
+
+            //await mailer.sendEmail(mailOptions)
             return true
         } catch (error) {
             console.log(error)
@@ -102,7 +112,15 @@ module.exports = {
                 template_id: "Password Changed",
                 username: user.username
             }
-            await mailer.sendEmail(mailOptions)
+            await queue.sendMessage({
+                name: "SingleEmail",
+                import: "../utils/azure_mailer",
+                service: "mailer",
+                method: "sendEmail",
+                data: mailOptions
+            })
+
+            //await mailer.sendEmail(mailOptions)
             return true
         } catch (err) {
             console.log(err)
@@ -132,7 +150,15 @@ module.exports = {
                     username: user.username
 
                 }
-                await mailer.sendEmail(mailOptions)
+
+                await queue.sendMessage({
+                    name: "SingleEmail",
+                    import: "../utils/azure_mailer",
+                    service: "mailer",
+                    method: "sendEmail",
+                    data: mailOptions
+                })
+                //await mailer.sendEmail(mailOptions)
             } catch (err) {
                 console.log(err)
             }
@@ -189,7 +215,15 @@ module.exports = {
                     username: user.username
 
                 }
-                await mailer.sendEmail(mailOptions)
+                await queue.sendMessage({
+                    name: "SingleEmail",
+                    import: "../utils/azure_mailer",
+                    service: "mailer",
+                    method: "sendEmail",
+                    data: mailOptions
+                })
+    
+                //await mailer.sendEmail(mailOptions)
             } catch (err) {
                 console.log(err)
             }

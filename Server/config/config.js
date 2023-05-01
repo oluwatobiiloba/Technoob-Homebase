@@ -24,6 +24,8 @@ module.exports = {
         LIVE_BASE_URL: process.env.LIVE_BASE_URL || 'technoob-staging.azurewebsites.net',
         HONEYBADGER_KEY: process.env.HONEYBADGER_KEY,
         AZURE_STORAGE_CONNECTION_STRING: process.env.AZURE_STORAGE_CONNECTION_STRING,
+        AZURE_QUEUE_NAME: process.env.AZURE_QUEUE_NAME,
+        AZURE_QUEUE_URL: process.env.AZURE_QUEUE_URL
     },
     test: {
         NODE_ENV: "test"
