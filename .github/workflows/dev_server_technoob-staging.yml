@@ -59,3 +59,17 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1ED0C7AB1FD14BCEBAE4D5C3C50431DF }}
           package: .
+    
+  start_Worker:
+      runs-on: ubuntu-latest
+      needs: deploy
+      steps:
+        - name: SSH into Azure App Service
+          uses: azure/appservice-actions/webapp-ssh@v1
+          with:
+            app-name: 'technoob-staging'
+            slot-name: 'Production'
+        - name: Start Worker
+          run: |
+            cd /home/site/wwwroot/Server
+            npm run start-worker
