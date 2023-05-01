@@ -7,7 +7,7 @@
     "stop": "pm2-runtime stop ecosystem.config.js --env development",
     "dev": "node ./bin/www",
     "start-worker": "node ./azure_Queue/worker.js",
-    "start-with-worker": "npm run start && npm run start-worker"
+    "start-with-worker": "npm run start && nohup npm run start-worker &"
   },
   "engines": {
     "node": ">=18.0.0 <19.0.0"
