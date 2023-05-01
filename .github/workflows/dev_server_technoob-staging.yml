@@ -60,9 +60,13 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1ED0C7AB1FD14BCEBAE4D5C3C50431DF }}
           package: .
       
-      - name: Start  worker script
-        uses: azure/webapps-ssh@v1
+      - name: Run terminal command on Azure App Service
+        uses: azure/webapps-ssh-deploy@v2
         with:
           app-name: 'technoob-staging'
           slot-name: 'Production'
-          command: 'node ./azure_Queue/worker.js'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          commands: |
+            cd /home/site/wwwroot
+            npm install
+            npm run start-worker
