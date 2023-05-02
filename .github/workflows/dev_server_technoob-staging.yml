@@ -70,8 +70,9 @@ jobs:
         uses: azure/cli@v1
         with:
           inlineScript: |
-            nohup az webapp create-remote-connection -g Technoob -n technoob-staging --port 61550
+            nohup az webapp create-remote-connection -g Technoob -n technoob-staging --port 61550 > remote-connection.log 2>&1 &
             sleep 10
+
             
       - name: Remote SSH
         uses: appleboy/ssh-action@master
