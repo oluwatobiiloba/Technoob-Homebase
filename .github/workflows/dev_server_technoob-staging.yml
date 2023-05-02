@@ -67,7 +67,7 @@ jobs:
       - name: Create SSH tunnel to web app
         run: az webapp ssh -g Technoob -n technoob-staging --timeout 300
       - name: Run command on web app terminal
-        run: ssh -o StrictHostKeyChecking=no -o "UserKnownHostsFile=/dev/null" -o "LogLevel=ERROR" -p 2222 tunneled@127.0.0.1 "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js"
+        run: cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js
           
 
 
