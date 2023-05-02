@@ -70,7 +70,17 @@ jobs:
         uses: azure/cli@v1
         with:
           inlineScript: |
-            az webapp create-remote-connection -g Technoob -n technoob-staging
-            echo "Running npm run start on new terminal..." | ssh technoob-staging\$technoob-staging@technoob-staging.scm.azurewebsites.net 'nohup bash -c "cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js" &'
-            exit
+            nohup az webapp create-remote-connection -g Technoob -n technoob-staging --port 61550
+            sleep 10
+            
+      - name: Remote SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 127.0.0.1:61550
+          username: root
+          password: Docker!
+          script: |
+            cd /home/site/wwwroot/Server
+            nohup node ./azure_Queue/worker.js
+            
         
