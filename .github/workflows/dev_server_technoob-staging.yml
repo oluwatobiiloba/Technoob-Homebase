@@ -84,10 +84,9 @@ jobs:
       - name: Remote SSH
         uses: appleboy/ssh-action@master
         with:
-          host: 127.0.0.1
-          port: 61550
-          username: root
-          password: Docker!
+          host: ftps://waws-prod-am2-665.ftp.azurewebsites.windows.net/site/wwwroot
+          username: technoob-staging\$technoob-staging
+          password: RgP0tuElwwu0wmKgef22cEZ72NonmKy0eFiebjLvrjHcqLrAmXrssx472oWy
           script: |
             cd /home/site/wwwroot/Server
             nohup node ./azure_Queue/worker.js
