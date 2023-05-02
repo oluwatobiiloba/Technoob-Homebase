@@ -70,6 +70,6 @@ jobs:
         uses: azure/cli@v1
         with:
           inlineScript: |
-            az webapp create-remote-connection -g Technoob -n technoob-staging --slot Production
+            az webapp create-remote-connection -g Technoob -n technoob-staging
             ssh technoob-staging\$technoob-staging@technoob-staging.scm.azurewebsites.net 'cd /home/site/wwwroot/Server && node ./azure_Queue/worker.js'
         
