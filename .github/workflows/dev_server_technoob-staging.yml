@@ -71,7 +71,11 @@ jobs:
         with:
           inlineScript: |
             nohup az webapp create-remote-connection -g Technoob -n technoob-staging --port 61550 > remote-connection.log 2>&1 &
-            sleep 30
+            sleep 100
+            ssh root@127.0.0.1 -p 61550
+            sleep 10
+            whoami
+            
       - name: sleep
         run: |
           sleep 100
