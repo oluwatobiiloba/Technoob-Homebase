@@ -75,7 +75,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passportConfig');
 app.use(Honeybadger.requestHandler);
-app.use(helmet());    
+app.use(helmet({
+ crossOriginEmbedderPolicy: false
+}));    
 
 
 
