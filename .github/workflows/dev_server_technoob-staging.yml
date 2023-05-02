@@ -77,7 +77,8 @@ jobs:
       - name: Remote SSH
         uses: appleboy/ssh-action@master
         with:
-          host: 127.0.0.1:61550
+          host: 127.0.0.1
+          port: 61550
           username: root
           password: Docker!
           script: |
