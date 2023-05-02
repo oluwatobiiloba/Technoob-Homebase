@@ -102,6 +102,4 @@ jobs:
               # Exit the shell
               send "exit\r"
               expect eof
-          '
-
 
