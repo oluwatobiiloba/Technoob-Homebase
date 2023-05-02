@@ -59,49 +59,43 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1ED0C7AB1FD14BCEBAE4D5C3C50431DF }}
           package: .
+          
+      - name: Login to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Create SSH tunnel to web app
+        run: |
+          # Start the SSH tunnel in the background
+          az webapp ssh -g Technoob -n technoob-staging --timeout 300 &
+          # Wait for the tunnel to become available
+          sleep 10
 
-  my_job:
-    runs-on: ubuntu-latest
-    needs: deploy
-    continue-on-error: true
-
-    steps:
-    - name: Login to Azure CLI
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Create SSH tunnel to web app
-      run: |
-        # Start the SSH tunnel in the background
-        az webapp ssh -g Technoob -n technoob-staging --timeout 300 &
-        # Wait for the tunnel to become available
-        sleep 10
-    
-    # Install the `expect` package
-    - name: Install expect
-      run: sudo apt-get update && sudo apt-get install expect -y
-    # Use `expect` to send the `cd` and `node` commands to the loaded shell through the SSH tunnel
-    - name: Run command on web app terminal
-      run: |
-        expect -c '
-          # Set up the SSH connection parameters
-          set timeout 5
-          set host "localhost"
-          set port "33333"
-          set user "root"
-          set password "your_password_here"
-          # Connect to the SSH tunnel
-          spawn ssh -o "StrictHostKeyChecking no" -p $port $user@$host
-          expect "*assword:*"
-          send "$password\r"
-          # Wait for the shell prompt to appear
-          expect "$ "
-          # Send the `cd` and `node` commands to the shell
-          send "cd /home/site/wwwroot/Server\r"
-          expect "$ "
-          send "node ./azure_Queue/worker.js\r"
-          expect "$ "
-          # Exit the shell
-          send "exit\r"
-          expect eof
-        '
+      # Install the `expect` package
+      - name: Install expect
+        run: sudo apt-get update && sudo apt-get install expect -y
+      # Use `expect` to send the `cd` and `node` commands to the loaded shell through the SSH tunnel
+      - name: Run command on web app terminal
+        run: |
+          expect -c '
+            # Set up the SSH connection parameters
+            set timeout 5
+            set host "localhost"
+            set port "33333"
+            set user "root"
+            set password "your_password_here"
+            # Connect to the SSH tunnel
+            spawn ssh -o "StrictHostKeyChecking no" -p $port $user@$host
+            expect "*assword:*"
+            send "$password\r"
+            # Wait for the shell prompt to appear
+            expect "$ "
+            # Send the `cd` and `node` commands to the shell
+            send "cd /home/site/wwwroot/Server\r"
+            expect "$ "
+            send "node ./azure_Queue/worker.js\r"
+            expect "$ "
+            # Exit the shell
+            send "exit\r"
+            expect eof
+          '
