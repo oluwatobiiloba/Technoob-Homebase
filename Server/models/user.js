@@ -126,20 +126,26 @@ const user = new Schema({
 user.pre('save', async function (next) {
   try {
     // Only run this function if password was actually modified
-    if (!this.isModified('password')) return next();
-
-    try {
-        const [hash] = await Promise.all([
-          child_worker({ activity: 'Hashing', payload: { password: this.password } })
-        ]);
-      
-        this.password = hash;
-      } catch (err) {
-        Honeybadger.notify(`Password hashing failed with error: ${err}`);
-        
+      if (!this.isModified('password')) return next();
+     console.log('child_worker.checkChild():', child_worker.checkChild());
+      if (child_worker.checkChild() > 0) { 
+        try {
+            const [hash] = await Promise.all([
+              child_worker.work({ activity: 'Hashing', payload: { password: this.password } })
+            ]);
+          
+            this.password = hash;
+          } catch (err) {
+            Honeybadger.notify(`Password hashing failed with error: ${err}`);
+            
+            const salt =  await bcrypt.genSalt(SALT_ROUNDS)
+            this.password = await bcrypt.hash(this.password, salt);
+          }
+      } else {
         const salt =  await bcrypt.genSalt(SALT_ROUNDS)
         this.password = await bcrypt.hash(this.password, salt);
       }
+
     this.passwordConfirm = undefined;
     this.passwordChangedAt = Date.now() - 1000;
     next();
