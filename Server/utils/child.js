@@ -15,6 +15,7 @@ module.exports = {
 
   async work (params) {
     return new Promise((resolve, reject) => {
+     
       if (pool.length === 0) {
         reject(new Error('No child processes available in the pool'));
         return;
@@ -24,28 +25,35 @@ module.exports = {
         reject(new Error('No child processes available in the pool'));
         return;
       }
+      let dead_child = false
       try {
         process.kill(worker.threadId, 0);
       } catch (error) {
-        reject(new Error('Child process is dead'));
+        dead_child = true
       }
-      console.log('pool size:', pool.length);
-      child.send({
-        payload: params.payload,
-        activity: params.activity,
-      });
-      
-      child.once('message', resp => {
-        pool.push(child);
-        try {
-          if (resp.type === 'error') {
-            throw new Error(resp.data);
+
+      if (dead_child) { 
+        reject(new Error('No child processes available in the pool'));
+        return;
+      } else {
+        child.send({
+          payload: params.payload,
+          activity: params.activity,
+        });
+
+        child.once('message', resp => {
+          pool.push(child);
+          try {
+            if (resp.type === 'error') {
+              throw new Error(resp.data);
+            }
+            resolve(resp.data);
+          } catch (error) {
+            reject(error);
           }
-          resolve(resp.data);
-        } catch (error) {
-          reject(error);
-        }
-      })
+        })
+      }
+     
     })
   }
 }
