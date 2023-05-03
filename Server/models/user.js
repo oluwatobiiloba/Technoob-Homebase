@@ -129,8 +129,9 @@ user.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
     const [hash, salt] = await Promise.all([
-      child_worker({ activity: 'Hashing', payload: { password: this.password } }).catch(err => {
-        Honeybadger.notify('Password hashing failed');
+        child_worker({ activity: 'Hashing', payload: { password: this.password } }).catch(err => {
+          console.log(err);
+        Honeybadger.notify(`Password hashing failed: ${err}`);
         return null;
       }),
       bcrypt.genSalt(SALT_ROUNDS)

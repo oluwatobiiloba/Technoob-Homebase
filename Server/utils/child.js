@@ -14,6 +14,10 @@ module.exports = (params) => {
       return;
     }
     const child = pool.shift();
+    if (!child) { 
+      reject(new Error('No child processes available in the pool'));
+      return;
+    }
     console.log('pool size:', pool.length);
     child.send({
       payload: params.payload,
