@@ -15,4 +15,4 @@ jobs:
         inlineScript: |
           az webapp ssh -g Technoob -n technoob-staging
           # Run your command here
-          whoami
+          echo "whoami" | sudo -S ls
