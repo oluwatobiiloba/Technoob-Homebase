@@ -128,16 +128,18 @@ user.pre('save', async function (next) {
     // Only run this function if password was actually modified
     if (!this.isModified('password')) return next();
 
-    const [hash, salt] = await Promise.all([
-        child_worker({ activity: 'Hashing', payload: { password: this.password } }).catch(err => {
-          console.log(err);
-        Honeybadger.notify(`Password hashing failed: ${err}`);
-        return null;
-      }),
-      bcrypt.genSalt(SALT_ROUNDS)
-    ]);
-
-    this.password = hash ? hash : await bcrypt.hash(this.password, salt);
+    try {
+        const [hash] = await Promise.all([
+          child_worker({ activity: 'Hashing', payload: { password: this.password } })
+        ]);
+      
+        this.password = hash;
+      } catch (err) {
+        Honeybadger.notify(`Password hashing failed with error: ${err}`);
+        
+        const salt =  await bcrypt.genSalt(SALT_ROUNDS)
+        this.password = await bcrypt.hash(this.password, salt);
+      }
     this.passwordConfirm = undefined;
     this.passwordChangedAt = Date.now() - 1000;
     next();
