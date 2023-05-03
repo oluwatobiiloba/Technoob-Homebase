@@ -71,8 +71,12 @@ jobs:
         with:
           inlineScript: |
             nohup az webapp create-remote-connection -g Technoob -n technoob-staging --port 61550 > remote-connection.log 2>&1 &
-            sleep 100
+            sleep 120
+            # SSH into the web app and run a command
             ssh root@127.0.0.1 -p 61550
+            sleep 5 # Give the SSH session time to start up
+            echo "Docker!" | sudo -S <command-to-run> # Replace <command-to-run> with the command you want to run
+            whoami # This command will run on the remote machine
             sleep 10
             whoami
             
