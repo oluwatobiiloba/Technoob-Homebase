@@ -58,7 +58,8 @@ module.exports = {
                 import: "../utils/azure_mailer",
                 service: "mailer",
                 method: "sendEmail",
-                data: mailOptions
+                data: mailOptions,
+                visibilityTimeout: 40,
             })
 
             //await mailer.sendEmail(mailOptions)

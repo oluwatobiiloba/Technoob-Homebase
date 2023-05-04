@@ -13,11 +13,13 @@ module.exports = {
             
             if (!data) throw Error('No data found');
             if (typeof data !== 'string') data = JSON.stringify(data);
+
+            const options = { visibilityTimeout: data.visibilityTimeout || 30 };
             
-            await queueClient.sendMessage(data);
-            console.log("Adding message to the queue: ", data);
+            await queueClient.sendMessage(data, options);
             return { message: 'Action successfully to job queue' };
         } catch (error) {
+            console.log(error);
             throw error;
         }
     },

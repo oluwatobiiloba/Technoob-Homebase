@@ -154,12 +154,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-14T15:27:01.509Z",
-    "modified": "2023-05-03T14:37:04.122Z",
+    "modified": "2023-05-04T14:31:10.097Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"firstname\": \"Azure\",\n  \"lastname\": \"Queue\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a11@gmail.com\",\n  \"username\": \"queuetest2211\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
+      "raw": "{\n  \"firstname\": \"Azure\",\n  \"lastname\": \"Queue\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a@gmail.com\",\n  \"username\": \"queuetest1\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
       "form": []
     },
     "tests": []

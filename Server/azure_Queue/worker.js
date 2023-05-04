@@ -30,20 +30,20 @@ const app = subscriber.create({
     queueName: queueName,
     connectionString: azureStorageConnectionString,
     batchSize: 1,
-    handleMessage: async (message, done) => {
-  try {
+    async handleMessage(message, done) {
+      try {
         const data = JSON.parse(message.messageText);
         const method = data.method;
         const importedData = require(data.import);
         await importedData[method](data.data);
-           
-  } catch (error) {
-    console.log(error);
-    
-  }
-        done();
-    },
-  //queueService: queueClient
+      } catch (err) {
+        console.log(err);
+        done(err)
+      }
+      done();
+    },    
+  blobConnectionString: azureStorageConnectionString,
+  useAcquireLease: true,
 });
 
 app.on('error', (err) => {
