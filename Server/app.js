@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const logger = require('morgan');
 const Honeybadger = require('./utils/honeybadger');
 const helmet = require('helmet')
@@ -16,6 +17,14 @@ const sanitizer = require("perfect-express-sanitizer");
 const indexRouter = require('./routes/index');
 const app = express();
 const prometheus = require('prom-client');
+
+
+// Set up the CORS headers
+app.use(cors({
+  origin: '*',
+  methods: 'GET,PUT,POST,DELETE',
+  allowedHeaders: 'Content-Type'
+}));
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
   name: 'http_request_duration_seconds',
