@@ -1,4 +1,4 @@
-name: Client Deployment to Heroku Staging
+name: Worker deployment to Heroku
 
 on:
   push:
