@@ -34,7 +34,7 @@ const app = subscriber.create({
       try {
         console.log(message.messageText);
         if (!message.messageText || message.messageText === 'undefined' || message.messageText === 'null' || message.messageText === '' || message.messageText === ' ' ) {
-          done();
+         return done();
         }
         const data = JSON.parse(message.messageText);
         const method = data.method;
@@ -42,7 +42,7 @@ const app = subscriber.create({
         await importedData[method](data.data);
       } catch (err) {
         console.log(err);
-        done(err)
+        done()
       }
       done();
     },    
