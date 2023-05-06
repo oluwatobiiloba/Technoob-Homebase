@@ -32,7 +32,6 @@ const app = subscriber.create({
     batchSize: 1,
     async handleMessage(message, done) {
       try {
-        console.log(message.messageText);
         if (!message.messageText || message.messageText === 'undefined' || message.messageText === 'null' || message.messageText === '' || message.messageText === ' ' ) {
          return done();
         }
