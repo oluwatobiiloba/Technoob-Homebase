@@ -19,6 +19,23 @@ module.exports = {
         }
     },
 
+    async get(req, res, next) { 
+        const id = req.params.id
+        try {
+            const resources = await resource.get(id)
+            res.status(200).json({
+                status: "success",
+                message: `resource retrieved`,
+                data: resources
+            })
+        } catch (error) {
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
+        }
+    },
+
     async create (req, res, next) { 
         const body = req.body
         if (!body.uploader_id) {

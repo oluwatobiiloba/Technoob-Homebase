@@ -29,6 +29,15 @@ module.exports = {
         }
     },
 
+    get: async (id) => { 
+        try {
+            const resources = await Resources.findById(id);
+            return resources;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     create: async (body) => { 
         try {
             const resources = await Resources.create(body);

@@ -5,6 +5,7 @@ const resources = controller.resources;
 const middleware = require('../middleware/index');
 
 router.get('/all', resources.get_all)
+router.get('/get/:id', resources.get)
 router.post('/create', resources.create)
 router.get('/count', resources.count)
 router.post('/delete/:id', middleware.auth.isAuthenticated, middleware.auth.hasPermission('admin:RemoveResource'),resources.remove)
