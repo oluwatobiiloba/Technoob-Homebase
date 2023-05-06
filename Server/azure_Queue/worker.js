@@ -32,6 +32,7 @@ const app = subscriber.create({
     batchSize: 1,
     async handleMessage(message, done) {
       try {
+        console.log(message.messageText);
         const data = JSON.parse(message.messageText);
         const method = data.method;
         const importedData = require(data.import);
