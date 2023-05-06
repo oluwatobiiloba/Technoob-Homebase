@@ -33,6 +33,9 @@ const app = subscriber.create({
     async handleMessage(message, done) {
       try {
         console.log(message.messageText);
+        if (!message.messageText || message.messageText === 'undefined' || message.messageText === 'null' || message.messageText === '' || message.messageText === ' ' ) {
+          done();
+        }
         const data = JSON.parse(message.messageText);
         const method = data.method;
         const importedData = require(data.import);
