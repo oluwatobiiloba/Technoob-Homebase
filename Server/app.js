@@ -21,9 +21,11 @@ const prometheus = require('prom-client');
 
 // Set up the CORS headers
 app.use(cors({
-  origin: '*',
-  methods: 'GET,PUT,POST,DELETE',
-  allowedHeaders: 'Content-Type'
+  "origin": '*',
+  "methods": 'GET,PUT,POST,DELETE',
+  "allowedHeaders": 'Content-Type',
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
 }));
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
