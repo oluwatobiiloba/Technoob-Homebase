@@ -47,6 +47,7 @@ const app = subscriber.create({
     },    
   blobConnectionString: azureStorageConnectionString,
   useAcquireLease: true,
+  maximumRetries: 4
 });
 
 app.on('error', (err) => {
