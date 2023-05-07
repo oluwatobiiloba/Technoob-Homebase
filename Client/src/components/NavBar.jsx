@@ -7,7 +7,14 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
 
-    const [toggle, setToggle] = useState(false)
+    const [toggle, setToggle] = useState(false);
+    const [active, setActive] = useState('');
+
+
+    const handleActive= (e)=>{
+        setActive(e.target.innerText);
+
+    }
 
 
   return (
@@ -23,7 +30,13 @@ const NavBar = () => {
                        
                         <li key={i} className={`text-lg hover:text-[#27AE60]`}>
                            
-                            <Link className={`${'text-[#27AE60]'}`} to={`/${nav.link}`}>{nav.title}</Link>
+                            <Link 
+                                className={` ${active === nav.title ? 'text-[#27AE60]' : 'text-black'}`} 
+                                to={`/${nav.link}`}
+                                onClick={handleActive}
+                                >
+                                    {nav.title}
+                                </Link>
                         </li>
                     
                     ))}
