@@ -11,9 +11,25 @@ const Page1 = () => {
 
     const [active, setActive] = useState(false);
     const [togggle, setTogggle] = useState(false);
-    const [selected, setSelected] = useState('Design')
+    const [selected, setSelected] = useState('Design');
+    const [searchTearm, setSearchTearm] = useState('');
+    const [resources, setResources] = useState();
+
+    const URL = 'https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=Eloquent Javascript';
 
 
+    console.log(searchTearm)
+
+    const handleClick= async () => {
+     const response = await fetch(URL);
+     const data = await response.json()
+     setResources(data.data)
+
+        console.log(resources)
+     
+
+      }
+    
    
 
     const Options = [
@@ -90,7 +106,11 @@ const Page1 = () => {
 
                 <img src={SearchIcon} alt="icon" className='h-5 w-5' />
                 
-                <input type="text" placeholder='Books on Design' className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />
+                <input 
+                type="text" 
+                placeholder='Books on Design'
+                onChange={(e)=> setSearchTearm(e.target.value)} 
+                className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />
 
                 
                 <img 
@@ -103,7 +123,7 @@ const Page1 = () => {
                 </div>
 
                 <div>
-                    <Button name={'Search'}/>
+                    <Button name={'Search'} handleClick={handleClick}/>
                 </div>
                     
 
@@ -147,8 +167,8 @@ const Page1 = () => {
             </div>
 
 
-            <div className='flex-[1.5] pl-4 overflow-hidden '>
-                <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>80</span> RESULTS </h1>
+            <div className='flex-[1.5] pl-4 mr-24 overflow-hidden '>
+                {resources && <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS </h1>}
 
                 
                 <div className=' border-b-[0.5px] border-[#C2C7D6] mb-[4rem] w-[80%] '/>
@@ -158,15 +178,23 @@ const Page1 = () => {
                     
 
                     <div className='flex mb-20'>
-                        {feedback.map((feeds, i) => (
+                            {resources ? resources?.map((feeds, i) => (
 
                         <div key={i} className='flex flex-row items-center mr-8 w-[230px] h-[300px] sm:w-[490px]  sm:h-[538px] '>
                             
-                            <Card titleText={feeds.name} photo={feeds.img} pText={feeds.content} subTitleText={feeds.title}/>
+                            <Card titleText={feeds.name} photo={feeds.image_placeholder} pText={feeds.description} subTitleText={feeds.type}/>
 
                         </div>
 
-                        ))}
+                        )) : (feedback.map((feeds, i) => (
+
+                            <div key={i} className='flex flex-row items-center mr-8 w-[230px] h-[300px] sm:w-[490px]  sm:h-[538px] '>
+                                
+                                <Card titleText={feeds.name} photo={feeds.img} pText={feeds.content} subTitleText={feeds.title}/>
+    
+                            </div>
+    
+                            )))}
                    </div>
 
                    <div className='absolute mb-10 right-[100px] bottom-0'>
