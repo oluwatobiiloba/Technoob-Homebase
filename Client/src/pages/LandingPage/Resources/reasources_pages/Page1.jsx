@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Resources, SearchIcon, close, filtersearch } from '../../../../data/assets';
 import Button from '../../../../utility/button';
+import Loader from '../../../../utility/Loader';
 import Card from '../../../../utility/Card';
 import { feedback } from '../../../../data/contact';
 
@@ -15,10 +16,9 @@ const Page1 = () => {
     const [searchTearm, setSearchTearm] = useState('');
     const [resources, setResources] = useState();
 
-    const URL = 'https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=Eloquent Javascript';
+    const URL = `https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=${searchTearm}`;
 
 
-    console.log(searchTearm)
 
     const handleClick= async () => {
      const response = await fetch(URL);
@@ -29,6 +29,19 @@ const Page1 = () => {
      
 
       }
+
+      useEffect( () => {
+        async function fetchData() {
+            const URL = `https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=`;
+          // You can await here
+          const response = await fetch(URL);
+          const data = await response.json()
+            setResources(data.data);
+          // ...
+        }
+        fetchData();
+      }, []); 
+      
     
    
 
@@ -54,10 +67,10 @@ const Page1 = () => {
         }];
 
   return (
-    <div className='flex flex-col w-full justify-start items-start sm:justify-center sm:items-center px-5 sm:px-0 pt-6 md:pt-24 relative'>
+    <div className='flex flex-col w-full justify-start items-start sm:justify-center sm:items-center px-5 sm:px-0 pt-6 md:pt-16 relative'>
 
         
-        <div className='mb-5 sm:mb-[6rem] w-[360px] h-[77px] '>
+        <div className='mb-5 sm:mb-[3rem] w-[360px] h-[77px] '>
             <img src={Resources} alt="HeaderImage" className='object-contain w-[120px] h-[29px] md:w-[335px] md:h-[77px] ' />
         </div>
                         <div className={`absolute shadow-sm right-0 mt-20 h-[470px] z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} sm:hidden`}>
@@ -166,9 +179,11 @@ const Page1 = () => {
 
             </div>
 
+            
 
-            <div className='flex-[1.5] pl-4 mr-24 overflow-hidden '>
-                {resources && <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS </h1>}
+
+            <div className='flex-[1.5] pl-4 lg:pr-24 overflow-auto relative'>
+                {resources && <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS for {searchTearm} </h1>}
 
                 
                 <div className=' border-b-[0.5px] border-[#C2C7D6] mb-[4rem] w-[80%] '/>
@@ -177,7 +192,7 @@ const Page1 = () => {
                 <div className='flex-col border-l-[0.5px] border-[#C2C7D6] pl-3 md:pl-5 flex mb-[7rem] overflow-auto relative '>
                     
 
-                    <div className='flex mb-20'>
+                    <div className='flex mb-16'>
                             {resources ? resources?.map((feeds, i) => (
 
                         <div key={i} className='flex flex-row items-center mr-8 w-[230px] h-[300px] sm:w-[490px]  sm:h-[538px] '>
@@ -186,41 +201,33 @@ const Page1 = () => {
 
                         </div>
 
-                        )) : (feedback.map((feeds, i) => (
+                        )) : (
 
-                            <div key={i} className='flex flex-row items-center mr-8 w-[230px] h-[300px] sm:w-[490px]  sm:h-[538px] '>
+                            <div className='flex  items-start justify-center  '>
                                 
-                                <Card titleText={feeds.name} photo={feeds.img} pText={feeds.content} subTitleText={feeds.title}/>
+                                <Loader/>
     
                             </div>
     
-                            )))}
+                            )}
                    </div>
-
-                   <div className='absolute mb-10 right-[100px] bottom-0'>
-                        <a className='hidden md:block' href="/resources">see more</a>
-                    </div>
-
-                   
-                    
-
-
-                    
+    
+               
                 </div>
 
 
-                <div className='flex flex-col w-full '>
+                <div className='flex flex-col w-full'>
 
                      <div className='flex'>
                         
                         <h1 className='text-5xl font-extrabold mb-[3rem]'>BLOG NEWS</h1>
                     </div>   
 
-                    <div className='flex flex-col md:flex-row md:overflow-auto'  >
+                    <div className='flex flex-col md:flex-row md:overflow-auto justify-center items-center sm:justify-start'  >
 
                         {feedback.map((feeds, i) => (
 
-                            <div key={i} className='flex flex-col mb-10 mr-8 w-[330px] h-[340px] sm:min-w-[512px] sm:h-[538px] '>
+                            <div key={i} className='flex flex-col mb-10 mr-8 h-[340px] sm:min-w-[512px] sm:h-[538px] '>
                                 
                                 <Card titleText={feeds.name} photo={feeds.img} pText={feeds.content} subTitleText={feeds.title}/>
 

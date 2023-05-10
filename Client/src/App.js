@@ -4,6 +4,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {NavBar,Footer} from './components/index.js';
 import { ContactUs, Resources, AboutUs,Home } from './pages/LandingPage';
+import { Login,SignUp } from './pages/Auth';
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           <Route path= "/About-Us" element={<AboutUs/>}/>
           <Route path= "/Contact-Us" element={<ContactUs/>}/>
           <Route path= "/Resources" element={<Resources/>}/>
+          <Route path= "/Sign-Up" element={<SignUp/>}/>
+          <Route path= "/Login" element={<Login/>}/>
 
         </Routes>
   </main> 
