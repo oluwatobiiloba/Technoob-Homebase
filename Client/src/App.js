@@ -4,7 +4,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {NavBar,Footer} from './components/index.js';
 
-import { Login,SignUp } from './pages/Auth';
+import {SignUp } from './pages/Auth';
 
 import { ContactUs, Resources, AboutUs,Home, UserLogin } from './pages/LandingPage';
 
