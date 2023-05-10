@@ -67,7 +67,7 @@ const NavBar = () => {
             <div className='hidden gap-2 lg:flex' > 
 
 
-                <Link to={'/Login'}>
+                <Link to={'/User-Login'}>
                     <button name={'Login'} className='w-[130px] sm:w-[130px] h-[54px] text-[#111111] bg-[#EFF0F5] rounded-md py-4 px-3.5 text-base font-[600]'>Login</button>
                 </Link>
                 <Link to={'/Sign-Up'}>
