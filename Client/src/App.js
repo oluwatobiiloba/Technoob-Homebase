@@ -3,7 +3,11 @@ import './App.css';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {NavBar,Footer} from './components/index.js';
+
+import { Login,SignUp } from './pages/Auth';
+
 import { ContactUs, Resources, AboutUs,Home, UserLogin } from './pages/LandingPage';
+
 
 
 function App() {
@@ -21,9 +25,9 @@ function App() {
           <Route path= "/About-Us" element={<AboutUs/>}/>
           <Route path= "/Contact-Us" element={<ContactUs/>}/>
           <Route path= "/Resources" element={<Resources/>}/>
+          <Route path= "/Sign-Up" element={<SignUp/>}/>
           <Route path="/User-Login" element={<UserLogin/>}/>
-
-        </Routes>
+      </Routes>
   </main> 
 
       <div>

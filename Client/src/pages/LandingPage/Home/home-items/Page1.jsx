@@ -1,5 +1,6 @@
 import React from 'react'
 import { HeroText, Hero, Vector1  } from '../../../../data/assets/index';
+import { Link } from 'react-router-dom';
 import Button from '../../../../utility/button';
 
 const Page1 = () => {
@@ -14,7 +15,9 @@ const Page1 = () => {
                     <h4 className='text-xs text-[#3a3a3a] tracking-[0.015px] leading-4 sm:text-2xl sm:text-center'>Join our community of tech newbies with resources and great initiatives from Technoob to help navigate the muddled tech space.  Network with newbies and mentors and find great job opportunities curated solely for you.</h4>
                 </div>
                 <div className='flex justify-center items-center w-full'>
+                  <Link to={'/Sign-Up'}>
                       <Button name={'Get Started'}/>
+                  </Link>
 
                 </div>
           </div>
