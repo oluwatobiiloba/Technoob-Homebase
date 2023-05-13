@@ -13,7 +13,7 @@ const Page2 = () => {
             <p className='text-xs w-[342px] sm:w-[691px] sm:text-xl mb-3 sm:mb-5'>
             Tech Noob's platform has the potential to completely change how individuals learn and find work in the tech sector. We provide resources and assistances for job placement and skill development that are tailored to the requirements of new tech learning. Our methods and initiatives are adaptable, inexpensive, and available to everyone who wants to begin a career in technology. We are dedicated to fostering a tech sector that is more inclusive and diverse.
             </p>
-              <a href="https://twitter.com/" target='_blank' rel="noreferrer" >
+              <a href="https://twitter.com/i/communities/1571774895813689347" target='_blank' rel="noreferrer" >
                 <Button name={'Join the community'}/>
               </a>
 

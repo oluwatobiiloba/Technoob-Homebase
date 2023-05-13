@@ -31,7 +31,7 @@ const NavBar = () => {
                         <li key={i} className={`text-lg hover:text-[#27AE60]`}>
                            
                             <Link 
-                                className={` ${active === nav.title ? 'text-[#27AE60]' : 'text-black'}`} 
+                                className={` ${active === nav.title ? 'text-[#27AE60]' : ''}`} 
                                 to={`/${nav.link}`}
                                 onClick={handleActive}
                                 >

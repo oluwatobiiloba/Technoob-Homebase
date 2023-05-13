@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Resources, SearchIcon, close, filtersearch } from '../../../../data/assets';
+import { SearchIcon, close, filtersearch } from '../../../../data/assets';
 import Button from '../../../../utility/button';
 import Loader from '../../../../utility/Loader';
 import Card from '../../../../utility/Card';
@@ -10,7 +10,7 @@ import {RiArrowDownSLine} from 'react-icons/ri'
 
 const Page1 = () => {
 
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(true)
     const [togggle, setTogggle] = useState(false);
     const [selected, setSelected] = useState('Design');
     const [searchTearm, setSearchTearm] = useState('');
@@ -20,7 +20,8 @@ const Page1 = () => {
 
 
 
-    const handleClick= async () => {
+    const handleClick= async (e) => {
+        e.preventDefault();
      const response = await fetch(URL);
      const data = await response.json()
      setResources(data.data)
@@ -71,7 +72,9 @@ const Page1 = () => {
 
         
         <div className='mb-5 sm:mb-[3rem] w-[360px] h-[77px] '>
-            <img src={Resources} alt="HeaderImage" className='object-contain w-[120px] h-[29px] md:w-[335px] md:h-[77px] ' />
+            <header className='uni text-left md:text-center md:text-6xl text-3xl font-bold md:py-3 py-10'>
+            <span className=' text-tblue'>RESOURCES</span>
+            </header>
         </div>
                         <div className={`absolute shadow-sm right-0 mt-20 h-[470px] z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} sm:hidden`}>
                                 
@@ -114,7 +117,7 @@ const Page1 = () => {
         <div className=' w-full flex justify-start items-start md:justify-center md:items-center mb-[3rem]'>
             
 
-            <div className='w-[95%] flex flex-col sm:flex-row justify-start md:justify-center items-centers gap-6 '>
+            <form onSubmit={handleClick} className='w-[95%] flex flex-col sm:flex-row justify-start md:justify-center items-centers gap-6 '>
                 <div className='flex justify-start items-center border border-[#BDBDBD] sm:w-[80%] h-[54px] rounded-lg bg-transparent pl-7 '>
 
                 <img src={SearchIcon} alt="icon" className='h-5 w-5' />
@@ -140,7 +143,7 @@ const Page1 = () => {
                 </div>
                     
 
-            </div>
+            </form>
         </div>
 
         <div className='flex md:gap-[1rem] md:justify-between w-full md:ml-[9rem] '>
@@ -183,7 +186,7 @@ const Page1 = () => {
 
 
             <div className='flex-[1.5] pl-4 lg:pr-24 overflow-auto relative'>
-                {resources && <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS for {searchTearm} </h1>}
+                {resources || searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS for {searchTearm} </h1> : <></>}
 
                 
                 <div className=' border-b-[0.5px] border-[#C2C7D6] mb-[4rem] w-[80%] '/>
