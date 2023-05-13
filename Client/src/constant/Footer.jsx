@@ -34,7 +34,7 @@ const Footer = () => {
 
 
   return (
-    <div className='flex flex-col justify-start p-5 sm:p-10 items-start bg-[#3A3A3A] text-[#F5EFFB] h-[1200px] w-screen sm:h-[70vh] md:[]'>
+    <div className='flex flex-col justify-start p-5 sm:p-10 items-start bg-[#3A3A3A] text-[#F5EFFB] h-[1100px] w-screen sm:h-[70vh]'>
 
        
           <div className='flex flex-col sm:flex-row justify-start items-start sm:h-auto w-full  gap-5 sm:mt-[3rem]  '>
