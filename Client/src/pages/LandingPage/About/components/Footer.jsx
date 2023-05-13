@@ -19,7 +19,7 @@ const Footer = () => {
     if(regEx.test(email) === false){
     console.log('please enter a valid email')
     alert('Please enter a valid Email')
-    
+    } else{
 
       try {
         var myHeaders = new Headers();
@@ -62,7 +62,7 @@ const Footer = () => {
             <p className=' text-[#667085] nun'>want to be the first to know when we have exciting news? subscribe to our list</p>
         </div>
         <form>
-            <input type="email" value={email} onChange={handleChange} placeholder='Enter your email address' className=' rounded m-1 border-tblue border px-10 py-4 italic' />
+            <input type="email" value={email} onChange={handleChange} placeholder='Enter your email address' className=' rounded m-1 ring-1 border px-10 py-4 placeholder:italic' />
             <button type='submit' onClick={handleClick} className=' rounded px-24 py-4 m-1 bg-tblue text-twhite'>Subscribe</button>
         </form>
     </footer>
