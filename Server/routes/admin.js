@@ -37,6 +37,7 @@ router.get('/mailing-list', middleware.auth.hasPermission('admin:ManageMailingLi
 router.get('/contact-us', middleware.auth.hasPermission('admin:ManageContactUs'), middleware.auth.isAuthenticated, admin.getContactUs)
 router.post('/contact-us/:id/delete', middleware.auth.hasPermission('admin:ManageContactUs'), middleware.auth.isAuthenticated, admin.deleteContactUs)
 router.post('/mailing-list/:id/delete', middleware.auth.hasPermission('admin:ManageMailingList'), middleware.auth.isAuthenticated, admin.deleteMailingList)
+router.post('/frontend/resources/create', middleware.auth.hasPermission('admin:ManageFrontendResources'), middleware.auth.isAuthenticated, admin.createFrontendResource)
 
 
 

@@ -375,6 +375,45 @@ module.exports = {
             })
 
         }
+    },
+
+    async getContactUsMessage(req, res) {
+        try {
+            const contactUs = await admin.getContactUsMessage(req.params.id);
+            return res.status(200).json({
+                status: "success",
+                message: `Retrieved contact us`,
+                data: contactUs
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    },
+
+    async createFrontendResource(req, res) {
+        const { name, description, url } = req.body;
+        try {
+            const resource = await admin.createFrontendResource(name, description, url);
+            return res.status(200).json({
+                status: "success",
+                message: `Created frontend resource`,
+                data: resource
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
     }
 
 
