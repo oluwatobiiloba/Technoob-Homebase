@@ -1,10 +1,14 @@
 const { fork } = require('child_process');
 // Create a pool of child processes
 const pool = [];
+const path = require('path');
+
+const childPath = path.join(__dirname, 'child_worker.js');
+
 try {
 
-  for (let i = 0; i < 5; i++) {
-    const child = fork('./utils/child_worker', [], { env: process.env });
+  for (let i = 0; i < 2; i++) {
+    const child = fork(childPath, [], { env: process.env });
     pool.push(child);
   }
 } catch (error) {
