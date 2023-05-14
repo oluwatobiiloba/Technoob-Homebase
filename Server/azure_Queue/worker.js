@@ -35,7 +35,6 @@ const app = subscriber.create({
         if (!message.messageText || message.messageText === 'undefined' || message.messageText === 'null' || message.messageText === '' || message.messageText === ' ' ) {
          return done();
         }
-        console.log("message received", message.messageText);
         const data = JSON.parse(message.messageText);
         const method = data.method;
         const importedData = require(data.import);
@@ -48,7 +47,7 @@ const app = subscriber.create({
     },    
   blobConnectionString: azureStorageConnectionString,
   useAcquireLease: true,
-  maximumRetries: 4
+  maximumRetries: 5
 });
 
 app.on('error', (err) => {
