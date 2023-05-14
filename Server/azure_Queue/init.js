@@ -17,6 +17,7 @@ module.exports = {
             const options = { visibilityTimeout: data.visibilityTimeout || 30 };
             
             await queueClient.sendMessage(data, options);
+            console.log("Added message to the queue: ", data);
             return { message: 'Action successfully to job queue' };
         } catch (error) {
             console.log(error);

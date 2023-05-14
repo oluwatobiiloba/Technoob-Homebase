@@ -1,9 +1,14 @@
 const { fork } = require('child_process');
 // Create a pool of child processes
 const pool = [];
-for (let i = 0; i < 5; i++) {
-  const child = fork('./utils/child_worker', [], { env: process.env });
-  pool.push(child);
+try {
+
+  for (let i = 0; i < 5; i++) {
+    const child = fork('./utils/child_worker', [], { env: process.env });
+    pool.push(child);
+  }
+} catch (error) {
+  
 }
 
 // Export a function that returns a Promise
