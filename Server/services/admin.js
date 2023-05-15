@@ -4,6 +4,9 @@ const Admin = require('../models/admin');
 const Permissions = require('../models/permissions');
 const User = require('../models/user');
 const mailer = require('../utils/azure_mailer');
+const mailing_list = require('../models/mailing_list');
+const contact_us = require('../models/contact_us');
+const frontend_resources = require('../models/frontend_resources');
 
 
 module.exports = {
@@ -332,6 +335,112 @@ module.exports = {
             console.log(err)
             throw err
         }
-    }
+    },
 
+    async getMailingList() {
+        try {
+            const mailingList = await mailing_list.find();
+            return mailingList
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+    
+    async getContactUs() {
+        try {
+            const contactUs = await contact_us.find();
+            return contactUs
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async deleteContactUs(id) {
+        try {
+            const contactUs = await contact_us.findByIdAndRemove(id);
+            if (!contactUs) {
+                throw new Error('Contact Us not found')
+            }
+            const response = {
+                message: 'Contact Us deleted successfully',
+                contactUs
+            }
+            return response
+        }
+        catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async deleteMailingList(id) {
+        try {
+            const mailingList = await mailing_list.findByIdAndRemove(id);
+            if (!mailingList) {
+                throw new Error('Mailing List not found')
+            }
+            const response = {
+                message: 'Mailing List deleted successfully',
+                mailingList
+            }
+            return response
+        }
+        catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async getMailingList(id) {
+        try {
+            const mailingList = await mailing_list.findById(id);
+            if (!mailingList) {
+                throw new Error('Mailing List not found')
+            }
+            return mailingList
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async addMailingList(email) {
+        try {
+            const check_mailing_list = await mailing_list.findOne({ email });
+            if (check_mailing_list) {
+                throw new Error('Email already exists')
+            }
+            const mailingList = await mailing_list.create({ email });
+            return mailingList
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async getContactUsMessage(id) {
+        try {
+            const contactUs = await contact_us.findById(id);
+            if (!contactUs) {
+                throw new Error('Contact Us not found')
+            }
+            return contactUs
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    },
+
+    async createFrontendResource(data) {
+        try {
+            const resource = await frontend_resources.create(data);
+            return resource
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+
+    }
 }

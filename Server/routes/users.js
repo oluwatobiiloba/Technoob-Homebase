@@ -6,7 +6,8 @@ const middleware = require('../middleware/index');
 
 
 //contact us route without authentication
-router.post('/contact_us', users.contact_us)
+router.post('/contact-us', users.contact_us)
+router.post('/mailing-list', users.mailing_list)
 
 //middleware to check if user is authenticated
 router.use(middleware.auth.isAuthenticated)

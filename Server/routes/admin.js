@@ -33,6 +33,11 @@ router.post('/permission/:id/delete', middleware.auth.hasPermission('admin:Manag
 router.post('/permission/:id/deactivate', middleware.auth.hasPermission('admin:ManagePermissions'), middleware.auth.isAuthenticated, admin.deactivatePermission)
 router.post('/permission/add', middleware.auth.hasPermission('admin:ManagePermissions'), middleware.auth.isAuthenticated, admin.add_permission)
 router.post('/permission/remove', middleware.auth.hasPermission('admin:ManagePermissions'), middleware.auth.isAuthenticated, admin.remove_permission)
+router.get('/mailing-list', middleware.auth.hasPermission('admin:ManageMailingList'), middleware.auth.isAuthenticated, admin.getMailingList)
+router.get('/contact-us', middleware.auth.hasPermission('admin:ManageContactUs'), middleware.auth.isAuthenticated, admin.getContactUs)
+router.post('/contact-us/:id/delete', middleware.auth.hasPermission('admin:ManageContactUs'), middleware.auth.isAuthenticated, admin.deleteContactUs)
+router.post('/mailing-list/:id/delete', middleware.auth.hasPermission('admin:ManageMailingList'), middleware.auth.isAuthenticated, admin.deleteMailingList)
+router.post('/frontend/resources/create', middleware.auth.hasPermission('admin:ManageFrontendResources'), middleware.auth.isAuthenticated, admin.createFrontendResource)
 
 
 

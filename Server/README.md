@@ -1,1 +1,2 @@
 # SERVER
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/23034417-e91be4be-1155-41e4-b535-6da058e3d4a8?action=collection%2Ffork&collection-url=entityId%3D23034417-e91be4be-1155-41e4-b535-6da058e3d4a8%26entityType%3Dcollection%26workspaceId%3De3072cb5-0829-4050-99f5-da23c1e12bbc)

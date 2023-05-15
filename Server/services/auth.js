@@ -5,12 +5,16 @@ const middleware = require('../middleware/index');
 const crypto = require('crypto');
 const mailer = require('../utils/azure_mailer')
 const jwt = require('jsonwebtoken');
+const queue = require('../azure_Queue/init');
 
 
 module.exports = {
-    signToken(id) {
-        const signedToken = jwt.sign({ id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES_IN });
+    signToken(id,token=null) {
+        const signedToken = jwt.sign({ id ,token}, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRES });
         return signedToken;
+    },
+    generateToken(length = 32) {
+        return crypto.randomBytes(length).toString('hex');
     },
 
     async verifyUserEmail(token) {
@@ -27,15 +31,15 @@ module.exports = {
             throw err
         }
     },
-    async forgotPasswordEmail(data) {
+    async forgotPasswordEmail(email) {
         try {
-            const { email } = data;
             const user = await User.findOne({ email });
             if (!user) {
                 return false
             }
-            const resetToken = this.signToken(user._id);
-            user.passwordResetToken = resetToken;
+            const token = await this.generateToken(32)
+            const resetToken = this.signToken(user._id,token);
+            user.passwordResetToken = token;
             await user.save();
             const constants = {
                 username: user.username,
@@ -48,7 +52,17 @@ module.exports = {
                 template_id: "Reset Password",
                 username: user.username
             }
-            await mailer.sendEmail(mailOptions)
+
+            await queue.sendMessage({
+                name: "SingleEmail",
+                import: "../utils/azure_mailer",
+                service: "mailer",
+                method: "sendEmail",
+                data: mailOptions,
+                visibilityTimeout: 40,
+            })
+
+            //await mailer.sendEmail(mailOptions)
             return true
         } catch (error) {
             console.log(error)
@@ -67,10 +81,10 @@ module.exports = {
             if (!user) {
                 return false
             }
+            
             user.password = password;
             user.passwordConfirm = passwordConfirm;
-            user.passwordResetToken = undefined;
-            user.passwordChangedAt = Date.now() - 1000;
+            user.passwordResetToken = null;
             await user.save();
             return true
         } catch (err) {
@@ -99,7 +113,15 @@ module.exports = {
                 template_id: "Password Changed",
                 username: user.username
             }
-            await mailer.sendEmail(mailOptions)
+            await queue.sendMessage({
+                name: "SingleEmail",
+                import: "../utils/azure_mailer",
+                service: "mailer",
+                method: "sendEmail",
+                data: mailOptions
+            })
+
+            //await mailer.sendEmail(mailOptions)
             return true
         } catch (err) {
             console.log(err)
@@ -113,10 +135,12 @@ module.exports = {
             const user = new User({ email, password, firstname, username, lastname, stack, passwordConfirm });
             await user.save();
 
+            const token = this.signToken(user._id)
+
             try {
                 const constants = {
                     username: user.username,
-                    verification_link: `${config.LIVE_BASE_URL}/api/v1/users/verify-email?token=${user.email}`
+                    verification_link: `${config.LIVE_BASE_URL}/api/v1/users/verify-email?token=${token}`
                 }
 
                 const mailOptions = {
@@ -127,7 +151,15 @@ module.exports = {
                     username: user.username
 
                 }
-                await mailer.sendEmail(mailOptions)
+
+                await queue.sendMessage({
+                    name: "SingleEmail",
+                    import: "../utils/azure_mailer",
+                    service: "mailer",
+                    method: "sendEmail",
+                    data: mailOptions
+                })
+                //await mailer.sendEmail(mailOptions)
             } catch (err) {
                 console.log(err)
             }
@@ -184,7 +216,15 @@ module.exports = {
                     username: user.username
 
                 }
-                await mailer.sendEmail(mailOptions)
+                await queue.sendMessage({
+                    name: "SingleEmail",
+                    import: "../utils/azure_mailer",
+                    service: "mailer",
+                    method: "sendEmail",
+                    data: mailOptions
+                })
+    
+                //await mailer.sendEmail(mailOptions)
             } catch (err) {
                 console.log(err)
             }

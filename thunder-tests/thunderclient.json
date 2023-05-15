@@ -154,12 +154,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-14T15:27:01.509Z",
-    "modified": "2023-04-16T15:21:48.336Z",
+    "modified": "2023-05-04T14:31:10.097Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"firstname\": \"Test\",\n  \"lastname\": \"test 2\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a@gmail.com\",\n  \"username\": \"emailtemp\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
+      "raw": "{\n  \"firstname\": \"Azure\",\n  \"lastname\": \"Queue\",\n  \"password\": \"testing00\",\n  \"passwordConfirm\": \"testing00\",\n  \"email\": \"oluwatobiloba.f.a@gmail.com\",\n  \"username\": \"queuetest1\",\n  \"stack\": [\n    \"Project Management\"\n    ]\n}",
       "form": []
     },
     "tests": []
@@ -266,9 +266,9 @@
     "name": "login",
     "url": "127.0.0.1:3000/api/v1/authenticate/login",
     "method": "POST",
-    "sortNum": 30000,
+    "sortNum": 27500,
     "created": "2023-04-14T15:27:01.515Z",
-    "modified": "2023-04-21T23:35:58.625Z",
+    "modified": "2023-04-30T05:25:16.639Z",
     "headers": [],
     "params": [],
     "body": {
@@ -420,12 +420,12 @@
     "method": "POST",
     "sortNum": 30000,
     "created": "2023-04-21T23:08:07.653Z",
-    "modified": "2023-04-21T23:11:32.825Z",
+    "modified": "2023-04-25T14:15:13.363Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"update_params\": {\n    \"lastname\": \"Aremu\"\n  }\n}",
+      "raw": "{\n  \"update_params\": {\n    \"lastname\": \"Aremu\",\n    \"firstname\": \"Oluwatobiloba\"\n  }\n}",
       "form": []
     },
     "tests": []
@@ -439,12 +439,12 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-04-21T23:11:45.447Z",
-    "modified": "2023-04-21T23:29:45.293Z",
+    "modified": "2023-05-01T05:46:29.721Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"password\": \"testing00\",\n  \"previous_password\": \"testing000\"\n}",
+      "raw": "{\n  \"password\": \"testing000\",\n  \"previous_password\": \"testing00\"\n}",
       "form": []
     },
     "tests": []
@@ -504,6 +504,156 @@
       "raw": "{\n  \"active\": \"false\"\n}",
       "form": []
     },
+    "tests": []
+  },
+  {
+    "_id": "ced1896d-7c0c-462f-8d09-8be0bf45f8e1",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Dashbaord",
+    "url": "127.0.0.1:3000/api/v1/user/dashboard",
+    "method": "GET",
+    "sortNum": 15000,
+    "created": "2023-04-24T00:16:35.467Z",
+    "modified": "2023-04-24T00:16:54.170Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Test Welcome 3\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "b088a677-d1e6-489c-8d97-91461e5645d5",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Add to Mailing list",
+    "url": "127.0.0.1:3000/api/v1/user/mailing-list",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2023-04-25T12:35:01.983Z",
+    "modified": "2023-04-25T15:41:54.469Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"oluwatobiloba.f.a@gmail.com\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a8a2b275-2760-4e66-bcae-e6832432eb32",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "dfca4953-0961-43c4-9426-2150d984026e",
+    "name": "Contact Us",
+    "url": "127.0.0.1:3000/api/v1/user/contact-us",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-04-25T13:33:21.489Z",
+    "modified": "2023-04-25T15:06:40.737Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"oluwatobiloba.@gmail.com\",\n  \"name\": \"Oluwatobi\",\n  \"message\": \"Improve your speed with node \"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "dc415915-1f68-405c-bccb-8d94f056c568",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Create Resource",
+    "url": "127.0.0.1:3000/api/v1/resources/create",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-04-30T05:25:14.824Z",
+    "modified": "2023-04-30T14:33:16.641Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Eloquent Javascript 6\",\n  \"version\": 3,\n  \"stack\": \"backend\",\n  \"description\": \"A guide to Clean javascript\",\n  \"type\": \"e-book\",\n  \"file\": \"https://stackliteblob.blob.core.windows.net/pdf/2023-04-30T14-08-10.922Z-2023-04-30T11-04-08.821Z-Eloquent_JavaScript_small.pdf\\n\",\n  \"image_placeholder\": \"https://stackliteblob.blob.core.windows.net/images/2023-04-30T14-30-37.359Z-cover.png\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "bf713389-61c9-49b6-8761-020a9c662799",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Get Resource",
+    "url": "127.0.0.1:3000/api/v1/resources/all?username=oluwatobiiloba",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-04-30T05:45:12.385Z",
+    "modified": "2023-04-30T06:30:09.671Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "stack",
+        "value": "backend",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "type",
+        "value": "e-book",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "username",
+        "value": "oluwatobiiloba",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "1186a432-6ffb-49ee-af60-a7577da10997",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "ff30568f-dea0-4d34-8c15-5ebdf795675b",
+    "name": "Get Resource Count",
+    "url": "127.0.0.1:3000/api/v1/resources/count",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-04-30T07:02:58.145Z",
+    "modified": "2023-04-30T07:03:33.636Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "604be090-d1dd-49a5-9fd3-7b729bca149d",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "be57d965-dd10-410a-91fa-b97a9612c7f6",
+    "name": "upload file",
+    "url": "127.0.0.1:3000/api/v1/utils/upload-file",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2023-04-30T07:12:40.002Z",
+    "modified": "2023-04-30T07:34:05.935Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "a0721290-1608-45ad-8ade-0113e21990c5",
+    "colId": "7196afe0-d1b6-4d44-9ecf-ddf4948fcd59",
+    "containerId": "be57d965-dd10-410a-91fa-b97a9612c7f6",
+    "name": "Upload Image",
+    "url": "127.0.0.1:3000/api/v1/utils/upload-image",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2023-04-30T14:56:53.907Z",
+    "modified": "2023-04-30T14:57:03.879Z",
+    "headers": [],
+    "params": [],
     "tests": []
   }
 ]

@@ -16,12 +16,13 @@ const contact_us = new Schema({
     email: {
         type: String,
         required: [true, 'Please provide your email'],
-        trim: true
+        trim: true,
+        unique: false
     },
     message: {
         type: String,
         required: [true, 'Please provide your Message'],
-        trim: true
+        unique: false
 
     }
 

@@ -36,7 +36,6 @@ module.exports = {
         try {
             // 1) retrieve email template from database
             const template = await templates.findById(options.template_id);
-
             let content = template.template.toString();
             Object.keys(options.constants).forEach((key) => {
                 content = content.split(`\#{${key}}`).join(options.constants[key]);

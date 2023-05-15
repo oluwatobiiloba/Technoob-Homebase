@@ -1,5 +1,7 @@
 const Contact = require('../models/contact_us');
+const mailing_list = require('../models/mailing_list');
 const User = require('../models/user');
+
 
 
 module.exports = {
@@ -12,6 +14,7 @@ module.exports = {
         if (invalidUpdate) {
             throw new Error('Invalid Parameters')
         }
+        
         try {
             const user = await User.findOneAndUpdate({ _id: id }, params, { new: true })
             return user
@@ -107,6 +110,23 @@ module.exports = {
         } catch (err) {
             throw err
         }
-    }
-     
+    },
+
+    async  mailing_list(email) {
+        const temporaryDomains = [
+            'tempmail.com',
+            'guerrillamail.com',
+            'mailinator.com',
+        ];
+        
+        const [, domain] = email.split('@');
+        if (temporaryDomains.includes(domain)) {
+            throw new Error('Invalid Email Address');
+        }
+
+        const response = await mailing_list.create({ email })
+       return response
+
+         }
+
 }

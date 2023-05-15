@@ -23,6 +23,13 @@ module.exports = {
                         message: info.message
                     })
                 }
+                // return  res.status(200).json({
+                //     status: 'success',
+                //     message: `Logged in ${user.username}`,
+                //     data: {
+                //         user
+                //     }
+                // })
                 req.login(user, (err) => {
                     if (err) {
                         return next(err);
@@ -70,6 +77,59 @@ module.exports = {
             status: 'success',
             message: 'Logged out'
         })
+    },
+
+    async verifyEmail(req, res) {
+        const token = req.query.token
+        try {
+            const user = await auth.verifyUserEmail(token)
+            if(!user) throw new Error("An error occured")
+            return  res.status(200).json({
+                status: 'success',
+                message: `Verified ${user.username}`,
+            })
+        } catch (err) {
+            return res.status(500).json({
+                status: 'Failed',
+                message: "User verification failed, please contact admin",
+            })
+            
+        }
+    },
+
+    async forgotPasswordEmail(req,res) {
+        const { email } = req.body
+        try {
+            const reset = await auth.forgotPasswordEmail(email)
+            if(!reset) throw new Error("An error occured")
+            return  res.status(200).json({
+                status: 'success',
+                message: `Email Sent`,
+            })
+        } catch (err) {
+            return res.status(500).json({
+                status: 'Failed',
+                message: "User password reset failed, please contact admin",
+            })
+        }
+    },
+
+    async reset_password(req, res) {
+        const { password, passwordConfirm } = req.body
+        const token = req.query.token
+        try {
+            const reset = await auth.resetPassword(token, password, passwordConfirm)
+            if (!reset) throw new Error("An error occured")
+            return  res.status(200).json({
+                status: 'success',
+                message: `Password reset successful`,
+            })
+        } catch (err) {
+            return res.status(500).json({
+                status: 'Failed',
+                message: "User password reset failed, please contact admin",
+            })
+        }
     },
 
     googlelogin(req, res) {
