@@ -20,8 +20,6 @@ module.exports = {
                 prompt['meta.uploader.username'] = { $regex: query.username, $options: 'i' };
             }
 
-            console.log(prompt);
-
             const resources = await Resources.find(prompt);
             return resources;
         } catch (error) {
