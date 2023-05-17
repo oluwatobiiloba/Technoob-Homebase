@@ -10,8 +10,8 @@ const Form = () => {
 
   return (
     <section className=' md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center'>
-      <img src={img} alt="" className=' md:block hidden w-[50%]' />
-      <form action="get" className='block bgcontact md:p-20 p-5 m-2 rounded md:w-[50%] '>
+      <img src={img} alt="" className=' lg:block hidden w-[50%]' />
+      <form action="get" className='block bgcontact lg:p-20 p-5 rounded lg:w-[50%] w-full'>
       <label htmlFor="username" className=' text-2xl font-semibold py-10 px-4 ' >Username/Email</label><br/>
       <input type="username" placeholder="Username/Email" className=' w-[100%] rounded-xl m-1 border px-10 py-4 my-10 outline-0 ring-1 bg-white' />
       <label htmlFor="password" className=' text-2xl font-semibold py-10 px-4 ' >Password</label><br/>
