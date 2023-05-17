@@ -3,51 +3,84 @@ import img from '../img/quino-al-xhGMQ_nYWqU-unsplash 2.png'
 import Input from '../utility/Input'
 
 const Form = () => {
-  const [fullname, setFullname] =useState('');
-  const [email, setEmail] =useState('');
-  const [phone, setPhone] =useState('');
-  const [message, setMessage] =useState('');
+  const [form, setForm] = useState({
+    'Full Name' : '',
+    Email : '',
+    Phone : '',
+    Message : ''
+  });
+  const regEx =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  const handleChange =(e)=> {
+    setForm({...form, [e.target.name]:e.target.value})
+  }
     
   //send a responce
   const sendMessage = async (text) => {
-    // const res = await fetch('http://technoob-staging.azurewebsites.net/api/v1/user/contact-us', {
-    //   method : 'POST',
-    //   headers : {
-    //     'Content-type': 'application/json'
-    //   },
-    //   body : JSON.stringify(text)
-    // })
-    // const rest = res.json()
-    // console.log(rest)
-    alert(JSON.stringify(text))
+    if(regEx.test(form.Email) === false){
+      console.log('please enter a valid email')
+      alert('Please enter a valid Email')
+     } else{
+   
+       try {
+         var myHeaders = new Headers();
+         myHeaders.append("Content-Type", "application/json");
+         
+         var raw = JSON.stringify({
+           text
+         });
+         
+         var requestOptions = {
+           method: 'POST',
+           headers: myHeaders,
+           body: raw,
+           redirect: 'follow'
+         };
+         
+        const response = await fetch("https://technoob-staging.azurewebsites.net/api/v1/user/contact-us", requestOptions)
+         
+        if(response.status){
+        const data = await response.json()
+        console.log('Success', data,  'Message is valid')
+        alert('Message successfully sent');
+        }
+       
+       } catch (error) {
+         console.log(error)
+       }
+     
+      
+     }
   }
 
   const onSubmit = () =>{
     // e.preventDefault()
-    if (!message) {
+    if (!form.Message) {
       alert('Pls input a mesage')
       return
     }
 
     //fetchData()
 
-    sendMessage({fullname, email, phone, message})
+    sendMessage(form)
 
-    setFullname('')
-    setEmail('')
-    setPhone('')
-    setMessage('')
+    setForm({
+      'Full Name' : '',
+      Email : '',
+      Phone : '',
+      Message : ''
+    })
   }
 
   return (
     <div className=' md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center'>
-        <img src={img} alt="" className=' md:block hidden w-[50%]' />
-        <form action="get" className='block bgcontact md:p-20 p-5 m-2 rounded md:w-[50%] ' >
-            <Input name={'Full Name'} value={fullname} onChange={(e) => setFullname(e.target.value)} />
-            <Input name={'Email Address'} value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <Input name={'Phone Number'} value={phone} onChange={(e) => setPhone(e.target.value)}/>
+        <img src={img} alt="" className=' lg:block hidden w-[50%]' />
+        <form action="get" className='block bgcontact lg:p-20 p-5 rounded lg:w-[50%] w-full ' >
+            <Input placeholder={'Full Name'} name={'Full Name'} value={`${form['Full Name']}`} onChange={handleChange} />
+            <Input placeholder={'Email Address'} name={'Email'} value={form.Email} onChange={handleChange}/>
+            <Input placeholder={'Phone Number'} name={'Phone'} value={form.Phone} onChange={handleChange}/>
             <label htmlFor="message" className=' text-2xl font-semibold py-10 px-4 ' >Leave a message</label><br/>
-            <textarea name="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Your message here' className=' ring-1 rounded outline-none md:w-[100%] w-[100%] md:h-60 h-40 md:px-10 p-4 py-10 my-10' id="" cols="30" rows="10"></textarea>
+            <textarea name="Message" value={form.Message} onChange={handleChange} placeholder='Your message here' className=' ring-1 rounded outline-none md:w-[100%] w-[100%] md:h-60 h-40 md:px-10 p-4 py-10 my-10' id="" cols="30" rows="10"></textarea>
             <button type='button'  onClick={onSubmit} className=' bg-tblue text-twhite py-[14px] lg:w-[100%] w-[100%] rounded'>Send Message</button>
         </form>
     </div>
