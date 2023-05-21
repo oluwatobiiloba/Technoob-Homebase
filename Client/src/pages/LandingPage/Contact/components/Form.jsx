@@ -50,15 +50,6 @@ const Form = () => {
        } catch (error) {
          console.log(error)
        }
-       setTimeout(()=>{
-        console.log('it worked')
-        setForm({
-          FullName : '',
-          Email : '',
-          Phone : '',
-          Message : ''
-        })
-       }, 2000)
       
      }
   }
