@@ -41,9 +41,9 @@ const Form = () => {
   }
 
 
- const handleClick = () => {
-  navigate('/Sign-Up')
-  }
+//  const handleClick = () => {
+//   navigate('/Sign-Up')
+//   }
 
 
   return (
