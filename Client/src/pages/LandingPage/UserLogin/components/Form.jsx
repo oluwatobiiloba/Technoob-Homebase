@@ -1,7 +1,7 @@
 
 import {useState} from 'react'
 import img from '../img/quino-al-xhGMQ_nYWqU-unsplash 1.png'  
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
  // const navigate = useNavigate()
