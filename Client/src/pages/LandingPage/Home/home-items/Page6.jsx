@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { image5 } from '../../../../data/assets';
-
 import Button from '../../../../utility/button';
 
 const Page6 = () => {
-  const [email, setEmail] = useState('');
+
   
+
+  const [email, setEmail] = useState('');
   const regEx =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 
@@ -77,7 +78,7 @@ const handleClick = async (e) =>{
                 <h1 className='font-[700] text-2xl text-[#5E7CE8] text-center sm:mb-3 '>
                       Stay <span className='text-[#27AE60]'> in the loop </span> 
                 </h1>
-                <p className='text-xs sm:text-lg text-[#667085] sm:mb-6'>want to be the first to know when we have exciting news?
+                <p className='text-xs w-[90%] sm:w-auto sm:text-lg text-[#667085] sm:mb-6'>want to be the first to know when we have exciting news?
                      subscribe to our list</p>
 
                      <div className='flex flex-col justify-center items-center sm:flex-row my-16 sm:my-6 gap-2'>

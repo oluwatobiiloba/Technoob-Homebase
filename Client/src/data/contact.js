@@ -1,11 +1,11 @@
 import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox  } from "./assets/asset";
-import { icon1,icon2, icon3, icon4, icon5, icon6 } from "./assets";
+import { Catalog, Circooles, Layers, Sisyphus, icon1,icon2, icon3, icon4, icon5, icon6 } from "./assets";
 
 export const navLinks = [
   {
     id: "home",
     title: "Home",
-    link: '',
+    link:     '' ,
   },
   {
     id: "resources",
@@ -177,6 +177,29 @@ export const footerLinks = [
         link: "https://www.hoobank.com/become-a-partner/",
       },
     ],
+  },
+];
+
+export const HomeItems = [
+  {
+    id: "1",
+    title: "Layers",
+    img: Layers ,
+  },
+  {
+    id: "2",
+    title: "Sisyphus",
+    img: Sisyphus,
+  },
+  {
+    id: "3",
+    title: "Circooles",
+    img: Circooles,
+  },
+  {
+    id: "4",
+    title: "Catalog",
+    img: Catalog,
   },
 ];
 
