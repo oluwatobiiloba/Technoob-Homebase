@@ -1,10 +1,10 @@
 
 import {useState} from 'react'
 import img from '../img/quino-al-xhGMQ_nYWqU-unsplash 1.png'  
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
- // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     UserName : '',
     Password : ''
@@ -41,9 +41,9 @@ const Form = () => {
   }
 
 
-//  const handleClick = () => {
-//   navigate('/Sign-Up')
-//   }
+ const handleClick = () => {
+  navigate('/Sign-Up')
+  }
 
 
   return (
@@ -57,7 +57,7 @@ const Form = () => {
       <div className=' lg:flex'>
 
         <button className=' bg-tblue text-twhite py-[14px] lg:w-[50%] w-[100%] rounded' onClick={submit}>Login</button> <p className='py-5 lg:w-[10%] w-[100%] text-center'>Or</p>
-        <button className='py-[14px] lg:w-[40%] w-[100%] bg-twhitee ring-1 rounded'>Sign Up?</button>
+        <button onClick={handleClick} className='py-[14px] lg:w-[40%] w-[100%] bg-twhitee ring-1 rounded'>Sign Up?</button>
 
       </div>
       <p className=' cursor-pointer px-2 py-8 italic'><span className=' text-red-500'>Forget </span><span>Password?</span></p>
