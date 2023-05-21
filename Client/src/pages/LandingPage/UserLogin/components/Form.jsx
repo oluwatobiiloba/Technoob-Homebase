@@ -4,7 +4,7 @@ import img from '../img/quino-al-xhGMQ_nYWqU-unsplash 1.png'
 import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
-  const navigate = useNavigate()
+ // const navigate = useNavigate()
   const [user, setUser] = useState({
     UserName : '',
     Password : ''
