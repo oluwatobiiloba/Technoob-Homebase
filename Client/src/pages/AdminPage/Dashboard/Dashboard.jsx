@@ -3,6 +3,8 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import Section from './components/Section'
 // import JobManagement from './components/JobManagement'
+// import ResourceMng from './components/ResourceMng'
+// import EventMng from './components/EventMng'
 
 const Dashboard = () => {
   const [select, setSelect] = useState('Dashboard')
@@ -62,6 +64,8 @@ const Dashboard = () => {
         </div>
       <Section/>
       {/* <JobManagement/> */}
+      {/* <ResourceMng/> */}
+      {/* <EventMng/> */}
     </div>
   )
 }

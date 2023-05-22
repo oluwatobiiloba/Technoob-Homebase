@@ -57,7 +57,7 @@ const Form = () => {
   const onSubmit = async () =>{
     // e.preventDefault()
     if (!form.Message) {
-      alert('Pls input a mesage')
+      alert('Please input a mesage')
       return
     }
 
