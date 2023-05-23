@@ -186,7 +186,7 @@ const Page1 = () => {
 
 
             <div className='flex-[1.5] pl-4 lg:pr-24 overflow-auto relative'>
-                {resources || searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS for {searchTearm} </h1> : <></>}
+                {searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS for {searchTearm} </h1> : <></>}
 
                 
                 <div className=' border-b-[0.5px] border-[#C2C7D6] mb-[4rem] w-[80%] '/>

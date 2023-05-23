@@ -1,16 +1,23 @@
-import React,{useState} from 'react';
+import React,{useContext, useState} from 'react';
 import { SignUPIMG } from '../../data/assets';
 import InputField from '../../utility/InputField';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AppContext } from '../../AppContext/AppContext';
 
 const SignUp = () => {
 
-  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useContext(AppContext);
+  const navigate = useNavigate(); 
+
+ 
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     FullName: '',
     Email: '',
     Password: '',
-    'Confirm Password': '',
+    PasswordConfirm: '',
+    Username: ''
   });
 
 
@@ -18,10 +25,61 @@ const SignUp = () => {
     setForm({...form, [e.target.name]: e.target.value})
   }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
+    
+  
+
+    var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Cookie", "__Host-GAPS=1:ZxgHSUtaRD6FMFKG0_6c4IuFNI7Jwg:qswb9ZzuTGe40ktd");
+
+      var raw = JSON.stringify(
+  {
+    "firstname": form.FullName,
+    "lastname": form.FullName,
+    "password": form.Password,
+    "passwordConfirm": form.PasswordConfirm,
+    "email": form.Email,
+    "username": form.Username,
+    "stack": [
+      "Project Management"
+    ]
+  }
+);
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+if(form.Password !== form.PasswordConfirm) alert('Passwords do not match')
+else{
+  setLoading(true)
+  try {
+    const postUser = await fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/register", requestOptions)
+     const result = await postUser.json()
+
+    if(result.status === 'success') navigate('/');
+    
+   
+
+  console.log(result)
+  } catch (error) {
+    console.log(error)
+  }finally{
+    setLoading(false);
+    setIsLoggedIn(true)
+    console.log(isLoggedIn)
+  }}
+  
+
+
+
     console.log(form)
-    navigate('/')
+    //navigate('/AdminDashboard')
     setForm({...form})
   }
   return (
@@ -31,17 +89,24 @@ const SignUp = () => {
       </header>
 
       <div className=' md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center'>
-        <img src={SignUPIMG} alt="Sign-Up" className=' lg:block hidden w-[50%]' />
-        <form  onSubmit={handleSubmit} className='block bgcontact lg:p-20 p-5 w-full  rounded lg:w-[50%] '>
+        <img src={SignUPIMG} alt="Sign-Up" className=' xl:block hidden w-[50%]' />
+        <form  onSubmit={handleSubmit} className='block bgcontact lg:p-20 p-5 w-full  rounded xl:w-[50%] '>
             <InputField type={'text'}  name={'FullName'} placeholder={'Full Name'} onChange={handleChange}/>
+            <InputField type={'text'}  name={'Username'} placeholder={'User Name'} onChange={handleChange}/>
             <InputField type={'email'}  name={'Email'} placeholder={'Email'} onChange={handleChange}/>
+            <select name="Tech Stack" className='w-full text-lg rounded-xl m-1 border placeholder:pl-2 px-2 py-4 my-10 outline-0 ring-1 bg-white'>
+              <option value="">Design</option>
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+            </select>
             <div className='mb-5'>
             <button name={'Login'} className='flex justify-center items-center text-[#111111] bg-[#EFF0F5] rounded-md mb-2 py-3 px-3.5 text-base font-[600]'>Take Short Quiz</button>
             <p className='text-[#828282] text-sm'>This Quiz is to help in choosing Tech Stack</p>
             </div>
             <InputField type={'password'}  name={'Password'} placeholder={'Password'} onChange={handleChange}/>
-            <InputField type={'password'}   name={'Confirm Password'} placeholder={'Confirm Password'} onChange={handleChange}/>
-            <button type='submit' className=' bg-tblue text-twhite py-[14px] lg:w-[100%] w-[100%] rounded'>Sign Up</button>
+            <InputField type={'password'}   name={'PasswordConfirm'} placeholder={'Confirm Password'} onChange={handleChange}/>
+            <button type='submit' className=' bg-tblue text-twhite py-[14px] lg:w-[100%] w-[100%] rounded'>{loading ? 'Siging Up...' : 'Sign Up'}</button>
+          <p className='ml-5 pt-10 text-md sm:text-base sm:text-center'>Already have an account? <span className='text-tblue text-base sm:text-lg underline'><Link to={'/User-Login'}>Login</Link></span></p>
         </form>
     </div>
     </section>

@@ -1,5 +1,9 @@
 import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox  } from "./assets/asset";
 import { Catalog, Circooles, Layers, Sisyphus, icon1,icon2, icon3, icon4, icon5, icon6 } from "./assets";
+import {RiBankLine} from 'react-icons/ri';
+import {FiLayers} from 'react-icons/fi'
+import {BsBank} from 'react-icons/bs'
+import {BsPuzzle} from 'react-icons/bs'
 
 export const navLinks = [
   {
@@ -243,4 +247,32 @@ export const clients = [
     id: "client-4",
     logo: dropbox,
   },
+];
+
+export const AdminNavs = [
+  
+  {
+    id: "2",
+    icon: <RiBankLine/>,
+    title: "Job Management",
+    link: "Job-Management",
+   },
+  {
+    id: "3",
+    icon: <FiLayers/>,
+    title: "Resource Management",
+    link: "Resources-Management",
+   },
+  {
+    id: "4",
+    icon: <BsBank/>,
+    title: "Event Management",
+    link: "Event-Management",
+ },
+  {
+    id: "5",
+    icon: <BsPuzzle/>,
+    title: "Quizzes and Competition",
+    link: "Quizzes",
+ }
 ];
