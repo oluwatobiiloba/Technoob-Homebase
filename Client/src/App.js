@@ -8,9 +8,11 @@ import {NavBar,Footer} from './components/index.js';
 import {SignUp } from './pages/Auth';
 
 import { ContactUs, Resources, AboutUs,Home, UserLogin } from './pages/LandingPage';
+
 import { AppContext } from './AppContext/AppContext';
 import AdminNavBar from './components/AdminNavBar';
 import AdminSideBar from './components/AdminSideBar';
+
 
 
 
@@ -47,7 +49,6 @@ function App() {
           <Route path= "/Resources" element={<Resources/>}/>
           <Route path= "/Sign-Up" element={<SignUp/>}/>
           <Route path="/User-Login" element={<UserLogin/>}/>
-
       </Routes>
       </Wrapper>
   </main> 
