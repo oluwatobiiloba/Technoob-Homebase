@@ -12,7 +12,6 @@ module.exports = {
         tblackk: '#3a3a3a',
         twhite: '#F2F2F2',
         twhitee: '#F9FAFB',
-        tgray: '#5E7CE880'
       },
     },
   },
