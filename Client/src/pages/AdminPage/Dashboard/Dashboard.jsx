@@ -46,7 +46,7 @@ const Dashboard = () => {
             </ul>
         </nav>
         <div className=' lg:hidden'>
-            <div onClick={(()=>{setToggle(!toggle)})}>
+            <div onClick={(()=>{setToggle(!toggle)})} className=' p-4 w-5 h-5 transition-all ease-linear cursor-pointer'>
             {toggle ? <AiOutlineClose/> : <RxHamburgerMenu/> }
             </div>
             <div  className={`${toggle ? 'block' : 'hidden'} bg-twhitee w-[250px] shadow-md rounded-md `}>
