@@ -13,6 +13,8 @@ import { AppContext } from './AppContext/AppContext';
 import AdminNavBar from './components/AdminNavBar';
 import AdminSideBar from './components/AdminSideBar';
 
+import { AdminDashboard, JobManagement, ResourceManagement, EventManagement  } from './pages/AdminPage/Dashboard'
+
 
 
 
@@ -74,7 +76,13 @@ function App() {
 
             <div className='bg-[#F5F5F5]  grow min-h-screen mt-5 mr-10 p-5'>
               
-              <div>hello</div>
+              <Routes>
+                <Route path='/' element={<AdminDashboard/>}/>
+                <Route path='/Job-Management' element={<JobManagement/>}/>
+                <Route path='/Resources-Management' element={<ResourceManagement/>}/>
+                <Route path='/Event-Management' element={<EventManagement/>}/>
+              </Routes>
+              <div></div>
               
             </div>
 
