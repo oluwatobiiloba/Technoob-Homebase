@@ -61,20 +61,20 @@ function App() {
       
     </div> 
     : 
-    <div className='h-full w-screen pb-20'>
+    <div className='h-full bg-[#f9f9f9] w-full pb-20'>
 
-      <div className='flex flex-start w-full top-0  z-50 mb-10'>
-          <div className='w-full mb-10'>
+        <div className='flex flex-start w-full top-0  z-50'>
+          <div className='w-full bg-white'>
              <AdminNavBar/>
           </div>
         </div>
 
-        <div className='flex justify-between mt-10 gap-3  relative'>
-            <div className='rounded-r-md shadow-md  h-[1173px] w-[350px] '>
+        <div className='flex justify-between'>
+            <div className='hidden bg-white sm:block rounded-md mt-10 shadow-md h-[1700px]  lg:h-auto w-[350px] '>
                 <AdminSideBar/> 
             </div>
 
-            <div className='bg-[#F5F5F5]  grow min-h-screen mt-5 mr-10 p-5'>
+            <div className='bg-[#f9f9f9] w-full grow lg:h-auto pb-10 lg:pr-10 p-5'>
               
               <Routes>
                 <Route path='/' element={<AdminDashboard/>}/>
@@ -82,8 +82,7 @@ function App() {
                 <Route path='/Resources-Management' element={<ResourceManagement/>}/>
                 <Route path='/Event-Management' element={<EventManagement/>}/>
               </Routes>
-              <div></div>
-              
+             
             </div>
 
         </div>
