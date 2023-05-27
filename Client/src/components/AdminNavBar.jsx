@@ -6,7 +6,7 @@ import { people01 } from '../data/assets/asset';
 
 const AdminNavBar = () => {
   return (
-    <div className='w-full h-full bg-red-400 p-6 sm:py-7 sm:px-20 flex justify-between items-center'>
+    <div className='w-full h-full p-6 sm:py-7 sm:px-20 flex justify-between items-center'>
         
         <div className='text-lg md:text-2xl font-extrabold text-[#5E7CE8] cursor-pointer'>
             <Link to={'/Admin-Home'}>Tech Noob</Link>
