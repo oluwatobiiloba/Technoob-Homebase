@@ -10,7 +10,7 @@ const AdminSideBar = () => {
 
 
   return (
-    <div className='flex flex-col h-full border-r-[0.5px] w-full px-6 justify-between items-center'>
+    <div className='hidden lg:flex flex-col h-full border-r-[0.5px] w-full px-6 justify-between items-center'>
         <div className='mt-5 w-full mx-5 flex item-start'>
            
             <div className='flex flex-col items-end w-full '>
