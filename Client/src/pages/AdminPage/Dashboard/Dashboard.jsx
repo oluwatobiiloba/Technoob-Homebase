@@ -4,7 +4,7 @@ import { BsFileEarmarkSpreadsheet } from 'react-icons/bs';
 import { HiArrowsRightLeft } from 'react-icons/hi2';
 import img from '../img/Annotation 2023-05-22 185307.jpg'
 
-const Section = () => {
+const Dashboard = () => {
   const statistics = [
     {
       name : 'Uploads',
@@ -124,4 +124,4 @@ const Section = () => {
   )
 }
 
-export default Section
+export default Dashboard
