@@ -78,6 +78,7 @@ function App() {
               
               <Routes>
                 <Route path='/' element={<AdminDashboard/>}/>
+                <Route path='/Admin-Home' element={<AdminDashboard/>}/>
                 <Route path='/Job-Management' element={<JobManagement/>}/>
                 <Route path='/Resources-Management' element={<ResourceManagement/>}/>
                 <Route path='/Event-Management' element={<EventManagement/>}/>
