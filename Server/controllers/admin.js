@@ -399,7 +399,7 @@ module.exports = {
     async createFrontendResource(req, res) {
         const { name, description, url } = req.body;
         try {
-            const resource = await admin.createFrontendResource(name, description, url);
+            const resource = await admin.createFrontendResource({ name, description, url });
             return res.status(200).json({
                 status: "success",
                 message: `Created frontend resource`,
