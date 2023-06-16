@@ -74,7 +74,7 @@ function App() {
                 <AdminSideBar/> 
             </div>
 
-            <div className='bg-[#f9f9f9] w-full grow lg:h-auto pb-10 lg:pr-10 p-5'>
+            <div className='bg-[#f9f9f9] w-full grow lg:h-auto h-[1000px] pb-10 lg:pr-10 p-5'>
               
               <Routes>
                 <Route path='/' element={<AdminDashboard/>}/>

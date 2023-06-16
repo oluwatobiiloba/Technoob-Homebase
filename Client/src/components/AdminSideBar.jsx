@@ -20,7 +20,7 @@ const AdminSideBar = () => {
                         <h2 className='text-base capitalize'>dashboard</h2>
                     </div>
                 </NavLink>
-                
+                 
                 <div className='w-[260px] h-[0.3px] opacity-20 bg-gray-400 mb-20'/>
             {AdminNavs.map((Nav, i) => (
                     <NavLink
