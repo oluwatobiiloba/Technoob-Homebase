@@ -9,13 +9,11 @@ import { MdOutlineDashboard } from 'react-icons/md';
 
 import { menu, close } from '../data/assets';
 import { AdminNavs} from '../data/contact';
-import Button from '../utility/button'
 
 const AdminNavBar = () => {
     
     const [toggle, setToggle] = useState(false);
     
-   const isActive = true;
 
   return (
     <div className='w-full bg-white sm:h-full p-6 sm:py-7 sm:px-20 flex justify-between items-start'>

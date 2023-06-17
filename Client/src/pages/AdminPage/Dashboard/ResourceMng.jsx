@@ -1,16 +1,16 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { filtersearch, storage_icon, acheive_icon } from '../../../data/assets'
 import UploadFile from '../../../utility/UploadFile'
 import AdminCard from '../../../utility/AdminCard'
 
 const ResourceMng = () => {
 
-  const [fileType, setfileType] = useState('')
+  // const [fileType, setfileType] = useState('')
 
-  const handleChange = (e) => {
-    setfileType(e.target.value)
-    console.log(e.target.value)
-  }
+  // const handleChange = (e) => {
+  //   setfileType(e.target.value)
+  //   console.log(e.target.value)
+  // }
 
   return (
     
@@ -53,7 +53,7 @@ const ResourceMng = () => {
                   <div className='sm:mb-3 gap-3 flex items-center'> 
                     <p>Add new file </p><div className='rounded-full cursor-pointer flex items-center text-xs justify-center h-4 w-4 border p-1 border-black'>i</div>
                   </div>
-                  <div className='flex gap-2 mt-2' onChange={handleChange}>
+                  <div className='flex gap-2 mt-2' onChange={''}>
                     <input type="radio" value='Link' name='Link'/>Link
                     <input className='ml-16' type="radio" value='Document' name='Document'/>Document
                   </div>

@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { acheive_icon, filtersearch, storage_icon } from '../../../data/assets'
-import UploadFile from '../../../utility/UploadFile'
 import AdminCard from '../../../utility/AdminCard'
 import EventInput from '../../../components/EventInput'
 
