@@ -61,9 +61,9 @@ function App() {
       
     </div> 
     : 
-    <div className='h-full bg-[#f9f9f9] w-full pb-20'>
+    <div className='h-full bg-[#f9f9f9] w-full pb-20 '>
 
-        <div className='flex flex-start w-full top-0  z-50'>
+        <div className='flex flex-start w-full top-0 z-50'>
           <div className='w-full bg-white'>
              <AdminNavBar/>
           </div>
@@ -74,7 +74,7 @@ function App() {
                 <AdminSideBar/> 
             </div>
 
-            <div className='bg-[#f9f9f9] w-full grow lg:h-auto h-[1000px] pb-10 lg:pr-10 p-5'>
+            <div className='bg-[#f9f9f9] w-full grow lg:h-auto h-[1600px] pb-10 lg:pr-10 p-5'>
               
               <Routes>
                 <Route path='/' element={<AdminDashboard/>}/>

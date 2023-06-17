@@ -18,13 +18,11 @@ const AdminNavBar = () => {
    const isActive = true;
 
   return (
-    <div className='w-full  sm:h-full p-6 sm:py-7 sm:px-20 flex justify-between items-start'>
+    <div className='w-full bg-white sm:h-full p-6 sm:py-7 sm:px-20 flex justify-between items-start'>
         
         <div className='text-lg md:text-2xl font-extrabold text-[#5E7CE8] cursor-pointer'>
             <Link to={'/Admin-Home'}>Tech Noob</Link>
         </div>
-
-       
 
 
         <div className='w-auto hidden h-full sm:flex flex-row justify-around gap-3 items-center float-right'>
