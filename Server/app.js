@@ -32,7 +32,7 @@ app.use(cors({
   methods: 'GET,PUT,POST,DELETE',
   allowedHeaders: 'Content-Type',
   credentials: true,
-  exposedHeaders: 'Set-Cookie','Date'
+  exposedHeaders: ['Set-Cookie', 'Date']
 }));
 
 const httpRequestDurationMicroseconds = new prometheus.Histogram({
