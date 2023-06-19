@@ -88,6 +88,10 @@ app.use(session({
     ttl: 60 * 60 , // 1 hour
     autoRemove: 'native'
   }),
+  cookie: {
+    sameSite: 'none', // Set SameSite attribute
+    secure: true, // Only send cookies over HTTPS
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
