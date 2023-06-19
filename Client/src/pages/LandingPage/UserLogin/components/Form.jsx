@@ -1,7 +1,10 @@
 
-import {useState} from 'react'
+import {useState,useContext} from 'react'
 import img from '../img/quino-al-xhGMQ_nYWqU-unsplash 1.png'  
 import { useNavigate } from 'react-router-dom';
+
+import { AppContext } from '../../../../AppContext/AppContext';
+
 
 const Form = () => {
   const navigate = useNavigate()
@@ -9,6 +12,7 @@ const Form = () => {
     UserName : '',
     Password : ''
   })
+  const [isLoggedIn, setIsLoggedIn] = useContext(AppContext);
 
   const handleChange = (e) => {
     setUser({...user, [e.target.name]:e.target.value})
@@ -29,9 +33,23 @@ const Form = () => {
       redirect: 'follow'
     };
 
-    const userData = await fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions)
-    const result = await userData.json()
-    console.log(result)
+    fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions).then(response => {
+      const cookies = response.headers.get('Set-Cookie');
+      if (cookies) {
+        const cookie = cookies.split(';')[0].split('=')[1];
+        console.log(cookie)
+        localStorage.setItem('token', cookie);
+        setIsLoggedIn(true);
+        navigate('/Dashboard')
+      } else {
+        alert('Invalid Credentials')
+        throw new Error('Invalid Credentials');
+        setIsLoggedIn(false); 
+      }
+      const responseBody = response.json();
+
+    }).catch(error => console.log('error', error));
+
   }
 
   const submit = async (e) => {

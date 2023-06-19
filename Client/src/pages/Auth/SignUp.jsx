@@ -69,6 +69,7 @@ else{
   console.log(result)
   } catch (error) {
     console.log(error)
+    setIsLoggedIn(false)
   }finally{
     setLoading(false);
     setIsLoggedIn(true)
