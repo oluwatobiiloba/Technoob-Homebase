@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext,useEffect } from 'react';
 import './App.css';
 
 import {useLayoutEffect} from 'react';
@@ -9,7 +9,7 @@ import {SignUp } from './pages/Auth';
 
 import { ContactUs, Resources, AboutUs,Home, UserLogin } from './pages/LandingPage';
 
-import { AppContext } from './AppContext/AppContext';
+import {AppContext,AppProvider} from './AppContext/AppContext';
 import AdminNavBar from './components/AdminNavBar';
 import AdminSideBar from './components/AdminSideBar';
 
@@ -19,8 +19,16 @@ import { AdminDashboard, JobManagement, ResourceManagement, EventManagement  } f
 
 
 function App() {
+  const {isAdmin, isLoggedIn, setIsLoggedIn} = useContext(AppContext)
 
-  const [isAdmin] = useContext(AppContext)
+  useEffect(() => { 
+    const checkUserLogin = localStorage.getItem('user')
+    if (checkUserLogin) { 
+      setIsLoggedIn(true)
+    }
+  }, [isLoggedIn,setIsLoggedIn]);
+
+  //const [isAdmin] = useContext(AppContext)
 
   const Wrapper = ({children}) => {
     const location = useLocation();
@@ -31,6 +39,7 @@ function App() {
   }
   return (
     <BrowserRouter>
+      <AppProvider>
       {!isAdmin 
       
       ? 
@@ -50,7 +59,7 @@ function App() {
           <Route path= "/Contact-Us" element={<ContactUs/>}/>
           <Route path= "/Resources" element={<Resources/>}/>
           <Route path= "/Sign-Up" element={<SignUp/>}/>
-          <Route path="/User-Login" element={<UserLogin/>}/>
+          <Route path="/User-Login" element={<UserLogin />}/>
       </Routes>
       </Wrapper>
   </main> 
@@ -91,6 +100,8 @@ function App() {
     </div>
     
 }
+      </AppProvider>
+      
 </BrowserRouter>
 )}
 

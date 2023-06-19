@@ -12,7 +12,7 @@ const Form = () => {
     UserName : '',
     Password : ''
   })
-  const [isLoggedIn, setIsLoggedIn] = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
 
   const handleChange = (e) => {
     setUser({...user, [e.target.name]:e.target.value})
@@ -30,25 +30,32 @@ const Form = () => {
       method: 'POST',
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: 'follow',
+      credentials: "include"
     };
 
-    fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions).then(response => {
-      const cookies = response.headers.get('Set-Cookie');
-      if (cookies) {
-        const cookie = cookies.split(';')[0].split('=')[1];
-        console.log(cookie)
-        localStorage.setItem('token', cookie);
-        setIsLoggedIn(true);
-        navigate('/Dashboard')
-      } else {
-        alert('Invalid Credentials')
-        throw new Error('Invalid Credentials');
-        setIsLoggedIn(false); 
-      }
-      const responseBody = response.json();
-
-    }).catch(error => console.log('error', error));
+     fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions).then(response => {
+      console.log(response)
+       const cookies =  response.headers.get('Set-Cookie');
+       console.log(cookies);
+       for (var pair of response.headers.entries()) {
+        console.log(pair[0]+ ': '+ pair[1]);
+     }
+      // if (cookies) {
+      //   const cookie = cookies.split(';')[0].split('=')[1];
+      //   console.log("cookie",cookie)
+      //   localStorage.setItem('token', cookie);
+      //   setIsLoggedIn(true);
+      //   navigate('/Dashboard')
+      // }
+      return  response.json();
+     }).then(result => {
+      const cookies =  document.cookie;
+      console.log("----------",cookies);
+      console.log(result)
+     }).catch(error => console.log('error', error));
+    
+     
 
   }
 

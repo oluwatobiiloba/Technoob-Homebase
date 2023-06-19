@@ -1,21 +1,35 @@
 import React, { useState, createContext } from "react";
 
-export const AppContext = createContext()
-
-const InitialState = {
+ const AppContext = createContext({
     Notification: false,
     UserProfile: false,
+    isLoggedIn: false,
+    isAdmin: false,
 
-}
+ })
 
-export const AppProvider =({children}) => {
-   
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
-   const [isAdmin, setIsAdmin] = useState(true);
-   
-   return (
-   <AppContext.Provider value={[isLoggedIn, isAdmin, setIsAdmin, setIsLoggedIn, InitialState]}>
+const AppProvider = ({ children }) => {
+    const [Notification, setNotification] = useState(false);
+    const [UserProfile, setUserProfile] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    
+    return (
+        <AppContext.Provider
+        value={{
+            Notification,
+            setNotification,
+            UserProfile,
+            setUserProfile,
+            isLoggedIn,
+            setIsLoggedIn,
+            isAdmin,
+            setIsAdmin,
+        }}
+        >
         {children}
-    </AppContext.Provider>
-    )
-}
+        </AppContext.Provider>
+    );
+ };
+
+export { AppContext, AppProvider };

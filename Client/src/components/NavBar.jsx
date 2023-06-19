@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const NavBar = () => {
 
 
-    const [isLoggedIn] = useContext(AppContext);
+    const { isLoggedIn } = useContext(AppContext);
 
     const [toggle, setToggle] = useState(false);
     const [active, setActive] = useState('');
