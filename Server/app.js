@@ -30,7 +30,7 @@ app.use(cors({
     }
   },
   methods: 'GET,PUT,POST,DELETE',
-  allowedHeaders: ['Content-Type', 'Set-Cookie']
+  allowedHeaders: ['Content-Type', 'Set-Cookie'],
   credentials: true,
   exposedHeaders: 'Set-Cookie'
 }));
