@@ -13,6 +13,10 @@ const AppProvider = ({ children }) => {
     const [UserProfile, setUserProfile] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [dashboardToggle, setDashboardToggle] = useState({
+        displayToggle: false,
+        toggleValue: "User Dashboard"
+    })
     
     return (
         <AppContext.Provider
@@ -25,6 +29,8 @@ const AppProvider = ({ children }) => {
             setIsLoggedIn,
             isAdmin,
             setIsAdmin,
+            dashboardToggle,
+            setDashboardToggle
         }}
         >
         {children}

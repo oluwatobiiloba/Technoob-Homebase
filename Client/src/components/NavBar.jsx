@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import Button from '../utility/button'
+import Button from '../utility/Button'
 import { navLinks } from '../data/contact';
 import { menu, close } from '../data/assets';
 

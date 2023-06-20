@@ -9,17 +9,19 @@ import {SignUp } from './pages/Auth';
 
 import { ContactUs, Resources, AboutUs,Home, UserLogin } from './pages/LandingPage';
 
-import {AppContext,AppProvider} from './AppContext/AppContext';
+import {AppContext} from './AppContext/AppContext';
 import AdminNavBar from './components/AdminNavBar';
 import AdminSideBar from './components/AdminSideBar';
 
 import { AdminDashboard, JobManagement, ResourceManagement, EventManagement  } from './pages/AdminPage/Dashboard'
+import DashSelector from './utility/DashSelector';
 
 
 
 
 function App() {
-  const {isAdmin, isLoggedIn, setIsLoggedIn} = useContext(AppContext)
+  const { isLoggedIn, setIsLoggedIn, dashboardToggle } = useContext(AppContext)
+  const {displayToggle , toggleValue} = dashboardToggle
 
   useEffect(() => { 
     const checkUserLogin = localStorage.getItem('user')
@@ -39,11 +41,14 @@ function App() {
   }
   return (
     <BrowserRouter>
-      <AppProvider>
-      {!isAdmin 
-      
+      {
+        displayToggle && <DashSelector />    
+      }
+      {
+        displayToggle && <div className="blur-effect"/>
+      }
+      {toggleValue === "User Dashboard"
       ? 
-      
       <div className="bg-primary w-full overflow-auto relative">
         <div className='flex flex-start w-full top-0 lg:fixed z-50'>
           <div className='w-full'>
@@ -100,7 +105,6 @@ function App() {
     </div>
     
 }
-      </AppProvider>
       
 </BrowserRouter>
 )}

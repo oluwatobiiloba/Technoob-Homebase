@@ -12,21 +12,21 @@ const Form = () => {
     UserName : '',
     Password : ''
   })
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+  const { setIsLoggedIn, setUserProfile, setDashboardToggle } = useContext(AppContext);
 
   const handleChange = (e) => {
     setUser({...user, [e.target.name]:e.target.value})
   }
   const login = async ()=>{
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    let raw = JSON.stringify({
       "password": user.Password,
       "username": user.UserName
     });
 
-    var requestOptions = {
+    let requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
@@ -35,27 +35,47 @@ const Form = () => {
     };
 
      fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions).then(response => {
-      console.log(response)
-       const cookies =  response.headers.get('Set-Cookie');
-       console.log(cookies);
-       for (var pair of response.headers.entries()) {
-        console.log(pair[0]+ ': '+ pair[1]);
-     }
-      // if (cookies) {
-      //   const cookie = cookies.split(';')[0].split('=')[1];
-      //   console.log("cookie",cookie)
-      //   localStorage.setItem('token', cookie);
-      //   setIsLoggedIn(true);
-      //   navigate('/Dashboard')
-      // }
+       const cookies = response.headers.get('Set-Cookie');
+       const hiii = response.headers.get('Content-Type')
+       console.log("cookies",cookies,hiii)
+      if (cookies) {
+        const cookie = cookies.split(';')[0].split('=')[1];
+        console.log("cookie",cookie)
+        localStorage.setItem('connect-sid', cookie);
+        setIsLoggedIn(true);
+        navigate('/Dashboard')
+      }
       return  response.json();
      }).then(result => {
-      const cookies =  document.cookie;
-      console.log("----------",cookies);
       console.log(result)
-     }).catch(error => console.log('error', error));
+       setUserProfile(result)
+       localStorage.setItem('user', JSON.stringify(result));
+       if (result.isAdmin) {
+        setDashboardToggle({
+          displayToggle: true,
+          toggleValue: "User Dashboard"
+        })
+     }
+
+     }).catch(error => {
+       console.log('error', error)
+     });
     
+    //  fetch("https://technoob-staging.azurewebsites.net/api/v1/resources/rate/649065c099ca48fe86425c06", {
+    //   method: 'POST',
+    //   headers: myHeaders,
+    //   body: JSON.stringify({
+    //     "rating": 5
+    //   }),
+    //   redirect: 'follow'
+    // }).then(response => {
+    //  return  response.json();
+    // }).then(result => {
      
+    
+    // }).catch(error => {
+    //   console.log('error', error)
+    // });
 
   }
 
