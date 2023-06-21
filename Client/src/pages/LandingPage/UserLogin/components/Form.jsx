@@ -20,7 +20,6 @@ const Form = () => {
   const login = async ()=>{
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Access-Control-Allow-Origin",  "*")
 
     let raw = JSON.stringify({
       "password": user.Password,
@@ -37,9 +36,10 @@ const Form = () => {
 
      fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions).then(response => {
     console.log(response)
-      if (response.success) {
+       if (response.status === 200) {
+         console.log(response.headers.get('Set-Cookie'))
         setIsLoggedIn(true);
-        navigate('/Dashboard')
+        //navigate('/Dashboard')
       }
       return  response.json();
      }).then(result => {

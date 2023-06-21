@@ -2,7 +2,8 @@ import React, { useContext,useEffect } from 'react';
 import './App.css';
 
 import {useLayoutEffect} from 'react';
-import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import {NavBar,Footer} from './components/index.js';
 
 import {SignUp } from './pages/Auth';
@@ -16,7 +17,7 @@ import AdminSideBar from './components/AdminSideBar';
 import { AdminDashboard, JobManagement, ResourceManagement, EventManagement  } from './pages/AdminPage/Dashboard'
 import DashSelector from './utility/DashSelector';
 
-
+const cookies = new Cookies();
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
 
   useEffect(() => { 
     const checkUserLogin = localStorage.getItem('user')
+    // const sessionCookie = cookies.get('session')
+
     if (checkUserLogin) { 
       setIsLoggedIn(true)
     }
