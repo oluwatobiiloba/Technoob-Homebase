@@ -10,7 +10,7 @@ import React, { useState, createContext } from "react";
 
 const AppProvider = ({ children }) => {
     const [Notification, setNotification] = useState(false);
-    const [UserProfile, setUserProfile] = useState(false);
+    const [UserProfile, setUserProfile] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [dashboardToggle, setDashboardToggle] = useState({

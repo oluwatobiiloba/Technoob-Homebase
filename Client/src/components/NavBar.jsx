@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const NavBar = () => {
 
 
-    const { isLoggedIn } = useContext(AppContext);
+    const { isLoggedIn, UserProfile, setUserProfile } = useContext(AppContext);
 
     const [toggle, setToggle] = useState(false);
     const [active, setActive] = useState('');
@@ -83,11 +83,15 @@ const NavBar = () => {
                 </div>
             </div>
 
-            {isLoggedIn ? 
+              {isLoggedIn ? 
+                  <div className='hidden lg:flex gap-2 items-center'>
                 <div className='hidden lg:block w-[20%] text-center'>
-                    <h2 className='lg:text-2xl font-semibold'>Welcome to <span className='text-tblue'>TechNoob!</span></h2>
-                </div>
-                
+                     <h2 className='lg:text-2xl font-semibold'>Welcome <span className='text-tblue'>{UserProfile.user?.username }</span></h2>
+                     
+                  </div >
+                  
+                  <Button name={'Logout'}/>
+                  </div>
                 : 
             
                 <div className='hidden gap-2 lg:flex' > 

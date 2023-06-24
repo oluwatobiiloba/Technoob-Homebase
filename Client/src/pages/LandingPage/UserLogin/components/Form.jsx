@@ -37,14 +37,13 @@ const Form = () => {
      fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions).then(response => {
     console.log(response)
        if (response.status === 200) {
-         console.log(response.headers.get('Set-Cookie'))
         setIsLoggedIn(true);
-        //navigate('/Dashboard')
+        navigate('/Home')
       }
       return  response.json();
      }).then(result => {
       console.log(result)
-       setUserProfile(result)
+       setUserProfile(result.data)
        localStorage.setItem('user', JSON.stringify(result));
        if (result.isAdmin) {
         setDashboardToggle({

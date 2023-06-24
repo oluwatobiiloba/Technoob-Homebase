@@ -21,7 +21,7 @@ const cookies = new Cookies();
 
 
 function App() {
-  const { isLoggedIn, setIsLoggedIn, dashboardToggle } = useContext(AppContext)
+  const { isLoggedIn, setIsLoggedIn, dashboardToggle, setUserProfile,UserProfile } = useContext(AppContext)
   const {displayToggle , toggleValue} = dashboardToggle
 
   useEffect(() => { 
@@ -30,8 +30,11 @@ function App() {
 
     if (checkUserLogin) { 
       setIsLoggedIn(true)
+      setUserProfile(JSON.parse(checkUserLogin))
+    } else {
+      setIsLoggedIn(false)
     }
-  }, [isLoggedIn,setIsLoggedIn]);
+  }, [isLoggedIn,setIsLoggedIn,setUserProfile,UserProfile]);
 
   //const [isAdmin] = useContext(AppContext)
 
