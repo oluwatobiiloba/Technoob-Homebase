@@ -28,6 +28,31 @@ module.exports = {
         }
     },
 
+    getMetrics: async () => {
+        try {
+            const resources = await Resources.find();
+            let total = resources.length
+            let downloads = 0
+            let uploads = total
+            let traffic = 0
+
+            if (resources) {
+                resources.forEach((resource) => {
+                    traffic += resource.traffic 
+                    downloads += resource.downloads
+                })
+            }
+
+            return {
+                uploads,
+                downloads,
+                traffic
+            };
+        } catch (error) {
+            throw error;
+        }
+    },
+
     get: async (id,user) => { 
         try {
             const resources = await Resources.findById(id);

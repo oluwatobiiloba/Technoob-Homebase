@@ -6,6 +6,7 @@ const admin = require('./admin');
 const resources = require('./resources');
 const events = require('./events')
 const jobs = require('./jobs')
+const quizzes = require('./quizzes')
 const utils = require('./utils')
 const base = `/api/v1`
 
@@ -26,6 +27,8 @@ router.use(`${base}/resources`, resources);
 router.use(`${base}/utils`, utils);
 router.use(`${base}/events`, events);
 router.use(`${base}/jobs`, jobs);
+router.use(`${base}/quizzes`, quizzes)
+
 // Prometheus middleware
 router.get('/metrics', async (req, res) => {
   try {

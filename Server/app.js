@@ -17,6 +17,7 @@ const sanitizer = require("perfect-express-sanitizer");
 const indexRouter = require("./routes/index");
 const app = express();
 const prometheus = require("prom-client");
+const trafficMiddleware = require("./middleware/traffic")
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -103,6 +104,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportConfig");
 app.use(Honeybadger.requestHandler);
+app.use(trafficMiddleware);
 //app.use(helmet({
 //crossOriginEmbedderPolicy: false
 //}));

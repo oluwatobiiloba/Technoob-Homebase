@@ -10,6 +10,6 @@ router.get('/get/:id',  middleware.auth.isAuthenticated, jobs.get)
 router.post('/create',  middleware.auth.isAuthenticated, middleware.auth.hasPermission('admin:Createjobs'),jobs.create)
 router.get('/count',  middleware.auth.isAuthenticated, jobs.count)
 router.post('/delete/:id', middleware.auth.isAuthenticated, middleware.auth.hasPermission('admin:Removejobs'),jobs.remove)
-router.get('/activity',middleware.auth.isAuthenticated, jobs.getActivity)
+router.get('/activity', middleware.auth.isAuthenticated, jobs.getActivity)
 
 module.exports = router;
