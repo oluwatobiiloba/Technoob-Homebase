@@ -20,6 +20,7 @@ passport.use(
                 if (!user) return done(null, false, { message: 'Incorrect email or password.' });
                 const isMatch = await user.comparePassword(password);
                 if (!isMatch) return done(null, false, { message: 'Incorrect email or password.' });
+
                 user = {
                     _id: user._id,
                     firstname: user.firstname,
@@ -29,9 +30,8 @@ passport.use(
                     stack: user.stack,
                     photo: user.photo,
                     active: user.active,
-                    role: user.admin,
+                    role: user.role,
                     verified: user.verified
-                    
                 }
                 return done(null, user);
             } catch (err) {

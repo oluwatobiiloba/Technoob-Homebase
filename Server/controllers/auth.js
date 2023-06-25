@@ -34,6 +34,10 @@ module.exports = {
                     if (err) {
                         return next(err);
                     }
+                    res.setHeader("isAuthenticated", true)
+                    res.setHeader("userId", user._id)
+                    res.setHeader("sessionExpiresAt",req.session.cookie.expires)
+
                     res.status(200).json({
                         status: 'success',
                         message: `Logged in ${user.username}`,
@@ -72,6 +76,7 @@ module.exports = {
             if (err) {
                 console.log(err);
             }
+            res.setHeader("isAuthenticated", false)
         });
         res.status(200).json({
             status: 'success',

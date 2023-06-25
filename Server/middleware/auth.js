@@ -39,14 +39,26 @@ module.exports = {
     githubCallbackAuthenticateMiddleware,
     isAuthenticated(req, res, next) {
         if (req.isAuthenticated()) {
+            const sessionExpiresAt = req.session.cookie.expires;
+            if (sessionExpiresAt && new Date() > sessionExpiresAt) {
+                req.logout(); // Log out the user
+                res.setHeader("isAuthenticated", false)
+                return res.status(401).json({ isAuthenticated: false, message: 'Session expired' });
+            }
+            res.setHeader("isAuthenticated", true)
+            res.setHeader("userId", req.user.id)
+            res.setHeader("sessionExpiresAt", sessionExpiresAt)
             return next();
         }
 
+
+        res.isAuthenticated = false;
         res.status(401).json({
             status: 'fail',
             message: 'Unauthorized access'
         })
     },
+    
     isAdmin(req, res, next) {
         if (req.isAuthenticated() && req.user.role === 'admin') {
             return next();

@@ -36,7 +36,11 @@ const resources = new Schema({
     file: {
         type: String,
         trim: true
+    },
 
+    url: {
+        type: String,
+        trim: true
     },
 
     uploader_id: {
@@ -82,9 +86,24 @@ const resources = new Schema({
     averageRating: {
         type: Number,
         default: null
+    },
+
+    users: {
+        type: Object,
+        default: []
+    },
+
+    downloads: {
+        type: Number,
+        default: 0,
+        min:0 
+    },
+
+    traffic: {
+        type: Number,
+        default: 0,
+        min: 0
     }
-
-
 
 
 })

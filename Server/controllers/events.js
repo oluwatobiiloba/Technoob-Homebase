@@ -1,15 +1,15 @@
 const services = require('../services/index');
-const resource = services.resources;
+const events = services.events;
 
 module.exports = {
      async get_all (req, res) { 
         const query = req.query
         try {
-            const resources = await resource.get_all(query)
+            const events = await events.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${resources.length} resource(s) retrieved`,
-                data: resources
+                message: `${events.length} event(s) retrieved`,
+                data: events
             })
         } catch (error) {
             res.status(400).json({
@@ -23,11 +23,27 @@ module.exports = {
         const id = req.params.id
         const user = req.user?._id || 0
         try {
-            const resources = await resource.get(id,user)
+            const events = await events.get(id,user)
             res.status(200).json({
                 status: "success",
-                message: `resource retrieved`,
-                data: resources
+                message: `event retrieved`,
+                data: events
+            })
+        } catch (error) {
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
+        }
+    },
+
+    async getMetrics(req, res, next) { 
+        try {
+            const eventsMetrics = await events.getMetrics()
+            res.status(200).json({
+                status: "success",
+                message: `event metrics retrieved`,
+                data: eventsMetrics
             })
         } catch (error) {
             res.status(400).json({
@@ -43,11 +59,11 @@ module.exports = {
             body.uploader_id = req.user?._id || '643492bb86360e05476576f9'
         }
         try {
-            const resources = await resource.create(body)
+            const events = await events.create(body)
             res.status(200).json({
                 status: "success",
-                message: `resource created`,
-                data: resources
+                message: `event created`,
+                data: events
             })
         } catch (error) {
             res.status(400).json({
@@ -59,10 +75,10 @@ module.exports = {
 
     async count(req, res, next) {
         try {
-            const count = await resource.count()
+            const count = await events.count()
             res.status(200).json({
                 status: "success",
-                message: `resource count`,
+                message: `event count`,
                 data: count
             })
         } catch (error) {
@@ -76,11 +92,10 @@ module.exports = {
     async remove(req, res, next) {
         const id = req.params.id
         try {
-            const resources = await resource.remove(id)
+            await events.remove(id)
             res.status(200).json({
                 status: "success",
-                message: `resource deleted`,
-                data: resources
+                message: `event deleted`
             })
         } catch (error) {
             res.status(400).json({
@@ -95,7 +110,7 @@ module.exports = {
         const limit = parseInt(req.query.limit) || 10
 
         try {
-            const activity = await resource.activity(page,limit)
+            const activity = await events.activity(page,limit)
             res.status(200).json({
                 status: "success",
                 data: activity
@@ -108,43 +123,4 @@ module.exports = {
         }
     },
 
-    async download(req, res, next) {
-        const id = req.params.id
-        const user = req.user?._id || 0
-
-        try {
-            const resources = await resource.download(id, user)
-            res.status(200).json({
-                status: "success",
-                message: `resource downloaded`,
-                data: resources
-            })
-        } catch (error) {
-            res.status(400).json({
-                status: "fail",
-                message: error.message
-            })
-        }
-    },
-
-    async rate(req, res, next) {
-        const id = req.params.id
-        const rating = req.body
-        if (!rating.user_id) {
-            rating.user_id = req.user?._id || '643492bb86360e05476576f9'
-        }
-        try {
-            const resources = await resource.rate(id, rating)
-            res.status(200).json({
-                status: "success",
-                message: `resource rated`,
-                data: resources
-            })
-        } catch (error) {
-            res.status(400).json({
-                status: "fail",
-                message: error.message
-            })
-        }
-    }
 }
