@@ -17,6 +17,8 @@ const sanitizeIfNeeded = (req, res, next) => {
 
 router.use(sanitizeIfNeeded)
 
+router.get('/dashboard', middleware.auth.isAuthenticated, admin.dashboard)
+router.get('/dashboard/traffic', middleware.auth.isAuthenticated, admin.traffic)
 router.post('/email/template', middleware.auth.hasPermission('admin:ManageEmailTemplates'), middleware.auth.isAuthenticated, admin.saveMailTemplate);
 router.get('/email/template', middleware.auth.hasPermission('admin:ManageEmailTemplates'), middleware.auth.isAuthenticated, admin.getMailTemplates);
 router.get('/email/template/:id', middleware.auth.hasPermission('admin:ManageEmailTemplates'), middleware.auth.isAuthenticated, admin.getMailTemplate);

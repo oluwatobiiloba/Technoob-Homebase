@@ -17,6 +17,7 @@ const sanitizer = require("perfect-express-sanitizer");
 const indexRouter = require("./routes/index");
 const app = express();
 const prometheus = require("prom-client");
+const trafficMiddleware = require("./middleware/traffic")
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -88,14 +89,15 @@ app.use(
     secret: config.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    rolling: true,
     store: MongoStore.create({
       mongoUrl: config.DATABASE_URL,
       ttl: 60 * 60, // 1 hour
       autoRemove: "native",
     }),
     cookie: {
-      secure: true, // Only send cookies over HTTPS
-    },
+      maxAge: 60 * 60 * 1000
+    }
   })
 );
 app.use(passport.initialize());
@@ -134,9 +136,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // }));
 
 /* GET home page. */
+// app.use(trafficMiddleware);
 app.use("/", limiter); // implementing rate limiter middleware
-
-app.use("/", indexRouter);
+app.use("/", trafficMiddleware ,indexRouter);
 
 app.use(Honeybadger.errorHandler);
 // catch 404 and forward to error handler
@@ -172,6 +174,8 @@ setInterval(() => {
   cpuUsageGauge.set(process.cpuUsage().user / 1000000);
   memoryUsageGauge.set(process.memoryUsage().rss);
 }, 10000);
+
+
 
 // Middleware to update metrics for network traffic
 app.use((req, res, next) => {

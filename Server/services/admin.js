@@ -7,9 +7,58 @@ const mailer = require('../utils/azure_mailer');
 const mailing_list = require('../models/mailing_list');
 const contact_us = require('../models/contact_us');
 const frontend_resources = require('../models/frontend_resources');
-
+const resources = require('../services/resources')
+const users = require('../services/user');
+const traffic = require('../services/traffic');
 
 module.exports = {
+
+    async adminDashboard() {
+        try {
+            const resourceMetrics = await resources.getMetrics()
+            const userMetrics = await users.getMetrics()
+            const now = new Date();
+            const trafficMetric = await traffic.getMonthlyTrafficForYear(now.getFullYear())
+            return {
+                resourceMetrics,
+                userMetrics,
+                trafficMetric
+            }
+        } catch (err) {
+            throw err
+        }
+       
+    },
+
+    async traffic(range) {
+        try {
+            if (range.year) {
+                const now = new Date();
+                return traffic.getTotalTrafficByYear(now.getFullYear())
+            }
+            if (range.halfYear) {
+                return traffic.getMetricsForLastSixMonths
+            }
+
+            if (range.quaterYear) {
+                return traffic.getMetricsLastThreeMonths
+            }
+
+            if (range.month) {
+                return traffic.getMetricsLastThirtyDays
+            }
+
+            if (range.week) {
+                return traffic.getMetricsLastSevenDays
+            }
+
+            return null
+        } catch (err) {
+            throw err
+        }
+       
+    },
+
     async saveMailTemplate(data) {
         
         return await Templates.create({

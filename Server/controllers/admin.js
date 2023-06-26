@@ -1,6 +1,43 @@
 const { admin } = require("../services/index")
 
 module.exports = {
+    async dashboard(req, res) {
+        try {
+            const adminDashboard = await admin.adminDashboard();
+            
+            return res.status(201).json({
+                status: "success",
+                message: `Dashboard details retrived successfully`,
+                data: adminDashboard
+
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+        }
+    },
+    async traffic(req, res) {
+        const range = req.query
+        try {
+            const trafficData = await admin.traffic(range);
+            
+            return res.status(201).json({
+                status: "success",
+                message: `Traffic details retrieved successfully`,
+                data: trafficData
+
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+        }
+    },
     async saveMailTemplate(req, res) {
         try {
             const email_response = await admin.saveMailTemplate(req.body);

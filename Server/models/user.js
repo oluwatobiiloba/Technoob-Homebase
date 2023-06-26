@@ -119,6 +119,10 @@ const user = new Schema({
         select: false
     },
 
+    quiz_record: {
+        type: Object,
+        default: []
+    }
 
 
 });

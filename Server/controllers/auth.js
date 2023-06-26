@@ -30,18 +30,25 @@ module.exports = {
                 //         user
                 //     }
                 // })
-                req.login(user, (err) => {
-                    if (err) {
-                        return next(err);
-                    }
-                    res.status(200).json({
-                        status: 'success',
-                        message: `Logged in ${user.username}`,
-                        data: {
-                            user
+                if (user) {
+                    req.login(user, (err) => {
+                        if (err) {
+                            return next(err);
                         }
-                    })
-                });
+                        res.setHeader("isAuthenticated", true)
+                        res.setHeader("userId", user._id)
+                        res.setHeader("sessionExpiresAt",req.session.cookie.expires)
+    
+                        res.status(200).json({
+                            status: 'success',
+                            message: `Logged in ${user.username}`,
+                            data: {
+                                user
+                            }
+                        })
+                    });
+                }
+                
             })(req, res, next);
         } catch (err) { 
             next(err);
@@ -72,6 +79,7 @@ module.exports = {
             if (err) {
                 console.log(err);
             }
+            res.setHeader("isAuthenticated", false)
         });
         res.status(200).json({
             status: 'success',
