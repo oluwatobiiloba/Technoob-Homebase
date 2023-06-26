@@ -5,11 +5,11 @@ module.exports = {
      async get_all (req, res) { 
         const query = req.query
         try {
-            const jobs = await jobs.get_all(query)
+            const job = await jobs.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${jobs.length} event(s) retrieved`,
-                data: jobs
+                message: `${job.length} Job(s) retrieved`,
+                data: job
             })
         } catch (error) {
             res.status(400).json({
@@ -23,11 +23,11 @@ module.exports = {
         const id = req.params.id
         const user = req.user?._id || 0
         try {
-            const jobs = await jobs.get(id,user)
+            const job = await jobs.get(id,user)
             res.status(200).json({
                 status: "success",
-                message: `event retrieved`,
-                data: jobs
+                message: `Job retrieved`,
+                data: job
             })
         } catch (error) {
             res.status(400).json({
@@ -42,7 +42,7 @@ module.exports = {
             const jobsMetrics = await jobs.getMetrics()
             res.status(200).json({
                 status: "success",
-                message: `event metrics retrieved`,
+                message: `Job metrics retrieved`,
                 data: jobsMetrics
             })
         } catch (error) {
@@ -59,11 +59,11 @@ module.exports = {
             body.uploader_id = req.user?._id || '643492bb86360e05476576f9'
         }
         try {
-            const jobs = await jobs.create(body)
+            const job = await jobs.create(body)
             res.status(200).json({
                 status: "success",
-                message: `event created`,
-                data: jobs
+                message: `Job created`,
+                data: job
             })
         } catch (error) {
             res.status(400).json({
@@ -78,7 +78,7 @@ module.exports = {
             const count = await jobs.count()
             res.status(200).json({
                 status: "success",
-                message: `event count`,
+                message: `job count`,
                 data: count
             })
         } catch (error) {
@@ -95,7 +95,7 @@ module.exports = {
             await jobs.remove(id)
             res.status(200).json({
                 status: "success",
-                message: `event deleted`
+                message: `Job deleted`
             })
         } catch (error) {
             res.status(400).json({

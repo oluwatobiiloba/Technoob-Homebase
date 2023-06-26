@@ -6,7 +6,6 @@ const activity = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: [true, 'Please provide user id'],
-        unique: [true, 'This user id is already taken'],
         trim: true
     },
     module: {

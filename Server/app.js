@@ -104,7 +104,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportConfig");
 app.use(Honeybadger.requestHandler);
-app.use(trafficMiddleware);
 //app.use(helmet({
 //crossOriginEmbedderPolicy: false
 //}));
@@ -137,9 +136,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // }));
 
 /* GET home page. */
+// app.use(trafficMiddleware);
 app.use("/", limiter); // implementing rate limiter middleware
-
-app.use("/", indexRouter);
+app.use("/", trafficMiddleware ,indexRouter);
 
 app.use(Honeybadger.errorHandler);
 // catch 404 and forward to error handler

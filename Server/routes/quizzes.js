@@ -12,6 +12,6 @@ router.get('/count',  middleware.auth.isAuthenticated, quizzes.count)
 router.post('/delete/:id', middleware.auth.isAuthenticated, middleware.auth.hasPermission('admin:RemoveQuizzes'),quizzes.remove)
 router.get('/activity', middleware.auth.isAuthenticated, quizzes.getActivity)
 router.get('/questions/:id', middleware.auth.isAuthenticated, quizzes.getQuestion)
-router.post('/attempt/submit', middleware.auth.isAuthenticated, quizzes.submit)
+router.post('/attempt/submit/:id', middleware.auth.isAuthenticated, quizzes.submit)
 
 module.exports = router;

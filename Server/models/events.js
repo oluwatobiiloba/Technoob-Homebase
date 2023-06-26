@@ -55,7 +55,7 @@ const events = new Schema({
 });
 
 events.pre("save", (next) => {
-    if (this.ticketing === "paid" && !this.price || !this.currency) {
+    if (this.ticketing === "paid" && (!this.price || !this.currency)) {
         throw new Error("Specify the price/currency for a paid event")
     }
     next()

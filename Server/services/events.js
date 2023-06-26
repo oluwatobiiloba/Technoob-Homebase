@@ -25,17 +25,17 @@ module.exports = {
                 prompt.price = { $lte: query.price}
             }
 
-            const Events = await Events.find(prompt);
-            return Events;
+            const events = await Events.find(prompt);
+            return events;
         } catch (error) {
             throw error;
         }
     },
 
-    get: async (id,user) => { 
+    async get (id,user){ 
         try {
-            const Events = await Events.findById(id);
-            return Events;
+            const events = await Events.findById(id);
+            return events;
         } catch (error) {
             throw error;
         }
@@ -43,26 +43,26 @@ module.exports = {
 
     create: async (body) => { 
         try {
-            const Events = await Events.create(body);
-            if (Events) {
+            const events = await Events.create(body);
+            if (events) {
                 const activity = {
-                    user_id: Events.uploader_id,
+                    user_id: events.uploader_id,
                     module: "event",
                     activity: {
                         activity: "Event Upload",
-                        theme: Events.theme,
-                        location: Events.location,
-                        ticketing: Events.ticketing,
-                        date:   Events.date,
-                        price: Events.price,
-                        currency: Events.currency,
+                        theme: events.theme,
+                        location: events.location,
+                        ticketing: events.ticketing,
+                        date:   events.date,
+                        price: events.price,
+                        currency: events.currency,
                         status: "Successful"
                     }
                 }
 
                 await Activity.create(activity)
             }
-            return Events;
+            return events;
         } catch (error) {
             const activity = {
                 user_id: body.uploader_id,
@@ -117,8 +117,9 @@ module.exports = {
     },
 
     remove: async (id) => {
+       
         try {
-            const event = this.get(id)
+            const event = await Events.findById(id)
             if (event) {
                 await Events.findByIdAndDelete(id);
                 const activity = {
@@ -148,13 +149,13 @@ module.exports = {
 
     getMetrics: async () => {
         try {
-            const Events = await Events.find();
-            let total = Events.length
+            const events = await Events.find();
+            let total = events.length
             let hosted = 0
             let upcoming = 0
 
-            if (Events) {
-                Events.forEach((event) => {
+            if (events) {
+                events.forEach((event) => {
                     if (event.date > new Date()) upcoming += 1
                     if (event.date < new Date()) hosted += 1
                 })

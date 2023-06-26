@@ -4,12 +4,13 @@ const events = services.events;
 module.exports = {
      async get_all (req, res) { 
         const query = req.query
+        console.log(query)
         try {
-            const events = await events.get_all(query)
+            const event = await events.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${events.length} event(s) retrieved`,
-                data: events
+                message: `${event.length} event(s) retrieved`,
+                data: event
             })
         } catch (error) {
             res.status(400).json({
@@ -23,11 +24,11 @@ module.exports = {
         const id = req.params.id
         const user = req.user?._id || 0
         try {
-            const events = await events.get(id,user)
+            const event = await events.get(id,user)
             res.status(200).json({
                 status: "success",
                 message: `event retrieved`,
-                data: events
+                data: event
             })
         } catch (error) {
             res.status(400).json({
@@ -59,11 +60,11 @@ module.exports = {
             body.uploader_id = req.user?._id || '643492bb86360e05476576f9'
         }
         try {
-            const events = await events.create(body)
+            const event = await events.create(body)
             res.status(200).json({
                 status: "success",
                 message: `event created`,
-                data: events
+                data: event
             })
         } catch (error) {
             res.status(400).json({

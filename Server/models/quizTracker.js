@@ -28,13 +28,18 @@ const quizTracker = new Schema({
     
       attempted: {
         type: Object,
-        default: []
+        default: 0
+      },
+      
+      maxAttempts: {
+        type: Number,
+        default: 3
       },
     
-      score: {
-        type: Number,
-        default: 0
-    },
+    score: {
+      type: Number,
+      default: 0
+      },
       
     completed: {
         type: Boolean,
@@ -42,29 +47,5 @@ const quizTracker = new Schema({
       }
 
 });
-
-quizTracker.pre("findOneAndUpdate", async (next) => {
-    try {
-        const quizTracker = this;
-        const updateData = quizTracker._update;
-
-        const currentQuizTracker = await quizTracker.model.findOne(quizTracker.getQuery());
-
-        if (!currentQuizTracker) {
-            next()
-        }
-    
-        // Check if the quiz time has elapsed
-        if (currentQuizTracker && Date.now() < currentQuizTracker.date_started.getTime() + (currentQuizTracker.duration_in_secs * 1000)) {
-          return next();
-        }
-    
-        // Quiz time has elapsed, skip the update operation
-        throw new Error("Quiz time has elapsed")
-        
-    } catch (err) {
-        return next(err);
-    }
-})
 
 module.exports = mongoose.model('QuizTracker', quizTracker);

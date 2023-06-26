@@ -127,6 +127,23 @@ module.exports = {
         const response = await mailing_list.create({ email })
        return response
 
-         }
+    },
+    
+    async getMetrics() {
+        try {
+            const users = await User.find().select('+active')
+            const total = users.length
+            const active = users.filter(user => user.active === true).length
+            const inactive = users.filter(user => user.active === false).length
+            const metrics = {
+                total,
+                active,
+                inactive
+            }
+            return metrics
+        } catch (err) {
+            throw err
+        }
+    }
 
 }

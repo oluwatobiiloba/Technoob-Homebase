@@ -127,7 +127,7 @@ module.exports = {
 
     remove: async (id) => {
         try {
-            const job = this.get(id)
+            const job = await Jobs.findById(id);
             if (job) {
                 await Jobs.findByIdAndDelete(id);
                 const activity = {

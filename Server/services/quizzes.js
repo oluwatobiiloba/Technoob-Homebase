@@ -43,7 +43,7 @@ module.exports = {
             if (quizzes) {
                 const activity = {
                     user_id: quizzes.uploader_id,
-                    module: "quiz",
+                    module: "quizzes",
                     activity: {
                         activity: quizzes.type === 'quiz' ? "Quiz Upload" : "Competition Upload",
                         theme: quizzes.theme,
@@ -61,7 +61,7 @@ module.exports = {
         } catch (error) {
             const activity = {
                 user_id: body.uploader_id,
-                module: "quiz",
+                module: "quizzes",
                 activity: {
                     activity: body.type === 'quiz' ? "Quiz Upload" : "Competition Upload",
                     theme: body.theme,
@@ -91,7 +91,7 @@ module.exports = {
         let count = 0
         try {
             const activity = await Activity.find({
-                module: "quiz"
+                module: "quizzes"
             }).skip(skip).limit(limit)
             if (activity) {
                 count = activity.length
@@ -154,58 +154,71 @@ module.exports = {
     getQuestion: async (id,user) => {
         try {
             const quiz = await Quizzes.findById(id);
-            if (quiz) {
-                const excludeCorrectAnswer = quiz.questions_answers.map((question) => {
-                    delete question.correctAnswer
-                    return question
-                })
-                quiz.questions_answers = excludeCorrectAnswer
 
-                const attempt = {
-                    user_id: user._id,
-                    quiz_id: quiz._id,
-                }
+            if (!quiz) {throw new Error("Quiz not found")}
+            const excludeCorrectAnswer = quiz.questions_answers.map((question) => {
+                delete question.answers[question.correctAnswerId].isCorrect
+                delete question.correctAnswerId
+                return question
+            })
+            quiz.questions_answers = excludeCorrectAnswer
 
-                const options = { upsert: true };
-                await QuizTracker.findOneAndUpdate({quiz_id: id,user_id: user._id}, attempt, options)
-                return quiz
-            } else {
-                throw new Error("Quiz not found")
+            const attempt = {
+                user_id: user._id,
+                quiz_id: quiz._id,
+                duration_in_secs: quiz.duration || (quiz.deadline && Math.floor((new Date(quiz.deadline).getTime() - new Date().getTime()) / 1000))
             }
+            const options = { upsert: true };
+            await QuizTracker.findOneAndUpdate({quiz_id: id,user_id: user._id}, attempt, options)
+            return quiz
+            
         } catch (error) {
+            console.log(error);
             throw error;
         }
     },
 
-    submit: async (id,answerObj,user) => {
+    submit: async (id, answerObj, user) => {
         try {
+            let score = 0;
+            let tracker = {};
             const quiz = await Quizzes.findById(id);
-            const totalQuestions = quiz.questions_answers.length
-            let score = 0
-            let tracker = {}
-            if (quiz) {
-                answerObj.forEach(async (userAnswer,index) => {
-                    const question = quiz.questions_answers.find((q) => q.questionId === userAnswer.questionId);
-                    if (question && userAnswer.answer === question.correctAnswer) {
-                        score++;
-                    }
-                    if (index + 1 === totalQuestions) {
-                        tracker.completed = true
-                        tracker.score = score
-                        await QuizTracker.findOneAndUpdate({quiz_id: id,user_id: user._id}, tracker)
-                    }
-                  });
-                return {
-                    score,
-                    totalQuestions
+            if (!quiz) throw new Error("Quiz not found");
+            const totalQuestions = quiz.questions_answers.length;
+      
+            if (!quiz) throw new Error("Quiz not found")
+            const currentQuizTracker = await QuizTracker.findOne({ quiz_id: id, user_id: user._id });
+            if (!currentQuizTracker) throw new Error("Quiz not Started")
+            if (currentQuizTracker && currentQuizTracker.completed) throw new Error("Quiz already completed");   
+            if (!(currentQuizTracker && Date.now() < currentQuizTracker.date_started.getTime() + (currentQuizTracker.duration_in_secs * 1000))) throw new Error("Quiz time has elapsed");
+            if (currentQuizTracker.attempted >= currentQuizTracker.maxAttempts) throw new Error("Maximum number of attempts reached");
+    
+            await answerObj.forEach(async (userAnswer, index) => {
+                const question = quiz.questions_answers.find((q) => q.id === userAnswer.questionId);
+                if (question && userAnswer.selectedAnswerId === question.correctAnswerId) {
+                    score++;
                 }
-            } else {
-                throw new Error("Quiz not found")
-            }
-           
+                if (index + 1 === totalQuestions) {
+                    tracker.completed = true;
+                    tracker.score = score;
+                    tracker.attempted += 1;
+                    await QuizTracker.findOneAndUpdate({ quiz_id: id, user_id: user._id }, tracker);
+                } else {
+                    tracker.completed = false;
+                    tracker.score = score;
+                    tracker.attempted += 1;
+                    await QuizTracker.findOneAndUpdate({ quiz_id: id, user_id: user._id }, tracker);
+                }
+            });
+    
+            return {
+                score,
+                totalQuestions,
+            };
+         
         } catch (error) {
+            console.log
             throw error;
         }
     },
-
 };

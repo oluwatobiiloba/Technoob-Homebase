@@ -147,7 +147,6 @@ module.exports = {
     download: async (id) => {
         try {
             const resources = await Resources.findById(id);
-
             if (resources) {
                 resources.downloads += 1
                 resources.save()
@@ -155,6 +154,7 @@ module.exports = {
 
             return resources.file;
         } catch (error) {
+            console.log(error)
             throw error;
         }
     },

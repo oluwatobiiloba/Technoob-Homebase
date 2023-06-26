@@ -20,7 +20,7 @@ module.exports = {
         }
     },
     async traffic(req, res) {
-        const range = req.params
+        const range = req.query
         try {
             const trafficData = await admin.traffic(range);
             

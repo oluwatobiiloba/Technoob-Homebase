@@ -41,10 +41,17 @@ module.exports = {
         if (req.isAuthenticated()) {
             const sessionExpiresAt = req.session.cookie.expires;
             if (sessionExpiresAt && new Date() > sessionExpiresAt) {
-                req.logout(); // Log out the user
+                req.logout((err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                })// Log out the user
                 res.setHeader("isAuthenticated", false)
                 return res.status(401).json({ isAuthenticated: false, message: 'Session expired' });
+            } else {
+                req.session.cookie.expires = new Date(Date.now() + 3600000);
             }
+
             res.setHeader("isAuthenticated", true)
             res.setHeader("userId", req.user.id)
             res.setHeader("sessionExpiresAt", sessionExpiresAt)
@@ -74,7 +81,10 @@ module.exports = {
                 //console.log(req)
                 // const admin = await Admin.findOne({ user_id: req.user?._id });
                 const permission = await Permissions.findOne({ permission: perm });
-                const permissionId = new mongoose.Types.ObjectId(permission._id);
+                const permissionId = permission ? new mongoose.Types.ObjectId(permission._id) : null;
+                if (!permissionId) { 
+                    throw new Error('Permission not found')
+                }
                 const admin = await Admin.findOne({ user_id: req.user?._id, permissions: { $in: [permissionId] } });
 
                 if (!admin || !admin.isActive) {
@@ -86,7 +96,11 @@ module.exports = {
                 
                 next();
             } catch (err) {
-                next(err);
+                console.log(err)
+                return res.status(401).json({
+                    status: 'fail',
+                    message: 'You do not have permission to access this resource'
+                })
             }
         };
     }

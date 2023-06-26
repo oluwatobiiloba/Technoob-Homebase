@@ -52,7 +52,11 @@ const quizzes = new Schema({
     leader_Board: {
         type: Object,
         default: []
-    }
+    },
+    maxAttempts: {
+        type: Number,
+        default: 3
+    },
 
 });
 
