@@ -1,34 +1,33 @@
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
-const { DefaultAzureCredential } = require('@azure/identity');
 const { BlobServiceClient } = require("@azure/storage-blob");
-const { v1: uuidv1 } = require("uuid");
+const connectionString = config.AZURE_STORAGE_CONNECTION_STRING;
 
-const accountName = config.AZURE_STORAGE_ACCOUNT_NAME;
-if (!accountName) throw Error('Azure Storage accountName not found');
+if (!connectionString) throw Error('Azure Storage accountKey not found');
 
-const blobServiceClient = new BlobServiceClient(
-    `https://${accountName}.blob.core.windows.net`,
-    new DefaultAzureCredential()
+// Create the BlobServiceClient object with connection string
+const blobServiceClient = BlobServiceClient.fromConnectionString(
+    connectionString
 );
-
-
 
 module.exports = {
     async createContainer(name) {
-        const containerClient = blobServiceClient.getContainerClient(name);
-        // Create the container
-        const createContainerResponse = await containerClient.create();
+        const options = {
+            access: 'blob'
+        };
+        const containerClient = await blobServiceClient.createContainer(name,options);
+
         let container = {
             name: name,
             url: containerClient.url,
-            requestId: createContainerResponse.requestId,
+            requestId: containerClient.requestId,
             message: `Container was created successfully.`
-
         }
+    
         return container;
-    },
+    }
+    ,    
     async deleteContainer(name) {
         const containerClient = blobServiceClient.getContainerClient(name);
         // Delete the container
@@ -54,10 +53,16 @@ module.exports = {
         }
         return containers;
     },
-    async upload(container, data, name) {
-        const containerClient = blobServiceClient.getContainerClient(container);
+    async upload(container, data, name, isFile = false) {
+        let availableContainers = await this.listContainers();
+    
+        if (!availableContainers.find(c => c.name === container)) {
+           await this.createContainer(container);
+        } 
+        let containerClient = blobServiceClient.getContainerClient(container);
+       
         const blockBlobClient = containerClient.getBlockBlobClient(name);
-        const uploadBlobResponse = await blockBlobClient.upload(data, data.length);
+        const uploadBlobResponse = isFile? await blockBlobClient.uploadStream(data) : await blockBlobClient.upload(data, data.length);
         let blob = {
             name: name,
             url: blockBlobClient.url,

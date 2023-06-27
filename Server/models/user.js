@@ -7,7 +7,8 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const SALT_ROUNDS = config.SALT_ROUNDS
 const TOKEN_EXPIRATION_TIME = config.TOKEN_EXPIRATION_TIME;
-
+const child_worker = require('../utils/child');
+const Honeybadger = require('../utils/honeybadger');
 
 const user = new Schema({
     firstname: {
@@ -118,26 +119,45 @@ const user = new Schema({
         select: false
     },
 
+    quiz_record: {
+        type: Object,
+        default: []
+    }
 
 
 });
 
 user.pre('save', async function (next) {
-    try {
-        // Only run this function if password was actually modified
-        if (!this.isModified('password')) return next();
-
-        const salt = await bcrypt.genSalt(12);
-        // Hash the password with cost of 12
+  try {
+    // Only run this function if password was actually modified
+      if (!this.isModified('password')) return next();
+     console.log('child_worker.checkChild():', child_worker.checkChild());
+      if (child_worker.checkChild() > 0) { 
+        try {
+            const [hash] = await Promise.all([
+              child_worker.work({ activity: 'Hashing', payload: { password: this.password } })
+            ]);
+          
+            this.password = hash;
+          } catch (err) {
+            Honeybadger.notify(`Password hashing failed with error: ${err}`);
+            
+            const salt =  await bcrypt.genSalt(SALT_ROUNDS)
+            this.password = await bcrypt.hash(this.password, salt);
+          }
+      } else {
+        const salt =  await bcrypt.genSalt(SALT_ROUNDS)
         this.password = await bcrypt.hash(this.password, salt);
+      }
 
-        // Delete passwordConfirm field
-        this.passwordConfirm = undefined;
-        next();
-    } catch (error) {
-        next(error);
-    }
+    this.passwordConfirm = undefined;
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
+
 
 user.pre('save', function (next) {
     if (!this.isModified('password') || this.isNew) return next();
@@ -148,7 +168,6 @@ user.pre('save', function (next) {
 );
 
 user.pre(/^find/, function (next) {
-    // this points to the current query
     this.find({ active: { $ne: false } });
     next();
 }
@@ -158,7 +177,6 @@ user.methods.comparePassword = async function (password) {
     if (!password) {
         return false;
     }
-
 
     const isMatch = await bcrypt.compare(password, this.password);
     return isMatch;
@@ -177,5 +195,6 @@ user.methods.changedPasswordAfter = function (JWTTimestamp) {
 }
 
 
+const UserModel = mongoose.model('User', user);
+module.exports = UserModel;
 
-module.exports = mongoose.model('User', user);

@@ -2,7 +2,7 @@ extends layout
 
 block content
   h2 Hi #{profile.username}
-  form(action='/authenticate/oauth2/github/auth/email', method='POST', class='form')
+  form(action='/api/v1/authenticate/oauth2/github/auth/email', method='POST', class='form')
     input(type='hidden', name='githubUsername', value=profile.username)
     input(type='hidden', name='githubId', value=profile.id)
     input(type='hidden', name='githubPhoto', value=profile.photos[0].value)

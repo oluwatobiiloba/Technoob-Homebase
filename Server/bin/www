@@ -9,8 +9,22 @@ const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
 const db = require('../utils/db_connector');
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
 
-/**
+if (cluster.isMaster ) {
+  console.log(`Master ${process.pid} is running`);
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork();
+    }
+    cluster.on('exit', (worker, code, signal) => {
+      console.log(`Worker ${worker.process.pid} died`);
+    });
+    
+
+} else {
+  console.log(`Worker ${process.pid} started`);
+  /**
  * Get port from environment and store in Express.
  */
 
@@ -29,7 +43,6 @@ let server = http.createServer(app);
 const initialise_db = async () => {
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function () {
-    console.log('Connected to MongoDB!');
   });
 
 }
@@ -50,7 +63,6 @@ const initialise_db = async () => {
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
-  console.log(`server started on port: ${port}`);
 
 })();
 
@@ -115,3 +127,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+}
+
+
