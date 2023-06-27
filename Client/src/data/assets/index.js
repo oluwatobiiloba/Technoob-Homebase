@@ -26,6 +26,11 @@ import Catalog from '../assets/Catalog.png';
 import Circooles from '../assets/Circooles.png';
 
 
+import storage from '../assets/storage.png';
+import storage_icon from '../assets/storage_icon.png';
+import acheive_icon from '../assets/acheive_icon.png';
+
+
 export {
 image2,
 image3,
@@ -58,5 +63,9 @@ Layers,
 Catalog,
 Circooles,
 Sisyphus,
+
+storage,
+storage_icon,
+acheive_icon,
 
 };
