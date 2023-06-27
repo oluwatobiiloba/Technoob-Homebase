@@ -67,33 +67,22 @@ function App() {
               <NavBar />
             </div>
           </div>
-      </div>
-      <main className='lg:pt-16'>
-        <Wrapper>
-        <Routes>
-          <Route path= "/" element={<Home/>}/>
-          <Route path= "/Home" element={<Home/>}/>
-          <Route path= "/About-Us" element={<AboutUs/>}/>
-          <Route path= "/Contact-Us" element={<ContactUs/>}/>
-          <Route path= "/Resources" element={<Resources/>}/>
-          <Route path= "/Sign-Up" element={<SignUp/>}/>
-          <Route path="/User-Login" element={<UserLogin/>}/>
-      </Routes>
-      </Wrapper>
-  </main> 
+          <main className="lg:pt-16">
+            <Wrapper>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/Home" element={<Home />} />
+                <Route path="/About-Us" element={<AboutUs />} />
+                <Route path="/Contact-Us" element={<ContactUs />} />
+                <Route path="/Resources" element={<Resources />} />
+                <Route path="/Sign-Up" element={<SignUp />} />
+                <Route path="/User-Login" element={<UserLogin />} />
+              </Routes>
+            </Wrapper>
+          </main>
 
-      <div>
-        <Footer/>
-      </div>
-      
-    </div> 
-    : 
-    <div className='h-full bg-[#f9f9f9] w-full pb-20 '>
-
-        <div className='flex flex-start w-full top-0 z-50'>
-          <div className='w-full bg-white'>
-             <AdminNavBar/>
-
+          <div>
+            <Footer />
           </div>
         </div>
       ) : (
@@ -109,10 +98,7 @@ function App() {
               <AdminSideBar />
             </div>
 
-
-            <div className='bg-[#f9f9f9] w-full grow lg:h-auto h-[1600px] pb-10 lg:pr-10 p-5'>
-              
-
+            <div className="bg-[#f9f9f9] w-full grow lg:h-auto pb-10 lg:pr-10 p-5">
               <Routes>
                 <Route path="/" element={<AdminDashboard />} />
                 <Route path="/Admin-Home" element={<AdminDashboard />} />
