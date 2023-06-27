@@ -27,6 +27,7 @@ import Circooles from '../assets/Circooles.png';
 
 import storage_icon from '../assets/storage_icon.png';
 import storage from '../assets/storage.png';
+import acheive_icon from '../assets/acheive_icon.png';
 
 export {
 image2,
@@ -62,6 +63,7 @@ Circooles,
 Sisyphus,
 
 storage_icon,
-storage
+storage,
+acheive_icon
 
 };
