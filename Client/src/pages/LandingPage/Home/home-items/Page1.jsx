@@ -1,7 +1,7 @@
 import React from 'react'
 import { Hero, Vector1  } from '../../../../data/assets/index';
 import { Link } from 'react-router-dom';
-import Button from '../../../../utility/button';
+import Button from '../../../../utility/Button';
 import { HomeItems } from '../../../../data/contact';
 
 const Page1 = () => {
@@ -19,7 +19,7 @@ const Page1 = () => {
                 </div>
                 <div className='flex justify-center items-center w-full'>
                   <Link to={'/Sign-Up'}>
-                      <Button name={'Get Started'}/>
+                      <Button name={'Get Started!'}/>
                   </Link>
 
                 </div>

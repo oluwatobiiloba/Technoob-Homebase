@@ -7,22 +7,26 @@ import { AppContext } from '../../AppContext/AppContext';
 
 const SignUp = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn,setUserProfile  } = useContext(AppContext);
   const navigate = useNavigate(); 
 
  
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
-    FullName: '',
+    FirstName: '',
+    LastName: '',
     Email: '',
     Password: '',
     PasswordConfirm: '',
-    Username: ''
+    Username: '',
+    TechStack: [],
+    PhoneNumber: ''
+    
   });
 
 
   const handleChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value})
+    setForm({...form, [e.target.name.split(" ").join()]: e.target.value})
   }
 
   const handleSubmit = async (e)=>{
@@ -32,19 +36,16 @@ const SignUp = () => {
 
     var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Cookie", "__Host-GAPS=1:ZxgHSUtaRD6FMFKG0_6c4IuFNI7Jwg:qswb9ZzuTGe40ktd");
 
       var raw = JSON.stringify(
   {
-    "firstname": form.FullName,
-    "lastname": form.FullName,
+    "firstname": form.FirstName,
+    "lastname": form.LastName,
     "password": form.Password,
     "passwordConfirm": form.PasswordConfirm,
     "email": form.Email,
     "username": form.Username,
-    "stack": [
-      "Project Management"
-    ]
+    "stack": [form.TechStack]
   }
 );
 
@@ -60,7 +61,17 @@ else{
   setLoading(true)
   try {
     const postUser = await fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/register", requestOptions)
-     const result = await postUser.json()
+    const cookies = postUser.headers.get('Set-Cookie');
+    if (cookies) {
+      const cookie = cookies.split(';')[0].split('=')[1];
+      console.log("cookie",cookie)
+      localStorage.setItem('connect-sid', cookie);
+      setIsLoggedIn(true);
+      navigate('/Dashboard')
+    }
+    const result = await postUser.json()
+    setUserProfile(result)
+       localStorage.setItem('user', JSON.stringify(result));
 
     if(result.status === 'success') navigate('/');
     
@@ -69,6 +80,7 @@ else{
   console.log(result)
   } catch (error) {
     console.log(error)
+    setIsLoggedIn(false)
   }finally{
     setLoading(false);
     setIsLoggedIn(true)
@@ -91,10 +103,13 @@ else{
       <div className=' md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center'>
         <img src={SignUPIMG} alt="Sign-Up" className=' xl:block hidden w-[50%]' />
         <form  onSubmit={handleSubmit} className='block bgcontact lg:p-20 p-5 w-full  rounded xl:w-[50%] '>
-            <InputField type={'text'}  name={'FullName'} placeholder={'Full Name'} onChange={handleChange}/>
+          <InputField type={'text'} name={'First Name'} placeholder={'First Name'} onChange={handleChange} />
+          <InputField type={'text'}  name={'Last Name'} placeholder={'Last Name'} onChange={handleChange}/>
             <InputField type={'text'}  name={'Username'} placeholder={'User Name'} onChange={handleChange}/>
-            <InputField type={'email'}  name={'Email'} placeholder={'Email'} onChange={handleChange}/>
-            <select name="Tech Stack" className='w-full text-lg rounded-xl m-1 border placeholder:pl-2 px-2 py-4 my-10 outline-0 ring-1 bg-white'>
+          <InputField type={'email'} name={'Email'} placeholder={'Email'} onChange={handleChange} />
+          <InputField type={'text'}  name={'Phone Number'} placeholder={'Phone Number'} onChange={handleChange}/>
+          <label for="TechStack" className=' text-2xl font-semibold py-10 px-4 '> TechStack </label>
+            <select   id='TechStack' className='w-full text-lg rounded-xl m-1 border placeholder:pl-2 px-2 py-4 my-10 outline-0 ring-1 bg-white'>
               <option value="">Design</option>
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
@@ -104,7 +119,7 @@ else{
             <p className='text-[#828282] text-sm'>This Quiz is to help in choosing Tech Stack</p>
             </div>
             <InputField type={'password'}  name={'Password'} placeholder={'Password'} onChange={handleChange}/>
-            <InputField type={'password'}   name={'PasswordConfirm'} placeholder={'Confirm Password'} onChange={handleChange}/>
+            <InputField type={'password'}   name={'Confirm Password'} placeholder={'Confirm Password'} onChange={handleChange}/>
             <button type='submit' className=' bg-tblue text-twhite py-[14px] lg:w-[100%] w-[100%] rounded'>{loading ? 'Siging Up...' : 'Sign Up'}</button>
           <p className='ml-5 pt-10 text-md sm:text-base sm:text-center'>Already have an account? <span className='text-tblue text-base sm:text-lg underline'><Link to={'/User-Login'}>Login</Link></span></p>
         </form>
