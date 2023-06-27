@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { image5 } from '../../../../data/assets';
-import Button from '../../../../utility/Button';
+import Button from '../../../../utility/button';
 
 const Page6 = () => {
 

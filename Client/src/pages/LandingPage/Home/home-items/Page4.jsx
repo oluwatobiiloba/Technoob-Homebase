@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../../../utility/Button';
+import Button from '../../../../utility/button';
 import { image3 } from '../../../../data/assets';
 
 const Page4 = () => {
