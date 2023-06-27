@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SearchIcon, close, filtersearch } from '../../../../data/assets';
-import Button from '../../../../utility/Button';
+import Button from '../../../../utility/button';
 import Loader from '../../../../utility/Loader';
 import Card from '../../../../utility/Card';
 import { feedback } from '../../../../data/contact';
