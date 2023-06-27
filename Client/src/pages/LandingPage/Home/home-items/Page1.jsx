@@ -19,7 +19,7 @@ const Page1 = () => {
                 </div>
                 <div className='flex justify-center items-center w-full'>
                   <Link to={'/Sign-Up'}>
-                      <Button name={'Get Started'}/>
+                      <Button name={'Get Started!'}/>
                   </Link>
 
                 </div>
