@@ -31,13 +31,8 @@ import DashSelector from "./utility/DashSelector";
 const cookies = new Cookies();
 
 function App() {
-  const {
-    isLoggedIn,
-    setIsLoggedIn,
-    dashboardToggle,
-    setUserProfile,
-    UserProfile,
-  } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, dashboardToggle, setUserProfile } =
+    useContext(AppContext);
   const { displayToggle, toggleValue } = dashboardToggle;
 
   useEffect(() => {
