@@ -1,6 +1,6 @@
 import React from 'react';
 import { image2 } from '../../../../data/assets';
-import Button from '../../../../utility/Button';
+import Button from '../../../../utility/button';
 
 const Page2 = () => {
   return (
