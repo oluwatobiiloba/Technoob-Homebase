@@ -157,7 +157,7 @@ module.exports = {
 
             if (!quiz) {throw new Error("Quiz not found")}
             const excludeCorrectAnswer = quiz.questions_answers.map((question) => {
-                delete question.answers[question.correctAnswerId].isCorrect
+                delete question.answers[question.correctAnswerId + 1 ].isCorrect
                 delete question.correctAnswerId
                 return question
             })
