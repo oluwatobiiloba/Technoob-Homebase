@@ -58,6 +58,7 @@ function App() {
   };
   return (
     <BrowserRouter>
+
       {displayToggle && <DashSelector />}
       {displayToggle && <div className="blur-effect" />}
       {toggleValue === "User Dashboard" ? (
@@ -66,6 +67,7 @@ function App() {
             <div className="w-full">
               <NavBar />
             </div>
+
           </div>
           <main className="lg:pt-16">
             <Wrapper>

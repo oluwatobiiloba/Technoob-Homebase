@@ -75,8 +75,8 @@ const Form = () => {
             <Input placeholder={'Full Name'} name={'FullName'} onChange={handleChange} />
             <Input placeholder={'Email Address'} name={'Email'}  onChange={handleChange}/>
             <Input placeholder={'Phone Number'} name={'Phone'}  onChange={handleChange}/>
-            <label htmlFor="message" className=' text-2xl font-semibold py-10 px-4 ' >Leave a message</label><br/>
-            <textarea name="Message" onChange={handleChange} placeholder='Your message here' className=' ring-1 rounded outline-none md:w-[100%] w-[100%] md:h-60 h-40 md:px-10 p-4 py-10 my-10' id="" cols="30" rows="10"></textarea>
+            <label htmlFor="message" className=' text-2xl mt-10 mb-5 pl-2 ' >Leave a message</label><br/>
+            <textarea name="Message" onChange={handleChange} placeholder='Your message here' className=' ring-1 rounded outline-none md:w-[100%] w-[100%] md:h-60 h-40 md:px-10 mt-3 p-4 pb-10 mb-10' id="" cols="30" rows="10"></textarea>
             <button type='button'  onClick={onSubmit} className=' bg-tblue text-twhite py-[14px] lg:w-[100%] w-[100%] rounded'>Send Message</button>
         </form>
     </div>

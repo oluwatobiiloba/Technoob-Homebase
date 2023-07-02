@@ -4,8 +4,8 @@ import { features } from '../../../../data/contact';
 const Page3 = () => {
   return (
     <div className='flex flex-col items-center justify-start bg-[#F0F4FE] h-auto mb-10 sm:pb-10 py-10 sm:py-[2rem]'>
-        <h1 className='font-[700] sm:font-[900] text-2xl sm:text-[58px] text-[#5E7CE8] sm:leading-[78px] text-center '>
-        Why you Should <span className='text-[#27AE60]'> Choose Us </span> 
+        <h1 className='font-[700] sm:font-[900] text-2xl sm:text-[58px]  text-[#27AE60] sm:leading-[78px] text-center '>
+        Why should you <span className='text-[#5E7CE8]'> Join Us? </span> 
         </h1>
 
         <h6 className='my-5 mx-[4rem] text-center text-xs sm:text-lg flex sm:hidden'>
