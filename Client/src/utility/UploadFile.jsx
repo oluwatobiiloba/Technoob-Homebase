@@ -3,7 +3,7 @@ import { storage } from '../data/assets';
 
 const UploadFile = () => {
 
-    const [file, setFile] = useState(null);
+    // const [file, setFile] = useState(null);
     const [uploadedFile, setUploadedFile] = useState();
     const [image, setImage] = useState()
 

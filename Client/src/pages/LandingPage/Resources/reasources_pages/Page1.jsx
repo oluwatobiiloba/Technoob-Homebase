@@ -29,17 +29,17 @@ const Page1 = () => {
 
       }
 
-    //   useEffect( () => {
-    //     async function fetchData() {
-    //         const URL = `https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=`;
-    //       // You can await here
-    //       const response = await fetch(URL);
-    //       const data = await response.json()
-    //         setResources(data.data);
+      useEffect( () => {
+        async function fetchData() {
+            const URL = `https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=`;
+          // You can await here
+          const response = await fetch(URL);
+          const data = await response.json()
+            setResources(data.data);
           
-    //     }
-    //     fetchData();
-    //   }, []); 
+        }
+        fetchData();
+      }, []); 
       
     
    
@@ -74,7 +74,7 @@ const Page1 = () => {
             <span className=' text-tblue'>RESOURCES</span>
             </header>
         </div>
-                {/* <div className={`absolute bg-red-500 shadow-sm right-0 mt-20 h-[470px] z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} sm:hidden`}>
+                 <div className={`absolute shadow-sm right-0 left-4 mt-20 h-[470px] z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} sm:hidden`}>
                         
                         <div className='flex justify-between items-center p-4 w-full'>
                             <div className='flex p-2'>
@@ -110,7 +110,7 @@ const Page1 = () => {
                             ))}
                         </ul>
                     </div>
-                </div> */}
+                </div>  
 
         <div className=' w-full flex justify-start items-start md:justify-center md:items-center mb-[3rem]'>
             
@@ -206,14 +206,7 @@ const Page1 = () => {
 
                             <div className='flex  items-start justify-center  '>
                                 
-                                {feedback.map((feeds, i) => (
-
-                                    <div key={i} className='flex flex-col mb-10 mr-8 h-[340px] sm:min-w-[512px] sm:h-[538px] '>
-                                        
-                                        <Card titleText={feeds.name} photo={feeds.img} pText={feeds.content} subTitleText={feeds.title}/>
-
-                                    </div>
-                                    ))}   
+                                <Loader/> 
                             
                             </div>
     
