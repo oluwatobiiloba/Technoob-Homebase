@@ -1,14 +1,15 @@
 module.exports = {
   apps : [{
     name: 'technoob',
-    script: 'app.js',
-    env_development: {
+    script: './bin/www',
+    env: {
       NODE_ENV: "development",
     },
     env_production: {
       NODE_ENV: "production",
     },
     watch: true,
+    instances: "max",
     exec_mode: "cluster",
     ignore_watch: ["node_modules"],
 
