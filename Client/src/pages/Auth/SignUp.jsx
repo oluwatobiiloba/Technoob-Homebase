@@ -90,15 +90,22 @@ else{
 
       <div className=' md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center'>
         <img src={SignUPIMG} alt="Sign-Up" className=' xl:block hidden w-[50%]' />
-        <form  onSubmit={handleSubmit} className='block bgcontact lg:p-20 p-5 w-full  rounded xl:w-[50%] '>
+        <form  onSubmit={handleSubmit} className='block bgcontact lg:p-20 p-5 w-full gap-4 rounded xl:w-[50%] '>
             <InputField type={'text'}  name={'FullName'} placeholder={'Full Name'} onChange={handleChange}/>
             <InputField type={'text'}  name={'Username'} placeholder={'User Name'} onChange={handleChange}/>
             <InputField type={'email'}  name={'Email'} placeholder={'Email'} onChange={handleChange}/>
-            <select name="Tech Stack" className='w-full text-lg rounded-xl m-1 border placeholder:pl-2 px-2 py-4 my-10 outline-0 ring-1 bg-white'>
-              <option value="">Design</option>
-              <option value="Frontend">Frontend</option>
-              <option value="Backend">Backend</option>
-            </select>
+            <div className='mb-4'>
+              <label className='text-2xl font-semibold px-4 ' htmlFor="stack">Choose a Tech Stack</label>
+              <select id='stack' name="Tech Stack" placeholder='Tech stack' className='w-full text-lg rounded-xl m-1 border placeholder:pl-2 px-2 py-4 outline-0 ring-1 bg-white'>
+                <option value="Frontend">Frontend stack</option>
+                <option value="">UI/UX Design</option>
+                <option value="Backend">Backend stack</option>
+                <option value="Backend">Mobile Design</option>
+                <option value="Backend">MAEN Stack</option>
+                <option value="Backend">Flutter Developer</option>
+                <option value="Backend">MERN Stack</option>
+              </select>
+            </div>
             <div className='mb-5'>
             <button name={'Login'} className='flex justify-center items-center text-[#111111] bg-[#EFF0F5] rounded-md mb-2 py-3 px-3.5 text-base font-[600]'>Take Short Quiz</button>
             <p className='text-[#828282] text-sm'>This Quiz is to help in choosing Tech Stack</p>
