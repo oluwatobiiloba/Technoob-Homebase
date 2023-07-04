@@ -17,17 +17,37 @@ const sanitizer = require("perfect-express-sanitizer");
 const indexRouter = require("./routes/index");
 const app = express();
 const prometheus = require("prom-client");
-const trafficMiddleware = require("./middleware/traffic")
+const trafficMiddleware = require("./middleware/traffic");
+const swaggerJSDoc = require('swagger-jsdoc');  
+const swaggerUI = require('swagger-ui-express');  
+const yamljs = require('yamljs');
+const swaggerDocument = yamljs.load('./swagger.yaml');
 
 const allowedOrigins = [
   "http://localhost:3000",
   "https://technoob-client-staging.herokuapp.com",
+  "https://technoob-client.herokuapp.com",
+  "http://127.0.0.1:3000"
 ];
+
+// const swaggerOptions = { 
+//   failOnErrors: true,
+//   swaggerDefinition: {  
+//       info: {  
+//           title:'Technoob API',  
+//           version:'1.0.0'  
+//       }  
+//   },
+//   apis: ['./routes/*.js'],
+// }  
+//const swaggerDocs = swaggerJSDoc(swaggerOptions);  
+
 
 // Set up the CORS headers
 app.use(
   cors({
     origin: function (origin, callback) {
+      console.log("Origin: ", origin)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -138,7 +158,8 @@ app.use(express.static(path.join(__dirname, "public")));
 /* GET home page. */
 // app.use(trafficMiddleware);
 app.use("/", limiter); // implementing rate limiter middleware
-app.use("/", trafficMiddleware ,indexRouter);
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocument));  
+app.use("/", trafficMiddleware, indexRouter);
 
 app.use(Honeybadger.errorHandler);
 // catch 404 and forward to error handler
@@ -155,7 +176,7 @@ app.use(function (err, req, res, next) {
   // return error as json
   return res.status(err.status || 500).json({
     status: "error",
-    message: err.message,
+    message: err.message || err ,
   });
 });
 

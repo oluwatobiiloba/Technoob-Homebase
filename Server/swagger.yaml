@@ -1,0 +1,1054 @@
+openapi: 3.0.0
+info:
+  title: technoob
+  version: 1.0.0
+servers:
+  - url: https://technoob-staging.azurewebsites.net
+    description: Staging server
+  - url: http://127.0.0.1:3000
+    description: Local server
+tags:
+  - name: auth
+  - name: Admin
+  - name: User
+  - name: resources
+  - name: uploader
+  - name: Log
+  - name: events
+  - name: Jobs
+  - name: Quizzes And Competitions
+paths:
+  /api/v1/authenticate/register:
+    post:
+      tags:
+        - auth
+      summary: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                firstname: Test
+                lastname: LiveQueue
+                password: testing00
+                passwordConfirm: testing00
+                email: oluwatobiloba.aremu@flutterwavego.com
+                username: TestWorker2
+                stack:
+                  - Project Management
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/authenticate/login:
+    post:
+      tags:
+        - auth
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: testing000
+                username: oluwatobiiloba
+      parameters:
+        - name: oslc-core-version
+          in: header
+          schema:
+            type: number
+          example: '2.0'
+        - name: x-requested-with
+          in: header
+          schema:
+            type: string
+          example: XMLHttpRequest
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/authenticate/logout:
+    post:
+      tags:
+        - auth
+      summary: logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ''
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/authenticate/oauth2/google:
+    get:
+      tags:
+        - auth
+      summary: Google Login
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/authenticate/oauth2/github:
+    get:
+      tags:
+        - auth
+      summary: Github login
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/email/template:
+    post:
+      tags:
+        - Admin
+      summary: Create Email Template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Test Welcome 4
+                template: |-
+                  <!DOCTYPE html>
+                  <html lang="en">
+
+                  <head>
+                      <meta charset="UTF-8" />
+                      <link rel="preconnect" href="https://fonts.googleapis.com">
+                      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+                      <title>Welcome to our Community</title>
+                      <style>
+                          /* Email CSS styles */
+                          body {
+                              font-family: 'Montserrat', sans-serif;
+                          }
+
+                          .container {
+                              max-width: 600px;
+                              margin: 0 auto;
+                              padding: 20px;
+                              background-color: #f7f5f5;
+                              display: flex;
+                              flex-direction: column;
+                              justify-content: center;
+                              align-items: flex-start;
+                          }
+
+                          h1 {
+                              color: #000;
+                              font-size: 18px;
+                              width:100%;
+                          }
+
+                          p {
+                              font-size: 16px;
+                              width:100%;
+                          }
+
+                          .button {
+                              width: 150px;
+                              background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+                              color: #ffffff;
+                              padding: 16px 16px;
+                              text-decoration: none;
+                              text-align: center;
+                              border-radius: 8px;
+                              font-size: 18px;
+                              margin-top: 32px;
+                              font-size: larger;
+                              font-weight: bolder;
+                          }
+
+                          .note {
+                              font-size: 14px;
+                              margin-top: 24px;
+                              text-align: center;
+                              color: #888;
+                          }
+                      </style>
+                  </head>
+
+                  <body>
+                      <div class="container">
+                          <h1>Welcome to Stacklite ❤️</h1>
+                          <p>Hi${username} 🙂,</p>
+                          <p>Thank you for joining our community! We're excited to have you on board.</p>
+                          <p>To get started, please click the button below to verify your email address:</p>
+                          <a href="${verification_link}" class="button">Verify Email</a>
+                          <p class="note">Note: This verification link will expire in 10 minutes.</p>
+                          <p>If you have any questions or concerns, please don't hesitate to reach out.</p>
+                          <p>Best regards,</p>
+                          <p>The Stacklite Team ✨</p>
+                      </div>
+                  </body>
+
+                  </html>
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Admin
+      summary: Get all templates
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/dashboard:
+    get:
+      tags:
+        - Admin
+      summary: Get Dashboard
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/dashboard/traffic:
+    get:
+      tags:
+        - Admin
+      summary: Get Dashboard Network Metrics
+      parameters:
+        - name: year
+          in: query
+          schema:
+            type: integer
+          example: '2023'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/all:
+    get:
+      tags:
+        - Admin
+      summary: Get all Admin
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/64371edb313a8906ad719dcb:
+    get:
+      tags:
+        - Admin
+      summary: Get Permissions by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/all:
+    get:
+      tags:
+        - Admin
+      summary: 'Get All Permission '
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/643723e2b1d3f2cdcdb3f8c3:
+    get:
+      tags:
+        - Admin
+      summary: Get Admin
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/email/template/6435a97404c5b38f7ba81a35:
+    get:
+      tags:
+        - Admin
+      summary: Get template by id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/643747831f7570670757668c/delete:
+    post:
+      tags:
+        - Admin
+      summary: Delete permission by id
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/6437498af82b3d93fd164c0c/deactivate:
+    post:
+      tags:
+        - Admin
+      summary: Deactivate permission by id
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/email/many/static:
+    post:
+      tags:
+        - Admin
+      summary: Send bulk Static
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                emails:
+                  - ooluwatobiiloba@gmail.com
+                  - technoobng@gmail.com
+                  - oluwatobiloba.f.a@gmail.com
+                subject: Retry Broadcast
+                message: Please work on my first try
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/invite:
+    post:
+      tags:
+        - Admin
+      summary: Invite Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: oluwatobiloba.f.a@gmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/remove:
+    post:
+      tags:
+        - Admin
+      summary: Remove Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: oluwatobiloba.f.a@gmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/create:
+    post:
+      tags:
+        - Admin
+      summary: Create Permission
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Remove jobs
+                description: Remove jobs
+                team: admin
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/add:
+    post:
+      tags:
+        - Admin
+      summary: Add Permission
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: ooluwatobiiloba@gmail.com
+                permission: admin:Removejobs
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/permission/remove:
+    post:
+      tags:
+        - Admin
+      summary: Remove Permission
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: ooluwatobiiloba@gmail.com
+                permission: admin:FakePermission
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/email/many/dynamic:
+    post:
+      tags:
+        - Admin
+      summary: Send bulk Mail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                emails:
+                  - ooluwatobiiloba@gmail.com
+                  - oluwatobiloba.f.a@gmail.com
+                  - gabrielfashedemi@gmail.com
+                subject: Testing Email Template
+                message: This is an attempt to test bulk emails.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user:
+    get:
+      tags:
+        - User
+      summary: Get all Users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/dashboard:
+    post:
+      tags:
+        - User
+      summary: Dashbaord
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/643492bb86360e05476576f9:
+    get:
+      tags:
+        - User
+      summary: Get User by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/edit:
+    post:
+      tags:
+        - User
+      summary: Edit User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                update_params:
+                  lastname: Aremu
+                  firstname: Oluwatobiloba
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/edit-password:
+    post:
+      tags:
+        - User
+      summary: Update Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: testing00
+                previous_password: testing000
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/edit-photo:
+    post:
+      tags:
+        - User
+      summary: Upload Image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                photo: testing00
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/activate:
+    post:
+      tags:
+        - User
+      summary: Activate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                active: 'false'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/mailing-list:
+    post:
+      tags:
+        - User
+      summary: Add to Mailing list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: oluwatobiloba.f.a0@gmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/contact-us:
+    post:
+      tags:
+        - User
+      summary: Contact Us Copy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: oluwatobiloba.@gmail.com
+                name: Oluwatobi
+                message: 'Improve your speed with node '
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/resources/create:
+    post:
+      tags:
+        - resources
+      summary: Create Resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: test 3
+                version: 3
+                stack: FE
+                description: A guide to Clean javascript
+                type: e-book
+                file: >
+                  https://stackliteblob.blob.core.windows.net/pdf/2023-04-30T14-08-10.922Z-2023-04-30T11-04-08.821Z-Eloquent_JavaScript_small.pdf
+                image_placeholder: >-
+                  https://stackliteblob.blob.core.windows.net/images/2023-04-30T14-30-37.359Z-cover.png
+                url: test.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/frontend/resources/create:
+    post:
+      tags:
+        - resources
+      summary: Create Frontend Resources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: background
+                description: landing page bg
+                url: >-
+                  https://stackliteblob.blob.core.windows.net/images/2023-06-16T12-57-47.547Z-Screenshot%202023-06-14%20at%2015.37.10.png
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/resources/all:
+    get:
+      tags:
+        - resources
+      summary: Get Resource
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/resources/download/644e00557e7a7df2b66a1d06:
+    get:
+      tags:
+        - resources
+      summary: Download Resource
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/resources/get/644e00557e7a7df2b66a1d06:
+    get:
+      tags:
+        - resources
+      summary: Get Resource
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/resources/count:
+    get:
+      tags:
+        - resources
+      summary: Get Resource Count
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/resources/activity:
+    get:
+      tags:
+        - resources
+      summary: Get resource Activity
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/utils/upload-file:
+    post:
+      tags:
+        - uploader
+      summary: upload file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                '':
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/utils/upload-image:
+    post:
+      tags:
+        - uploader
+      summary: Upload Image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /metrics:
+    get:
+      tags:
+        - Log
+      summary: Get Log
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/events/all:
+    get:
+      tags:
+        - events
+      summary: Get Events Metrics
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/events/get/{id}:
+    get:
+      tags:
+        - events
+      summary: Get Event
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/events/activity:
+    get:
+      tags:
+        - events
+      summary: Get Event Activity
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/events/count:
+    get:
+      tags:
+        - Jobs
+      summary: Get Jobs Count
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/events/delete/649970d86e8d06fb2af6fad1:
+    post:
+      tags:
+        - events
+      summary: Delete Event
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/events/create:
+    post:
+      tags:
+        - events
+      summary: Create event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                theme: Music Festival
+                location: City Park
+                ticketing: paid
+                price: '25.00'
+                currency: USD
+                date: '2023-07-15T18:00:00.000Z'
+                link: https://example.com/music-festival
+                poster: https://example.com/poster.jpg
+                comments: {}
+                uploader_id: 643492bb86360e05476576f9
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/jobs/all:
+    get:
+      tags:
+        - Jobs
+      summary: Get Jobs
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/jobs/metrics:
+    get:
+      tags:
+        - Jobs
+      summary: Get Jobs Metrics
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/jobs/delete/64997b5abc169e7222aed70a:
+    post:
+      tags:
+        - Jobs
+      summary: Delete Job
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/jobs/get/{id}:
+    get:
+      tags:
+        - Jobs
+      summary: Get Job
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 64997b5abc169e7222aed70a
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/jobs/create:
+    post:
+      tags:
+        - Jobs
+      summary: Create Job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Software Engineer
+                company: Acme Corp
+                exp: 3+ years
+                location: San Francisco
+                workplaceType: onsite
+                datePosted: '2023-06-25T12:00:00.000Z'
+                expiryDate: '2023-07-25T12:00:00.000Z'
+                link: https://example.com/job-posting
+                poster: https://example.com/poster.jpg
+                comments: {}
+                uploader_id: 643492bb86360e05476576f9
+                views: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/all:
+    get:
+      tags:
+        - Quizzes And Competitions
+      summary: Get Quizzes
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/metrics:
+    get:
+      tags:
+        - Quizzes And Competitions
+      summary: Get Quizzes Metrics
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/activity:
+    get:
+      tags:
+        - Quizzes And Competitions
+      summary: Get Quizzes Activity
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/questions/6499c46713d4b8359523a615:
+    get:
+      tags:
+        - Quizzes And Competitions
+      summary: Get Quiz Questions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/attempt/submit/6499adb58bb31bf211b13095:
+    post:
+      tags:
+        - Quizzes And Competitions
+      summary: Submit Answer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                answers:
+                  - questionId: 1
+                    selectedAnswerId: 4
+                  - questionId: 2
+                    selectedAnswerId: 4
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/count:
+    get:
+      tags:
+        - Quizzes And Competitions
+      summary: Get Quizzes Count
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/create:
+    post:
+      tags:
+        - Quizzes And Competitions
+      summary: Create Quiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                theme: JavaScript Basics
+                type: quiz
+                stack: JavaScript
+                instructions: Answer the following questions about JavaScript basics.
+                questions_answers:
+                  - id: 1
+                    question: |-
+                      What is the output of the following code?
+
+                      ```javascript
+                      console.log(2 + 2);
+                      ```
+                    answers:
+                      - id: 1
+                        answer: '3'
+                      - id: 2
+                        answer: '4'
+                        isCorrect: true
+                      - id: 3
+                        answer: '5'
+                      - id: 4
+                        answer: '6'
+                      - id: 5
+                        answer: '7'
+                    correctAnswerId: 2
+                  - id: 2
+                    question: |-
+                      What is the result of the following expression?
+
+                      ```javascript
+                      2 * '3'
+                      ```
+                    answers:
+                      - id: 1
+                        answer: '6'
+                        isCorrect: true
+                      - id: 2
+                        answer: '8'
+                      - id: 3
+                        answer: '9'
+                      - id: 4
+                        answer: '10'
+                      - id: 5
+                        answer: '12'
+                    correctAnswerId: 1
+                duration: 3600
+                deadline: '2023-07-10T18:00:00.000Z'
+                datePosted: '2023-06-25T12:00:00.000Z'
+                uploader_id: 643492bb86360e05476576f9
+                leader_Board: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/delete/64997b5abc169e7222aed70a:
+    post:
+      tags:
+        - Quizzes And Competitions
+      summary: Delete Quizzes
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/quizzes/get/{id}:
+    get:
+      tags:
+        - Quizzes And Competitions
+      summary: Get Quiz
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 6499adb58bb31bf211b13095
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

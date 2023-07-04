@@ -40,7 +40,8 @@ router.get('/metrics', async (req, res) => {
 });
 
 router.all('*', (req, res) => {
-  res.status(400).json({
+  console.log(req.method, req.originalUrl)
+  return res.status(400).json({
     status: 'fail',
     message: `Can't find (${req.method}) ${req.originalUrl} on this server. Please check the documentation for the correct route.`
   })
