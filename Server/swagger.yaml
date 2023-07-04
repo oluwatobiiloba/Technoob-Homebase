@@ -433,7 +433,6 @@ paths:
               example:
                 emails:
                   - ooluwatobiiloba@gmail.com
-                  - oluwatobiloba.f.a@gmail.com
                   - gabrielfashedemi@gmail.com
                 subject: Testing Email Template
                 message: This is an attempt to test bulk emails.
