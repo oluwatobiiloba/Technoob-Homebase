@@ -21,7 +21,9 @@ const trafficMiddleware = require("./middleware/traffic");
 const swaggerJSDoc = require('swagger-jsdoc');  
 const swaggerUI = require('swagger-ui-express');  
 const yamljs = require('yamljs');
-const swaggerDocument = yamljs.load('./swagger.yaml');
+//const swaggerDocument = yamljs.load('./swagger.yaml');
+
+const swaggerDocument = yamljs.load(path.join(__dirname,'swagger.yaml'));
 
 const allowedOrigins = [
   "http://localhost:3000",
