@@ -2,6 +2,7 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const blob = require('../utils/azure_blob_helper');
+const stream = require('stream');
 
 
 
@@ -22,30 +23,25 @@ const uploadParams = {
 
 module.exports = {
     async uploadFile(file) {
-        const upload = multer(uploadParams).single('file');
-        let uploadResponse = null
-        // Use Multer to extract the uploaded file from the request
-        return new Promise((resolve, reject) => {
-            upload({ file }, {}, async (err) => {
-                if (err) {
-                    console.error(err);
-                    return reject(err.message);
-                }
-
+        return new Promise(async (resolve, reject) => {
+            console.log(file);
                 const timestamp = new Date().toISOString().replace(/:/g, '-');
                 const fileName = `${timestamp}-${file.originalname}`;
 
 
                 if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
                     const resizedImage = await sharp(file.buffer).resize(800).jpeg({ quality: 80 }).toBuffer();
+                    
                     uploadResponse = await blob.upload('images', resizedImage, fileName);
                 } else {
                     const sizeLimit = file.mimetype === 'application/zip' ? 15 * 1024 * 1024 : 8 * 1024 * 1024;
                     if (file.size > sizeLimit) {
                         return reject(`File size exceeds limit of ${sizeLimit / 1024 / 1024} MB`);
                     }
-                    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-                    uploadResponse = await blockBlobClient.upload(file.buffer, file.buffer.length);
+                    const uploadedFile = new stream.PassThrough();
+                    uploadedFile.end(file.buffer);
+                    const type = file.mimetype.split('/')[1];
+                    uploadResponse = await blob.upload(type ,uploadedFile, fileName, true);
                 }
 
                 let response = {
@@ -56,8 +52,8 @@ module.exports = {
 
                 }
                 // Return a response indicating that the upload was successful
-                resolve(response);
-            });
-        });
-    },
-};
+            resolve(response);
+        })
+    }
+}
+

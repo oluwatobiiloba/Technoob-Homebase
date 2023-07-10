@@ -117,7 +117,7 @@ const Dashboard = () => {
                 </tbody>
                 
               </table>
-              </div>
+            </div>
           </div>
         </div>
     </section>

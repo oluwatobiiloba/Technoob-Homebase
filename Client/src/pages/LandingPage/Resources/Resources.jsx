@@ -3,7 +3,7 @@ import Page1 from './reasources_pages/Page1';
 
 const Resources = () => {
   return (
-    <div className='flex w-screen h-auto mb-10 justify-center items-start pb-[3rem]'>
+    <div className='flex w-full h-auto mb-10 justify-center items-start pb-[3rem]'>
       <Page1/>
     </div>
   )

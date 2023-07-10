@@ -4,7 +4,7 @@ import Button from '../../../../utility/button';
 
 const Page2 = () => {
   return (
-    <section className='w-screen md:h-screen flex flex-col flex-wrap justify-start items-center px-5 sm:px-20 md:flex-row   sm:my-[4rem] my-16 '>
+    <section className='w-full md:h-screen flex flex-col flex-wrap justify-start items-center px-5 sm:px-20 md:flex-row sm:my-[4rem] my-16 '>
         <div className=' sm:flex-1 mb-4 mr-4'>
             <div className='flex flex-col '>
             <h1 className='text-2xl font-bold  min-w-[288px] text-[#5E7CE8] md:text-[55px] sm:font-[900] lg:w-[750px] sm:leading-[70px] mb-3 '>

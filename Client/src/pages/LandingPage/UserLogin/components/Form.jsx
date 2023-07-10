@@ -1,69 +1,148 @@
-
-import {useState} from 'react'
-import img from '../img/quino-al-xhGMQ_nYWqU-unsplash 1.png'  
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from "react";
+import Cookies from "universal-cookie";
+import img from "../img/quino-al-xhGMQ_nYWqU-unsplash 1.png";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../../../AppContext/AppContext";
+const cookies = new Cookies();
 
 const Form = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useState({
-    UserName : '',
-    Password : ''
-  })
+    UserName: null,
+    Password: null,
+    error: null,
+  });
+  const { setIsLoggedIn, setUserProfile, setDashboardToggle } =
+    useContext(AppContext);
 
   const handleChange = (e) => {
-    setUser({...user, [e.target.name]:e.target.value})
-  }
-  const login = async ()=>{
-    var myHeaders = new Headers();
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+  const login = async () => {
+    let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      "password": user.Password,
-      "username": user.UserName
+    let raw = JSON.stringify({
+      password: user.Password,
+      username: user.UserName,
     });
 
-    var requestOptions = {
-      method: 'POST',
+    let requestOptions = {
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
+      credentials: "include",
     };
 
-    const userData = await fetch("https://technoob-staging.azurewebsites.net/api/v1/authenticate/login", requestOptions)
-    const result = await userData.json()
-    console.log(result)
-  }
+    fetch(
+      "https://technoob-staging.azurewebsites.net/api/v1/authenticate/login",
+      requestOptions
+    )
+      .then(async (response) => {
+        const result = await response.json();
+        if (response.status === 200) {
+          navigate("/Home");
+          const userInfo = {
+            ...result.data,
+          };
+          setUserProfile(userInfo);
+          setIsLoggedIn(true);
+          cookies.set("user", JSON.stringify(userInfo), {
+            path: "/",
+            maxAge: 3600,
+          });
+          //localStorage.setItem("user", JSON.stringify(userInfo));
+          if (userInfo.user.role === "admin") {
+            setDashboardToggle({
+              displayToggle: true,
+              toggleValue: "User Dashboard",
+            });
+          }
+        } else {
+          throw new Error(result.message);
+        }
+        return;
+      })
+      .catch((error) => {
+        setUser({ error: error.message, UserName: "", Password: "" });
+      });
+  };
 
   const submit = async (e) => {
-    e.preventDefault()
-    await login()
-    console.log(user)
-  }
+    e.preventDefault();
+    await login();
+  };
 
-
- const handleClick = () => {
-  navigate('/Sign-Up')
-  }
-
+  const handleClick = () => {
+    navigate("/Sign-Up");
+  };
 
   return (
-    <section className=' md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center'>
-      <img src={img} alt="" className=' lg:block hidden w-[50%]' />
-      <form action="get" className='block bgcontact lg:p-20 p-5 rounded lg:w-[50%] w-full'>
-      <label htmlFor="username" className=' text-2xl font-semibold py-10 px-4 ' >Username/Email</label><br/>
-      <input type="username" name='UserName' placeholder="Username/Email" className=' w-[100%] rounded-xl m-1 border px-10 py-4 my-10 outline-0 ring-1 bg-white' onChange={handleChange} />
-      <label htmlFor="password" className=' text-2xl font-semibold py-10 px-4 ' >Password</label><br/>
-      <input type="password" name='Password' placeholder="Password" className=' w-[100%] rounded-xl m-1 border px-10 py-4 my-10 outline-0 ring-1 bg-white' onChange={handleChange} />
-      <div className=' lg:flex'>
-
-        <button className=' bg-tblue text-twhite py-[14px] lg:w-[50%] w-[100%] rounded' onClick={submit}>Login</button> <p className='py-5 lg:w-[10%] w-[100%] text-center'>Or</p>
-        <button onClick={handleClick} className='py-[14px] lg:w-[40%] w-[100%] bg-twhitee ring-1 rounded'>Sign Up?</button>
-
-      </div>
-      <p className=' cursor-pointer px-2 py-8 italic'><span className=' text-red-500'>Forget </span><span>Password?</span></p>
+    <section className=" md:flex flex-auto w-screen block md:px-20 md:py-5 nun mb-20 justify-center">
+      <img src={img} alt="" className=" lg:block hidden w-[50%]" />
+      <form
+        action="get"
+        className="block bgcontact lg:p-10 p-5 rounded lg:w-[50%] w-full"
+      >
+        <label
+          htmlFor="username"
+          className=" text-2xl font-semibold py-10 px-4 "
+        >
+          Username
+        </label>
+        <br />
+        <input
+          type="username"
+          name="UserName"
+          value={user.UserName}
+          placeholder="Username"
+          className=" w-[100%] rounded-xl m-1 border px-5 py-4 my-10 outline-0 ring-1 bg-white"
+          onChange={handleChange}
+        />
+        <label
+          htmlFor="password"
+          className=" text-2xl font-semibold py-10 px-4 "
+        >
+          Password
+        </label>
+        <br />
+        <input
+          type="password"
+          name="Password"
+          placeholder="Password"
+          value={user.Password}
+          className=" w-[100%] rounded-xl m-1 border px-5 py-4 my-10 outline-0 ring-1 bg-white"
+          autoComplete="current-password"
+          onChange={handleChange}
+        />
+        {user.error && (
+          <div className="text-red-500 mb-2">
+            <p>{user.error}</p>
+          </div>
+        )}
+        <div className=" lg:flex">
+          <button
+            className=" bg-tblue text-twhite py-[14px] lg:w-[50%] w-[100%] rounded"
+            onClick={submit}
+          >
+            Login
+          </button>{" "}
+          <p className="py-5 lg:w-[10%] w-[100%] text-center">Or</p>
+          <button
+            onClick={handleClick}
+            className="py-[14px] lg:w-[40%] w-[100%] bg-twhitee ring-1 rounded"
+          >
+            Sign Up?
+          </button>
+        </div>
+        <p className=" cursor-pointer px-2 py-8 italic">
+          <span className=" text-red-500">Forget </span>
+          <span>Password?</span>
+        </p>
       </form>
     </section>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;
