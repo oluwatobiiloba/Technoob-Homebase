@@ -1,12 +1,12 @@
 import React from 'react'
 import { Hero, Vector1  } from '../../../../data/assets/index';
 import { Link } from 'react-router-dom';
-import Button from '../../../../utility/Button';
+import Button from '../../../../utility/button';
 import { HomeItems } from '../../../../data/contact';
 
 const Page1 = () => {
   return (
-    <div className='flex flex-col bg-[#F5F5F5] items-start sm:items-center w-screen sm:mb-36 sm:pt-10'>
+    <div className='flex flex-col bg-[#F5F5F5] items-start sm:items-center w-full sm:mb-36 sm:pt-10'>
          <div className='flex flex-col justify-start w-full items-start px-4 sm:justify-center sm:items-center sm:mb-10'>
                 <div className='w-[720px] flex flex-col relative mt-5 mb-2 sm:mb-4'>
                   <header className='uni text-left sm:text-center  md:text-6xl text-2xl font-bold md:py-5 relative'>

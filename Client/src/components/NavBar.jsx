@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Cookies from "universal-cookie";
-import Button from "../utility/Button";
+import Button from "../utility/button";
 import { navLinks } from "../data/contact";
 import { menu, close } from "../data/assets";
 import { useNavigate } from "react-router-dom";

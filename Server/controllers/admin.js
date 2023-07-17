@@ -1,11 +1,47 @@
-
-const services = require("../services/index")
-const admin = services.admin
+const { admin } = require("../services/index")
 
 module.exports = {
+    async dashboard(req, res) {
+        try {
+            const adminDashboard = await admin.adminDashboard();
+            
+            return res.status(201).json({
+                status: "success",
+                message: `Dashboard details retrived successfully`,
+                data: adminDashboard
+
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+        }
+    },
+    async traffic(req, res) {
+        const range = req.query
+        try {
+            const trafficData = await admin.traffic(range);
+            
+            return res.status(201).json({
+                status: "success",
+                message: `Traffic details retrieved successfully`,
+                data: trafficData
+
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+        }
+    },
     async saveMailTemplate(req, res) {
         try {
             const email_response = await admin.saveMailTemplate(req.body);
+            
             return res.status(201).json({
                 status: "success",
                 message: `Added email template to database`,
@@ -223,21 +259,40 @@ module.exports = {
             })
         }
         catch (err) {
+            console.log(err)
 
-            return res.status(404).json({
+            return res.status(500).json({
                 status: "error",
                 message: err.message
             })
         }
     },
 
+    async remove_permission(req, res) {
+        const { email, permission } = req.body;
+        try {
+            const result = await admin.remove_permission(email, permission)
+            return res.status(200).json({
+                status: "Success",
+                message: "Permission removed successfully",
+                data: result
+            })
+        } catch (err) {
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+        }
+
+    },
+
     async sendNotificationEmail(req, res) {
-        const { emails, subject, message } = req.body;
+        const { emails, subject, message ,template_id } = req.body;
         const content = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "test"
+            template_id: template_id
         }
 
         try {
@@ -258,12 +313,12 @@ module.exports = {
     },
 
     async sendNotificationEmailStatic(req, res) {
-        const { emails, subject, message } = req.body;
+        const { emails, subject, message,template_id } = req.body;
         const content = {
             subject: subject,
             message: message,
             emails: emails,
-            template_id: "test"
+            template_id: template_id
         }
 
         try {
@@ -282,6 +337,121 @@ module.exports = {
             })
         }
     },
+
+    async getMailingList(req, res) { 
+        try {
+            const mailingList = await admin.getMailingList();
+            return res.status(200).json({
+                status: "success",
+                message: `Retrieved mailing list`,
+                data: mailingList
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    },
+
+    async deleteMailingList(req, res) {
+        try {
+            const mailingList = await admin.deleteMailingList(req.params.id);
+            return res.status(200).json({
+                status: "success",
+                message: `Deleted mailing list`,
+                data: mailingList
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    },
+    
+    async getContactUs(req, res) {
+        try {
+            const contactUs = await admin.getContactUs();
+            return res.status(200).json({
+                status: "success",
+                message: `Retrieved contact us`,
+                data: contactUs
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    },
+
+    async deleteContactUs(req, res) {
+        try {
+            const contactUs = await admin.deleteContactUs(req.params.id);
+            return res.status(200).json({
+                status: "success",
+                message: `Deleted contact us`,
+                data: contactUs
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    },
+
+    async getContactUsMessage(req, res) {
+        try {
+            const contactUs = await admin.getContactUsMessage(req.params.id);
+            return res.status(200).json({
+                status: "success",
+                message: `Retrieved contact us`,
+                data: contactUs
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    },
+
+    async createFrontendResource(req, res) {
+        const { name, description, url } = req.body;
+        try {
+            const resource = await admin.createFrontendResource({ name, description, url });
+            return res.status(200).json({
+                status: "success",
+                message: `Created frontend resource`,
+                data: resource
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
+
+        }
+    }
 
 
 

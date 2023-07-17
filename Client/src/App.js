@@ -12,6 +12,7 @@ import {
   ContactUs,
   Resources,
   AboutUs,
+  FindJobs,
   Home,
   UserLogin,
 } from "./pages/LandingPage";
@@ -58,6 +59,7 @@ function App() {
   };
   return (
     <BrowserRouter>
+
       {displayToggle && <DashSelector />}
       {displayToggle && <div className="blur-effect" />}
       {toggleValue === "User Dashboard" ? (
@@ -66,6 +68,7 @@ function App() {
             <div className="w-full">
               <NavBar />
             </div>
+
           </div>
           <main className="lg:pt-16">
             <Wrapper>
@@ -73,6 +76,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/About-Us" element={<AboutUs />} />
+                <Route path="/Find-Jobs" element={<FindJobs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
@@ -98,7 +102,7 @@ function App() {
               <AdminSideBar />
             </div>
 
-            <div className="bg-[#f9f9f9] w-full grow lg:h-auto pb-10 lg:pr-10 p-5">
+            <div className="bg-[#f9f9f9] w-full grow lg:h-auto h-[1600px] pb-10 lg:pr-10 p-5">
               <Routes>
                 <Route path="/" element={<AdminDashboard />} />
                 <Route path="/Admin-Home" element={<AdminDashboard />} />

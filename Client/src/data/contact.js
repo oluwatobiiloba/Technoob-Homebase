@@ -17,6 +17,11 @@ export const navLinks = [
     link: "Resources",
   },
   {
+    id: "find-job",
+    title: "Jobs",
+    link: "Find-Jobs"
+  },
+  {
     id: "aboutUs",
     title: "About Us",
     link: "About-Us",
