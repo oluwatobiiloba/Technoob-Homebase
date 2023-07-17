@@ -12,6 +12,7 @@ import {
   ContactUs,
   Resources,
   AboutUs,
+  FindJobs,
   Home,
   UserLogin,
 } from "./pages/LandingPage";
@@ -75,6 +76,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/About-Us" element={<AboutUs />} />
+                <Route path="/Find-Jobs" element={<FindJobs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
