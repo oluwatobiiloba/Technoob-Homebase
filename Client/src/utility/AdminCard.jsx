@@ -1,15 +1,15 @@
 import React from 'react'
 
- const AdminCard = ({name, icon, fileType, Amount}) => {
+ const AdminCard = ({statistics}) => {
+ 
    return (
-     <div className='bg-white w-[255px] h-[154px] sm:w-[444px] sm:h-[209px]  p-8 rounded-md'>
-         <div className='pb-10 flex items-center justify-start'>
-             <p className='text-base sm:text-2xl mr-9 text-[#71717a]'>{name}</p>
-             <img src={icon} alt="icon" />
-         </div>
-
-         <p className='text-2xl sm:text-4xl text-[#3a3a3a]'>{Amount}<span className='text-base sm:text-xl opacity-50 ml-2'>{fileType}</span></p>
-     </div>
+    <div key={statistics.name} className=' px-3 pt-5 pb-6 rounded-lg shadow-md lg:w-[40%] mr-6 '>
+    <p className=' pt-3 pb-6 px-2 flex text-xl text-[#71717A] w-auto'>{statistics.name} <span className={`${statistics.style} p-2 rounded-full ml-3 mt-[-2px]`}>{statistics.icon}</span> </p>
+    <div className=' flex justify-start items-end'>
+      <p className=' p-2 mr-6 text-xl'><span className=' font-bold text-3xl'>{statistics.amount}</span> {statistics.amtlabel} </p>
+      <p className=' p-2 text-[#35BA83] flex gap-4 items-center'> <span className='text-xl'>{statistics.icon2}</span> {statistics.tracks} </p>
+    </div>
+  </div>
    )
  }
 

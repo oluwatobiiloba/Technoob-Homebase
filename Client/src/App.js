@@ -27,6 +27,7 @@ import {
   EventManagement,
 } from "./pages/AdminPage/Dashboard";
 import DashSelector from "./utility/DashSelector";
+import AllReasources from "./pages/LandingPage/Resources/AllReasources/All_reasources";
 
 const cookies = new Cookies();
 
@@ -59,8 +60,8 @@ function App() {
   return (
     <BrowserRouter>
 
-      {displayToggle && <DashSelector />}
-      {displayToggle && <div className="blur-effect" />}
+       {displayToggle && <DashSelector />}
+      {displayToggle && <div className="blur-effect" />} 
       {toggleValue === "User Dashboard" ? (
         <div className="bg-primary w-full overflow-auto relative">
           <div className="flex flex-start w-full top-0 lg:fixed z-50">
@@ -69,7 +70,7 @@ function App() {
             </div>
 
           </div>
-          <main className="lg:pt-16">
+          <main className="lg:pt-16 w-full">
             <Wrapper>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -77,20 +78,21 @@ function App() {
                 <Route path="/About-Us" element={<AboutUs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
+                <Route path="/all-resources" element={<AllReasources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
                 <Route path="/User-Login" element={<UserLogin />} />
               </Routes>
             </Wrapper>
           </main>
 
-          <div>
+          <div className="">
             <Footer />
           </div>
         </div>
       ) : (
         <div className="h-full bg-[#f9f9f9] w-full pb-20">
-          <div className="flex flex-start w-full top-0  z-50">
-            <div className="w-full bg-white">
+          <div className="flex flex-start h-full w-full top-0  z-50">
+            <div className="w-full h-full bg-green-400">
               <AdminNavBar />
             </div>
           </div>
