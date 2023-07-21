@@ -105,6 +105,7 @@ function App() {
             <div className="bg-[#f9f9f9] w-full grow lg:h-auto h-[1600px] pb-10 lg:pr-10 p-5">
               <Routes>
                 <Route path="/" element={<AdminDashboard />} />
+                <Route path="/Home" element={<AdminDashboard />} />
                 <Route path="/Admin-Home" element={<AdminDashboard />} />
                 <Route path="/Job-Management" element={<JobManagement />} />
                 <Route
