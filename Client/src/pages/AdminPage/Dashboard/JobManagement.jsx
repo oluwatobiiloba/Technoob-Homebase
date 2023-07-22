@@ -26,13 +26,13 @@ const JobManagement = () => {
   return ( 
     <section>
       <div className=' flex py-10 nun justify-start items-center'>
-        <h1 className=' font-semibold md:text-4xl mr-3 text-2xl'>Hey, Esther  -</h1>
-        <p className=' text-base text-[#71717A] md:text-xl md:pt-2 pt-[3px] '>Welcome your job page</p>
+        <h1 className='  md:text-3xl text-xl font-semibold'>Hey, Esther  -</h1>
+        <p className='md:pt-2 pt-1 text-sm ml-3 sm:text-lg text-[#3A3A3A66] sm:text-black '>Welcome your job page</p>
       </div>
       <div className=' lg:mx-4 p-5  rounded-md bg-white shadow-md w-full '>
-        <h1 className=' text-3xl md:text-4xl lg:py-4 mb-12 font-semibold'>Job Management</h1>
-        <p className='text-2xl mb-1'>Statistics</p>
-        <p className=' text-[#71717A] mb-8 text-[10px] md: text-base'>See Metrics</p>
+        <h1 className='text-xl font-semibold sm:ml-4 lg:py-4 sm:text-[#3A3A3A] sm:text-2xl'>Job Management</h1>
+        <p className='mt-4 lg:mt-4 text-xl mb-1'>Statistics</p>
+        <p className=' text-[#71717A] lg:mb-8 text-[12px] md:text-sm'>See Metrics</p>
         <div className="md:flex block w-full justify-start pb-3">
           {statistics.map((opt, i) => (
             <div key={i} className=' px-3 pt-5 pb-6 rounded-lg shadow-md lg:w-[40%] mr-6 '>

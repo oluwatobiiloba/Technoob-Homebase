@@ -59,16 +59,14 @@ function App() {
   };
   return (
     <BrowserRouter>
-
-       {displayToggle && <DashSelector />}
-      {displayToggle && <div className="blur-effect" />} 
-      {toggleValue === "User Dashboard" ? (
+      {displayToggle && <DashSelector />}
+      {displayToggle && <div className="blur-effect" />}
+      {!toggleValue === "User Dashboard" ? (
         <div className="bg-primary w-full overflow-auto relative">
           <div className="flex flex-start w-full top-0 lg:fixed z-50">
             <div className="w-full">
               <NavBar />
             </div>
-
           </div>
           <main className="lg:pt-16 w-full">
             <Wrapper>
@@ -90,19 +88,19 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="h-full bg-[#f9f9f9] w-full pb-20">
+        <div className="h-full bg-[#f9f9f9] w-full">
           <div className="flex flex-start h-full w-full top-0  z-50">
-            <div className="w-full h-full bg-green-400">
+            <div className="w-full h-full">
               <AdminNavBar />
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <div className="hidden bg-white sm:block rounded-md mt-10 shadow-md h-[1700px]  lg:h-auto w-[350px] ">
+          <div className="flex justify-between h-auto">
+            <div className="hidden sm:block rounded-md shadow-md w-[380px] h-full ">
               <AdminSideBar />
             </div>
 
-            <div className="bg-[#f9f9f9] w-full grow lg:h-auto h-[1600px] pb-10 lg:pr-10 p-5">
+            <div className="bg-[#f9f9f9] w-full grow h-auto pb-16 lg:pr-10 p-5">
               <Routes>
                 <Route path="/" element={<AdminDashboard />} />
                 <Route path="/Admin-Home" element={<AdminDashboard />} />

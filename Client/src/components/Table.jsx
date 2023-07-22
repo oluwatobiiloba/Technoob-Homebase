@@ -19,7 +19,7 @@ const Table = () => {
       <td><p className=' px-10 text-sm'>Meta</p></td>
       <td><p className=' px-10 text-sm'>On-site</p></td>
       <td><p className=' px-10 text-sm'>NY, USA</p></td>
-      <td className='w-[20%] '><p className='bg-red-500 text-base text-white rounded-[30px] w-[80%] pl-2  py-2 text-center flex justify-start items-center'> <span className='rounded-full bg-red-700 w-4 h-4 mr-2'> </span>Unsuccessful</p></td>
+      <td className='w-[20%] '><p className='bg-red-400 text-base  text-white rounded-[30px] w-full lg:w-[80%]  pl-2  py-2 text-center flex justify-start items-center'> <span className='rounded-full bg-red-700 w-4 h-4 mr-2'> </span>Unsuccessful</p></td>
       <td></td>
     </tr>
     <tr className=' border-t'>
@@ -27,7 +27,7 @@ const Table = () => {
       <td><p className=' px-10 text-sm'>Twitter</p></td>
       <td><p className=' px-10 text-sm'>Remote</p></td>
       <td><p className=' px-10 text-sm'>Lagos, NG</p></td>
-      <td className='w-[20%] '><p className='text-base text-white bg-green-500 rounded-[30px] w-[80%] pl-2  py-2 text-center flex justify-start items-center'> <span className='rounded-full bg-green-700 w-4 h-4 mr-2'> </span>Successful</p></td>
+      <td className='w-[20%] '><p className='text-base text-white bg-green-500 rounded-[30px]  w-full lg:w-[80%]  pl-2  py-2 text-center flex justify-start items-center'> <span className='rounded-full bg-green-700 w-4 h-4 mr-2'> </span>Successful</p></td>
       <td><span>...</span></td>
     </tr>
     <tr className=' border-t'>
@@ -35,7 +35,7 @@ const Table = () => {
       <td><p className=' px-10 text-sm'>Whatsapp</p></td>
       <td><p className=' px-10 text-sm'>Remote</p></td>
       <td><p className=' px-10 text-sm'>NY, USA</p></td>
-      <td className='w-[20%] '><p className=' text-base text-white bg-green-500 rounded-[30px] w-[80%] pl-2  py-2 text-center flex justify-start items-center'> <span className='rounded-full bg-green-700 w-4 h-4 mr-4'> </span>Successful</p></td>
+      <td className='w-[20%] '><p className=' text-base text-white bg-green-500 rounded-[30px]  w-full lg:w-[80%]  pl-2  py-2 text-center flex justify-start items-center'> <span className='rounded-full bg-green-700 w-4 h-4 mr-2'> </span>Successful</p></td>
       <td><span>...</span></td>
     </tr>
    
