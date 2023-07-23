@@ -12,6 +12,7 @@ import {
   ContactUs,
   Resources,
   AboutUs,
+  FindJobs,
   Home,
   UserLogin,
 } from "./pages/LandingPage";
@@ -74,6 +75,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/About-Us" element={<AboutUs />} />
+                <Route path="/Find-Jobs" element={<FindJobs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
                 <Route path="/all-resources" element={<AllReasources />} />
@@ -103,6 +105,7 @@ function App() {
             <div className="bg-[#f9f9f9] w-full grow h-auto pb-16 lg:pr-10 p-5">
               <Routes>
                 <Route path="/" element={<AdminDashboard />} />
+                <Route path="/Home" element={<AdminDashboard />} />
                 <Route path="/Admin-Home" element={<AdminDashboard />} />
                 <Route path="/Job-Management" element={<JobManagement />} />
                 <Route
