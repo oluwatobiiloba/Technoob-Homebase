@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdOutlineNoteAdd, MdPermIdentity } from 'react-icons/md';
+import {AiOutlineEye} from 'react-icons/ai'
 
 const JobManagement = () => {
   const statistics = [
@@ -9,6 +10,7 @@ const JobManagement = () => {
       amtlabel : 'Jobs',
       tracks : '360 views',
       icon : <MdOutlineNoteAdd/>,
+      icon2: <AiOutlineEye/>,
       style : 'bg-green-100 text-tgreen'
     },
     {
@@ -21,30 +23,30 @@ const JobManagement = () => {
     },
   ]
 
-  return (
+  return ( 
     <section>
-      <div className=' flex py-10 nun'>
-        <h1 className=' font-semibold md:text-3xl text-xl'>Hey, Esther-</h1>
-        <p className=' md:pt-2 pt-[3px] '>Welcome your job page</p>
+      <div className=' flex py-10 nun justify-start items-center'>
+        <h1 className='  md:text-3xl text-xl font-semibold'>Hey, Esther  -</h1>
+        <p className='md:pt-2 pt-1 text-sm ml-3 sm:text-lg text-[#3A3A3A66] sm:text-black '>Welcome your job page</p>
       </div>
-      <div className=' lg:mx-4 p-5 rounded-md bg-white shadow-md w-full '>
-        <h1 className=' text-2xl lg:py-4 font-semibold'>Job Management</h1>
-        <p>Statistics</p>
-        <p className=' text-[#71717A] text-[10px]'>See Metrics</p>
+      <div className=' lg:mx-4 p-5  rounded-md bg-white shadow-md w-full '>
+        <h1 className='text-xl font-semibold sm:ml-4 lg:py-4 sm:text-[#3A3A3A] sm:text-2xl'>Job Management</h1>
+        <p className='mt-4 lg:mt-4 text-xl mb-1'>Statistics</p>
+        <p className=' text-[#71717A] lg:mb-8 text-[12px] md:text-sm'>See Metrics</p>
         <div className="md:flex block w-full justify-start pb-3">
           {statistics.map((opt, i) => (
-            <div key={i} className=' px-3 pt-5 pb-6 rounded-lg shadow-md lg:w-[40%] mr-6 justify-between'>
-              <p className=' pt-3 pb-6 px-2 flex text-[#71717A] w-auto'>{opt.name} <span className={`${opt.style} p-2 rounded-full ml-3 mt-[-2px]`}>{opt.icon}</span> </p>
-              <div className=' flex'>
-                <p className=' p-2 mr-6'><span className=' font-bold text-xl'>{opt.amount}</span> {opt.amtlabel} </p>
-                <p className=' p-2 text-[#35BA83]'>{opt.tracks} </p>
+            <div key={i} className=' px-3 pt-5 pb-6 rounded-lg shadow-md lg:w-[40%] mr-6 '>
+              <p className=' pt-3 pb-6 px-2 flex text-xl text-[#71717A] w-auto'>{opt.name} <span className={`${opt.style} p-2 rounded-full ml-3 mt-[-2px]`}>{opt.icon}</span> </p>
+              <div className=' flex justify-start items-end'>
+                <p className=' p-2 mr-6 text-xl'><span className=' font-bold text-3xl'>{opt.amount}</span> {opt.amtlabel} </p>
+                <p className=' p-2 text-[#35BA83] flex gap-4 items-center'> <span className='text-xl'>{opt.icon2}</span> {opt.tracks} </p>
               </div>
             </div>
           ))}
         </div>
         <div className=' py-5'>
-          <p className=' text-base font-semibold'>Add new job</p>
-          <p className=' text-[#71717A] text-[10px]'>Add Job Details</p>
+          <p className=' text-2xl font-semibold'>Add new job</p>
+          <p className=' text-[#71717A] text-[16px]'>Add Job Details</p>
         </div>
         <form id='job'>
           <div>
@@ -99,7 +101,7 @@ const JobManagement = () => {
             </div>
           </div>
         </form>
-        <div>
+        <div className='mt-16'>
             <div className=' flex justify-between'>
               <div>
                 <h2 className=' text-xl font-semibold pt-4'>Recent Jobs</h2>
