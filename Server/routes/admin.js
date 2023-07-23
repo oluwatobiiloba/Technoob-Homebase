@@ -14,119 +14,17 @@ const sanitizeIfNeeded = (req, res, next) => {
 };
 
 router.use(sanitizeIfNeeded);
-
-/** 
- * @swagger 
- * admin/dashboard: 
- *   get: 
- *     description: Use to request all customers
- *     produces:
- *      - application/json
- *    
- *     responses:
- *       '200':
- *         description: A successful response
- */  
+router.get('/contributors', admin.getContributors);
+router.post('/contributors/add', middleware.auth.isAuthenticated,middleware.auth.hasPermission('admin:AddContributors'),admin.addContributors);
 router.get('/dashboard', middleware.auth.isAuthenticated, admin.dashboard);
-
-/**
- * @swagger
- * admin/dashboard/traffic:
- *   get:
- *     description: Use to request traffic data
- *     responses:
- *       '200':
- *         description: A successful response
- */
 router.get('/dashboard/traffic', middleware.auth.isAuthenticated, admin.traffic);
-
-/**
- * @swagger
- * admin/email/template:
- *   post:
- *     description: Use to create a new email template
- *     responses:
- *       '200':
- *         description: A successful response
- */ 
 router.post('/email/template', middleware.auth.hasPermission('admin:ManageEmailTemplates'), admin.saveMailTemplate);
-
-/**
- * @swagger
- * admin/email/template:
- *   get:
- *     description: Use to get all email templates
- *     responses:
- *       '200':
- *         description: A successful response
- */
 router.get('/email/template', middleware.auth.hasPermission('admin:ManageEmailTemplates'), admin.getMailTemplates);
-
-/**
- * @swagger
- * admin/email/template/{id}:
- *   get:
- *     description: Use to get a single email template
- *     responses:
- *       '200':
- *         description: A successful response
- */
 router.get('/email/template/:id', middleware.auth.hasPermission('admin:ManageEmailTemplates'), admin.getMailTemplate);
-
-/**
- * @swagger
- * admin/email/many/dynamic:
- *   post:
- *     description: Use to send email to many users
- *     responses:
- *       '200':
- *         description: A successful response
- */
 router.post('/email/many/dynamic', middleware.auth.hasPermission('admin:SendMailNotifications'), admin.sendNotificationEmail);
-
-/**
- * @swagger
- * admin/email/many/static:
- *   post:
- *     description: Use to send email to many users
- *     responses:
- *       '200':
- *         description: A successful response
- */ 
 router.post('/email/many/static', middleware.auth.hasPermission('admin:SendMailNotifications'), admin.sendNotificationEmailStatic);
-
-/**
- * @swagger
- * admin/invite:
- *   post:
- *     description: Use to invite a new admin
- *     responses:
- *       '200':
- *         description: A successful response
- */
 router.post('/invite', middleware.auth.hasPermission('admin:ManageAdmins'), admin.inviteAdmin);
-
-/**
- * @swagger
- * admin/remove:
- *   post:
- *     description: Use to remove an admin
- *     responses:
- *       '200':
- *         description: A successful response
- */
 router.post('/remove', middleware.auth.hasPermission('admin:ManageAdmins'), admin.removeAdmin);
-
-/**
- * @swagger
- * admin/all:
- *  get:
- *   description: Use to get all admin invites
- *   responses:
- *    '200':
- *      description: A successful response
- */
-
 router.get('/all', middleware.auth.hasPermission('admin:ManageAdmins'), admin.getAdmins);
 router.get('/:id', middleware.auth.hasPermission('admin:ManageAdmins'), admin.getAdmin);
 router.post('/permission/create', middleware.auth.hasPermission('admin:ManagePermissions'), admin.create_permission);

@@ -7,6 +7,7 @@ const mailer = require('../utils/azure_mailer');
 const mailing_list = require('../models/mailing_list');
 const contact_us = require('../models/contact_us');
 const frontend_resources = require('../models/frontend_resources');
+const contributors = require('../models/contributors');
 const resources = require('../services/resources')
 const users = require('../services/user');
 const traffic = require('../services/traffic');
@@ -287,7 +288,6 @@ module.exports = {
             return admin
 
         } catch (err) {
-            console.log(err)
             throw err
         }
     },
@@ -477,19 +477,36 @@ module.exports = {
             }
             return contactUs
         } catch (err) {
-            console.log(err)
             throw err
         }
     },
 
     async createFrontendResource(data) {
         try {
-            const resource = await frontend_resources.create(data);
-            return resource
+            return frontend_resources.create(data)
         } catch (err) {
             console.log(err)
             throw err
         }
 
+    },
+
+    async getContributors() {
+        try {
+            return contributors.find()
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+
+    },
+
+    async addContributors(data) {
+        try {
+            return await contributors.create(data)
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
     }
 }
