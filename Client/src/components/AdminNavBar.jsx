@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import {BsBell} from 'react-icons/bs'
-import {TbSettings} from 'react-icons/tb'
 import { people01 } from '../data/assets/asset';
 import { NavLink } from 'react-router-dom';
+
+import {TbSettings} from 'react-icons/tb'
+import {BsBell} from 'react-icons/bs'
 import { MdOutlineDashboard } from 'react-icons/md';
 import { menu, close } from '../data/assets';
+
 import { AdminNavs} from '../data/contact';
 
 const AdminNavBar = () => {

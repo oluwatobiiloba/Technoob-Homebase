@@ -1,6 +1,9 @@
-import React from 'react'
-import { TechNoob } from '../data/assets'
-import { footerLinks } from '../data/contact'
+import React from 'react';
+import { TechNoob } from '../data/assets';
+import { footerLinks } from '../data/contact';
+
+import { BsTwitter, BsInstagram, BsWhatsapp} from 'react-icons/bs';
+import { FaFacebookF} from 'react-icons/fa';
 
 const Footer = () => {
 
@@ -34,19 +37,24 @@ const Footer = () => {
 
 
   return (
-    <div className='flex flex-col justify-start p-5 sm:p-10 items-start bg-[#3A3A3A] text-[#F5EFFB] h-[1100px] w-full sm:h-[70vh]'>
+    <div className='flex flex-col justify-start p-5 sm:p-10 items-start bg-[#3A3A3A] text-[#F5EFFB] h-[900px] w-full sm:h-[70vh]'>
 
        
-          <div className='flex flex-col sm:flex-row justify-start items-start sm:h-auto w-full  gap-5 sm:mt-[3rem]  '>
+          <div className='flex flex-col sm:flex-row justify-start items-start sm:h-auto w-full  gap-5 sm:mt-[3rem]'>
             
-              <div className='flex justify-start items-start sm:mr-[10rem] '>
+              <div className='flex justify-start items-start sm:mr-[10rem]'>
                   <div className=' flex flex-col items-start justify-start w-[328px] gap-y-4'>
 
-                    <img src={TechNoob} alt="logo" className='w-[190px] h-[36px] ' />
+                    <img src={TechNoob} alt="logo" className='w-[190px] h-[36px]'/>
 
                     <p className='text-sm text-[#F8F8F8]'>Integrated People Platform for HR, Benefits, and Payroll. Drive better engagement and keep track of the indices that help your business grow.</p>
 
-                    <div>icons</div>
+                    <div className='flex gap-3 text-2xl text-white'>
+                      <BsWhatsapp className=''/>
+                      <BsTwitter/>
+                      <FaFacebookF/>
+                      <BsInstagram/>
+                    </div>
 
                   </div>
               </div>

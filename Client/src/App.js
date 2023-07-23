@@ -28,6 +28,7 @@ import {
   EventManagement,
 } from "./pages/AdminPage/Dashboard";
 import DashSelector from "./utility/DashSelector";
+import AllReasources from "./pages/LandingPage/Resources/AllReasources/All_reasources";
 
 const cookies = new Cookies();
 
@@ -59,18 +60,16 @@ function App() {
   };
   return (
     <BrowserRouter>
-
       {displayToggle && <DashSelector />}
       {displayToggle && <div className="blur-effect" />}
-      {toggleValue === "User Dashboard" ? (
+      {!toggleValue === "User Dashboard" ? (
         <div className="bg-primary w-full overflow-auto relative">
           <div className="flex flex-start w-full top-0 lg:fixed z-50">
             <div className="w-full">
               <NavBar />
             </div>
-
           </div>
-          <main className="lg:pt-16">
+          <main className="lg:pt-16 w-full">
             <Wrapper>
               <Routes>
                 <Route path="/" element={<Home />} />
@@ -79,30 +78,31 @@ function App() {
                 <Route path="/Find-Jobs" element={<FindJobs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
+                <Route path="/all-resources" element={<AllReasources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
                 <Route path="/User-Login" element={<UserLogin />} />
               </Routes>
             </Wrapper>
           </main>
 
-          <div>
+          <div className="">
             <Footer />
           </div>
         </div>
       ) : (
-        <div className="h-full bg-[#f9f9f9] w-full pb-20">
-          <div className="flex flex-start w-full top-0  z-50">
-            <div className="w-full bg-white">
+        <div className="h-full bg-[#f9f9f9] w-full">
+          <div className="flex flex-start h-full w-full top-0  z-50">
+            <div className="w-full h-full">
               <AdminNavBar />
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <div className="hidden bg-white sm:block rounded-md mt-10 shadow-md h-[1700px]  lg:h-auto w-[350px] ">
+          <div className="flex justify-between h-auto">
+            <div className="hidden sm:block rounded-md shadow-md w-[380px] h-full ">
               <AdminSideBar />
             </div>
 
-            <div className="bg-[#f9f9f9] w-full grow lg:h-auto h-[1600px] pb-10 lg:pr-10 p-5">
+            <div className="bg-[#f9f9f9] w-full grow h-auto pb-16 lg:pr-10 p-5">
               <Routes>
                 <Route path="/" element={<AdminDashboard />} />
                 <Route path="/Home" element={<AdminDashboard />} />

@@ -8,7 +8,7 @@ const Page1 = () => {
   return (
     <div className='flex flex-col bg-[#F5F5F5] items-start sm:items-center w-full sm:mb-36 sm:pt-10'>
          <div className='flex flex-col justify-start w-full items-start px-4 sm:justify-center sm:items-center sm:mb-10'>
-                <div className='w-[720px] flex flex-col relative mt-5 mb-2 sm:mb-4'>
+                <div className='w-full md:w-[720px] flex flex-col relative mt-5 mb-2 sm:mb-4'>
                   <header className='uni text-left sm:text-center  md:text-6xl text-2xl font-bold md:py-5 relative'>
                     <span className=' text-tblue'>Learn, Grow,</span> <span className='text-tgreen'> Connect</span>
                   </header>

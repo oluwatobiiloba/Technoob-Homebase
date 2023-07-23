@@ -41,13 +41,13 @@ const Dashboard = () => {
   ]
   return (
     <section>
-        <div className=' flex py-10 nun'>
-            <h1 className=' font-semibold md:text-3xl text-xl'>Hey, Esther-</h1>
-            <p className=' md:pt-2 pt-[3px] '>here's a look at your resent activities</p>
+        <div className=' flex py-10 nun justify-start items-center'>
+            <h1 className=' font-semibold md:text-3xl text-xl'>Hey, Esther </h1>
+            <p className=' md:pt-2 pt-[3px] text-lg ml-3 '>-here's a look at your resent activities</p>
         </div>
         <div className=' lg:mx-5 px-10 py-5 rounded-xl bg-white w-full pb-20 '>
           <h1 className=' text-2xl lg:py-4 font-semibold'>Admin Overview</h1>
-          <p>Statistics</p>
+          <p className='text-lg'>Statistics</p>
           <div className=' md:flex block w-full justify-between pb-3 '>
             {statistics.map((opt, i) => (
               <div key={i} className=' p-3 shadow-md rounded-md my-2 mx-2 lg:w-[80%] lg:h-auto'>
