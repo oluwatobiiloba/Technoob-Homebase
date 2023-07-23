@@ -1,4 +1,5 @@
 const { admin } = require("../services/index")
+const errorHandler = require("../utils/errorHandler");
 
 module.exports = {
     async dashboard(req, res) {
@@ -173,10 +174,10 @@ module.exports = {
                 data: permission
             })
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({
+           const filterError = errorHandler.filter(err);
+            return res.status( filterError.status|| 500 ).json({
                 status: "error",
-                message: err.message
+                message: filterError.message
             })
         }
     },
@@ -451,10 +452,45 @@ module.exports = {
             })
 
         }
-    }
+    },
 
+    async getContributors(req, res) {
+        try {
+            const contributors = await admin.getContributors();
+            return res.status(200).json({
+                status: "success",
+                message: `Retrieved Contributors`,
+                data: contributors
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
 
+        }
+    },
 
+    async addContributors(req, res) {
+        const { first_name, last_name, designation, image } = req.body;
+        try {
+            const contributor = await admin.addContributors({ first_name, last_name, designation,image});
+            return res.status(200).json({
+                status: "success",
+                message: `Added Contributor`,
+                data: contributor
+            })
+        }
+        catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                message: err.message
+            })
 
+        }
+    },
 
 }
