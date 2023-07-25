@@ -55,10 +55,6 @@ const AllReasources = () => {
         fetchData();
       }, []); 
 
- 
-      
-    
-   
 
   return (
     <div className='flex flex-col w-full justify-start items-center sm:justify-center sm:items-center px-5 sm:px-0 pt-6 md:pt-16 relative'>

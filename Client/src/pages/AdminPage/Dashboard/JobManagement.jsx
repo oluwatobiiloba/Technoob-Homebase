@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { MdOutlineNoteAdd, MdPermIdentity } from 'react-icons/md';
+
 import {AiOutlineEye} from 'react-icons/ai'
+import serverApi from "../../../utility/server";
 
 const JobManagement = () => {
+  const [ jobData,setJobData ] = useState(null)
   const statistics = [
     {
       name : 'Jobs posted',
@@ -22,12 +25,46 @@ const JobManagement = () => {
       style : 'text-[#D4C433] bg-yellow-100'
     },
   ]
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+  const fetchUser = async () => {
+    // const user = await serverApi.post("/authenticate/login",{
+    //   password: "testing000",
+    //   username: "oluwatobiiloba"
+    // })
+
+    const response = await serverApi.get("/jobs/metrics",{ withCredentials: true });
+
+    console.log(response)
+  }
+  const fetchJobMetrics = async () => {
+    const response = await serverApi.get("/jobs/metrics",{ withCredentials: true });
+    console.log(response)
+  }
+
+
+
+  const fetchJobsPreload = async () =>{
+    const response = await serverApi.get("/jobs/all",{ withCredentials: true });
+    console.log(response)
+  }
+
+  useEffect(() => {
+    fetchUser()
+    // fetchJobMetrics()
+    // fetchJobsPreload()
+  }, []);
 
   return ( 
     <section>
       <div className=' flex py-10 nun justify-start items-center'>
         <h1 className='  md:text-3xl text-xl font-semibold'>Hey, Esther  -</h1>
-        <p className='md:pt-2 pt-1 text-sm ml-3 sm:text-lg text-[#3A3A3A66] sm:text-black '>Welcome your job page</p>
+        <p className='md:pt-2 pt-1 text-sm ml-3 sm:text-lg text-[#3A3A3A66] sm:text-black '>Welcome the  job management console.</p>
       </div>
       <div className=' lg:mx-4 p-5  rounded-md bg-white shadow-md w-full '>
         <h1 className='text-xl font-semibold sm:ml-4 lg:py-4 sm:text-[#3A3A3A] sm:text-2xl'>Job Management</h1>
