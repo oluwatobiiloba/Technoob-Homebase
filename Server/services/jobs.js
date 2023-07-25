@@ -42,6 +42,10 @@ module.exports = {
     get: async (id,user) => { 
         try {
             const jobs = await Jobs.findById(id);
+
+            if (!jobs) {
+                throw new Error("Job not found")
+            }
             jobs.views += 1
             await jobs.save()
             return jobs;
