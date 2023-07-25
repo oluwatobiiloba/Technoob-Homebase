@@ -26,6 +26,11 @@ const jobs = new Schema({
         enum: ["onsite", "remote", "hybrid"],
         required: [true, 'Please provide the location'],
     },
+    contractType:{
+        type: String,
+        enum: ["Full-Time", "Contract"],
+        required: [true, 'Please provide the contract type'],
+    },
 
     datePosted: {
         type: Date,
