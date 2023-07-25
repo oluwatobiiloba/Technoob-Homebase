@@ -1,12 +1,16 @@
-import React from "react";
-import { AdminNavs } from "../data/contact";
-import { NavLink } from "react-router-dom";
-import { MdOutlineDashboard } from "react-icons/md";
-import { FiSettings } from "react-icons/fi";
-import { BiLogOut } from "react-icons/bi";
+import React, {useContext, useState} from "react";
+import {AdminNavs} from "../data/contact";
+import {NavLink, useNavigate} from "react-router-dom";
+import {MdOutlineDashboard} from "react-icons/md";
+import {FiSettings} from "react-icons/fi";
+import {BiLogOut} from "react-icons/bi";
+import serverApi from "../utility/server";
+import {AppContext} from "../AppContext/AppContext";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const AdminSideBar = () => {
-  console.log(AdminNavs);
   const isActive = false;
 
   return (
@@ -43,13 +47,47 @@ const AdminSideBar = () => {
           <span className="flex  justify-start items-center gap-4 text-lg cursor-pointer font-semibold">
             <FiSettings className="" /> Settings
           </span>
-          <span className="flex justify-start items-center gap-4 text-red-400 text-lg cursor-pointer font-semibold">
-            <BiLogOut className="" /> Sign Out
-          </span>
+          <SignOut></SignOut>
         </div>
       </div>
     </div>
   );
 };
 
+function SignOut(){
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const {  setIsLoggedIn, setUserProfile,setDashboardToggle } =
+      useContext(AppContext);
+
+  const signOut = async () => {
+    setLoading(true)
+     const response = await serverApi.post("/authenticate/logout")
+    setLoading(false)
+    if(response.status === 200){
+      navigate("/Home");
+      setIsLoggedIn(false);
+      setUserProfile(null);
+      cookies.remove("user");
+      setDashboardToggle({
+        displayToggle: false,
+        toggleValue: "User Dashboard",
+      });
+    }
+
+  }
+
+  const submit = async (e) => {
+    e.preventDefault();
+    await signOut();
+  };
+
+  return (
+      <button onClick={submit}>
+      <span className="flex justify-start items-center gap-4 text-red-400 text-lg cursor-pointer font-semibold">
+           <BiLogOut className=""  /> { loading ? 'Logging out' : 'Log Out'}
+          </span>
+        </button>
+  );
+}
 export default AdminSideBar;
