@@ -6,7 +6,6 @@ import { menu, close } from "../data/assets";
 import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "../AppContext/AppContext";
-
 import { Link } from "react-router-dom";
 const cookies = new Cookies();
 
