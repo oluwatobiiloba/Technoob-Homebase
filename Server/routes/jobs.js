@@ -5,7 +5,7 @@ const jobs = controller.jobs;
 const middleware = require('../middleware/index');
 
 router.get('/all' ,jobs.get_all)
-router.get('/metrics',  middleware.auth.isAuthenticated, jobs.getMetrics)
+router.get('/metrics', jobs.getMetrics)
 router.get('/get/:id', jobs.get)
 router.post('/create',  middleware.auth.isAuthenticated, middleware.auth.hasPermission('admin:Createjobs'),jobs.create)
 router.get('/count',  middleware.auth.isAuthenticated, jobs.count)
