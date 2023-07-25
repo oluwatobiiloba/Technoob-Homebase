@@ -49,7 +49,7 @@ const allowedOrigins = [
 // Set up the CORS headers
 app.use(
   cors({
-    origin: function (origin, callback) {
+    origin:  (origin, callback) => {
       console.log("Origin: ", origin)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
@@ -60,7 +60,6 @@ app.use(
     methods: "GET,PUT,POST,DELETE",
     allowedHeaders: ["Content-Type", "Set-Cookie"],
     credentials: true,
-    exposedHeaders: "Set-Cookie",
   })
 );
 
@@ -107,6 +106,13 @@ const networkTrafficBytes = new prometheus.Counter({
 app.use(logger("combined"));
 // Honeybadger.notify('Starting/Restarting Technoob Server');
 
+const cookieConfig = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production', // Set to true in production
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Use 'none' in production
+  maxAge: 60 * 60 * 1000
+};
+
 app.use(
   session({
     secret: config.SESSION_SECRET,
@@ -119,7 +125,7 @@ app.use(
       autoRemove: "native",
     }),
     cookie: {
-      maxAge: 60 * 60 * 1000
+      cookieConfig
     }
   })
 );

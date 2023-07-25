@@ -1,5 +1,7 @@
 Server/node_modules/@mapbox/node-pre-gyp/bin/node-pre-gyp.cmd
 Server/node_modules
+
+*/node_modules
 *.env
 
 Server/.env
@@ -29,3 +31,6 @@ yarn-error.log*
 
 
 .DS_Store
+
+node_modules/vary/package.json
+node_modules/.package-lock.json
