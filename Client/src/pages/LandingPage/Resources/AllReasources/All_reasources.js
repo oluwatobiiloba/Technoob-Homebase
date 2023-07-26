@@ -111,7 +111,16 @@ const AllReasources = () => {
 
 
             <div className=' w-full min-h-[600px] md:flex-[1.5] md:pl-4'>
-                {searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS</h1> : <h1 className='text-2xl text-[#3A3A3A] font-semibold'><span className='text-[#5E7CE8]'>ALL</span> RESULTS</h1>}
+                {searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '>
+                    <span className='text-[#5E7CE8]'>
+                        {resources.length}
+                    </span> RESULTS</h1> :
+                    <h1 className='text-2xl text-[#3A3A3A] font-semibold'>
+                        <span className='text-[#5E7CE8]'>
+                            ALL
+                        </span>
+                        RESULTS
+                    </h1>}
 
                 
                 <div className='border-b-[0.5px] border-[#C2C7D6] mb-[2rem] w-[95%] '/>
@@ -126,10 +135,10 @@ const AllReasources = () => {
                         {resources ? resources?.map((feeds, i) => (
 
                         <div key={i} className='flex flex-wrap items-center justify-center md:justify-start md:items-start  sm:mr-5 w-[250px]  min-h-auto sm:w-[330px] '>
-                            
+
                             <Card titleText={feeds.name} photo={feeds.image_placeholder} pText={feeds.description} subTitleText={feeds.type}/>
 
-                        </div> 
+                        </div>
 
                         )) : (
 

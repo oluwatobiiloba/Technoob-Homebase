@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Header from './components/Header'
 import MainSection from './components/MainSection'
 import Checks from './components/Checks'
@@ -7,12 +7,18 @@ import { main, container } from '../style/style'
 import { RiArrowDownSLine } from 'react-icons/ri'
 import { MdLocationOn } from 'react-icons/md'
 import { filtersearch, close, SearchIcon } from '../../../data/assets'
+import serverApi from "../../../utility/server";
 
 const FindJobs = () => {
     const [selected, setSelected] = useState('Design');
     const [active, setActive] = useState(false);
     const [toggle, setToggle] = useState(false);
+    const [searchTitle, setSearchTitle] =  useState("");
     const [togggle, setTogggle] = useState(false);
+    const [ jobData,setJobData ] = useState([]);
+    const [ searchLocation, setSearchLocation] = useState("")
+    const [ jobMetrics, setJobMetrics] = useState({"total": 0,
+      "views": 0})
     const handleActive = () =>{
       setActive(!active)
     }
@@ -72,27 +78,56 @@ const FindJobs = () => {
           check1: false,
           type2: 'Mid Level (12) ',
           check2: false,
-          type3: 'Senior Level (5) ',
-          check3: false,
-          type4: 'Director (1)',
-          check4: false,
-          type5: 'VP and Above (0) ',
-          check5: false,
-        },
-        {
-          head: 'Salary Range',
-          type1: '$500 - $800 (40)',
-          check1: false,
-          type2: '$1000 - $2000 (31)',
-          check2: false,
-          type3: '$2000 - $2500 (20) ',
-          check3: false,
-          type4: '$1500 - $3000 (12) ',
-          check4: false,
-          type5: '$4000 and Above (4)',
-          check5: false,
         }
       ]
+
+  const handleClick= async (e) => {
+    e.preventDefault();
+    const response = await serverApi.get(`/jobs/all`,
+        {
+          params: {
+            title: encodeURIComponent(searchTitle),
+            location: searchLocation,
+
+            size: "5"
+          }
+        });
+    if(response.status === 200){
+      setJobData(response.data.data)
+    } else {
+      alert("No result found")
+    }
+
+  }
+  const fetchJobMetrics = async () => {
+
+    try{
+      const response = await serverApi.get("/jobs/metrics",{ withCredentials: true });
+      if(response.status === 200){
+        setJobMetrics(response.data.data)
+      }
+    }catch (e) {
+      alert(e.message)
+    }
+
+  }
+
+  const fetchJobsPreload = async () =>{
+    try{
+      const response = await serverApi.get("/jobs/all",{ withCredentials: true });
+      if(response.status === 200){
+        setJobData(response.data.data)
+      }
+    }catch (e) {
+      alert(e.message)
+    }
+
+  }
+
+  useEffect(() => {
+    fetchJobMetrics()
+    fetchJobsPreload()
+  }, []);
 
   return (
     <div className={`${main.wraper}`}>
@@ -154,20 +189,38 @@ const FindJobs = () => {
           <form className=' w-[95%] flex flex-col sm:flex-row justify-start md:justify-center items-centers gap-6 '>
             <div className='flex justify-start items-center border border-[#BDBDBD] sm:w-[80%] h-[54px] rounded-md bg-transparent pl-7 '>
               <img src={SearchIcon} alt="icon" className='h-5 w-5 md:hidden' />    
-              <input type="text" placeholder='Job title or keyword' className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />
+              <input type="text"
+                     placeholder='Job title '
+                     className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] '
+                     onChange={(e)=> setSearchTitle(e.target.value)}
+              />
               <img 
                   src={filtersearch} alt="icon" onClick={(e)=> {setTogggle((prev) => !prev)
                   }} className='sm:hidden block mr-2 w-6 h-6' />                  
             </div>
             <div className='flex justify-start items-center border border-[#BDBDBD] sm:w-[35%] h-[54px] rounded-md bg-transparent pl-5 ml-[-15px] '>
               <MdLocationOn className=' text-slate-400 h-8 w-8'/>
-              <input type="text" placeholder='Lagos NG' className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />             
+              <input type="text"
+                     placeholder='Lagos NG'
+                     className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] '
+                     onChange={(e)=> setSearchLocation(e.target.value)}
+              />
             </div>
             <div>
-                <Button name={'Search'}/>
+                <Button name={'Search'} handleClick={handleClick}/>
             </div>                    
           </form>
-          <MainSection/>
+          {jobData.length > 0 ? (
+              <MainSection data={jobData} />
+          ) : (
+              <div className='text-center mt-8'>
+                <h1 className='text-xl font-bold'>No job found</h1>
+                <p className='text-gray-500 mt-2'>
+                  Unfortunately, we couldn't find any matching jobs.
+                </p>
+              </div>
+          )}
+
         </div>
       </div>
     </div>
