@@ -49,16 +49,16 @@ const allowedOrigins = [
 // Set up the CORS headers
 app.use(
   cors({
-    origin:  (origin, callback) => {
+    origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: "GET,PUT,POST,DELETE",
-    allowedHeaders: "Content-Type",
+    methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD'],
     credentials: true,
+    exposedHeaders: "Set-Cookie",
   })
 );
 
