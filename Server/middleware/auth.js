@@ -3,6 +3,8 @@ let LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const Admin = require('../models/admin');
 const Permissions = require('../models/permissions');
+const env = process.env.NODE_ENV || 'development';
+const config = require(`${__dirname}/../config/config.js`)[env];
 
 
 
@@ -38,32 +40,41 @@ module.exports = {
     githubAuthenticateMiddleware,
     githubCallbackAuthenticateMiddleware,
     isAuthenticated(req, res, next) {
-        if (req.isAuthenticated()) {
-            const sessionExpiresAt = req.session.cookie.expires;
-            if (sessionExpiresAt && new Date() > sessionExpiresAt) {
-                req.logout((err) => {
+        try { 
+                passport.authenticate("authenticate", {
+                    session: true
+                }, (err, user) => {
                     if (err) {
                         console.log(err);
+                        return next(err);
                     }
-                })// Log out the user
-                res.setHeader("isAuthenticated", false)
-                return res.status(401).json({ isAuthenticated: false, message: 'Session expired' });
-            } else {
-                req.session.cookie.expires = new Date(Date.now() + 3600000);
-            }
-
-            res.setHeader("isAuthenticated", true)
-            res.setHeader("userId", req.user.id)
-            res.setHeader("sessionExpiresAt", sessionExpiresAt)
-            return next();
-        }
-
-
-        res.isAuthenticated = false;
-        res.status(401).json({
-            status: 'fail',
-            message: 'Unauthorized access'
-        })
+                    if (!user) throw err                
+                    req.user = user; 
+                    const sessionExpiresAt = req.session.cookie.expires;
+                    if (sessionExpiresAt && new Date() > sessionExpiresAt) {
+                        req.logout((err) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        })// Log out the user
+                        res.setHeader("isAuthenticated", false)
+                        return res.status(401).json({ isAuthenticated: false, message: 'Session expired' });
+                    } else {
+                        req.session.cookie.expires = new Date(Date.now() + 3600000);
+                    }
+        
+                    res.setHeader("isAuthenticated", true)
+                    res.setHeader("userId", req.user.id)
+                    res.setHeader("sessionExpiresAt", sessionExpiresAt)
+                    return next();
+                })(req, res, next);
+            } catch (err) {
+            res.isAuthenticated = false;
+            res.status(401).json({
+                status: 'fail',
+                message: 'Unauthorized access'
+            })
+        }       
     },
     
     isAdmin(req, res, next) {
@@ -104,9 +115,5 @@ module.exports = {
             }
         };
     }
-
-
-
-
 
 };

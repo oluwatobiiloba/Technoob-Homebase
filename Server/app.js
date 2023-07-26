@@ -107,9 +107,10 @@ app.use(logger("combined"));
 
 const cookieConfig = {
   httpOnly: true,
-  secure: true,
+  secure: env === 'development' ? false : true,
   sameSite:  'none' , 
   maxAge: 60 * 60 * 1000
+
 };
 
 app.use(

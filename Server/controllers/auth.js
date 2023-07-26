@@ -6,6 +6,7 @@ const passport = require('passport');
 const services = require('../services/index');
 const auth = services.auth;
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken')
 const baseurl = config.LIVE_BASE_URL;
 const validator = require('../utils/joi_validator');
 
@@ -23,20 +24,22 @@ module.exports = {
                         message: info.message
                     })
                 }
-                // return  res.status(200).json({
-                //     status: 'success',
-                //     message: `Logged in ${user.username}`,
-                //     data: {
-                //         user
-                //     }
-                // })
+
                 if (user) {
-                    req.login(user, (err) => {
+                    req.login(user,{ session: true }, async (err) => {
                         if (err) {
                             return next(err);
                         }
-                        res.setHeader("isAuthenticated", true)
-                        res.setHeader("userId", user._id)
+                        const token = jwt.sign({
+                            user: {
+                                _id: user._id,
+                                email: user.email,
+                                username: user.username
+                            }
+                        }, config.JWT_SECRET);
+
+                        // res.setHeader("isAuthenticated", true)
+                        // res.setHeader("userId", user._id)
                         res.setHeader("sessionExpiresAt",req.session.cookie.expires)
     
                         res.status(200).json({
@@ -44,7 +47,8 @@ module.exports = {
                             message: `Logged in ${user.username}`,
                             data: {
                                 user
-                            }
+                            },
+                            token
                         })
                     });
                 }
