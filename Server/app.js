@@ -50,7 +50,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin:  (origin, callback) => {
-      console.log("Origin: ", origin)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -58,7 +57,7 @@ app.use(
       }
     },
     methods: "GET,PUT,POST,DELETE",
-    allowedHeaders: ["Content-Type", "Set-Cookie"],
+    allowedHeaders: "Content-Type",
     credentials: true,
   })
 );
@@ -108,8 +107,8 @@ app.use(logger("combined"));
 
 const cookieConfig = {
   httpOnly: true,
-  secure: true, // Set to true in production
-  sameSite:  'none' , // Use 'none' in production
+  secure: true,
+  sameSite:  'none' , 
   maxAge: 60 * 60 * 1000
 };
 

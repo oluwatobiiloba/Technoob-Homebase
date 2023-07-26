@@ -28,7 +28,7 @@ const jobs = new Schema({
     },
     contractType:{
         type: String,
-        enum: ["Full-Time", "Contract"],
+        enum: ["full-time", "contract"],
         required: [true, 'Please provide the contract type'],
     },
 
