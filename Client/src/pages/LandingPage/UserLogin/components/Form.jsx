@@ -27,10 +27,12 @@ const Form = () => {
     });
 
     try {
-      const response = await serverApi.post(
-          "/authenticate/login",
-          raw
-      )
+      const response = await axios.post('https://technoob-staging.azurewebsites.net/api/v1/authenticate/login', raw, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
 
       console.log(response)
 
