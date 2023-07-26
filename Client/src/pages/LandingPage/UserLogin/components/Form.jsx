@@ -3,7 +3,7 @@ import Cookies from "universal-cookie";
 import img from "../img/quino-al-xhGMQ_nYWqU-unsplash 1.png";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../../AppContext/AppContext";
-import serverApi from "../../../../utility/server";
+import axios from "axios";
 
 const cookies = new Cookies();
 
