@@ -27,19 +27,22 @@ const Form = () => {
     });
 
     try {
-      const response = await axios.post('https://technoob-staging.azurewebsites.net/api/v1/authenticate/login', raw, {
+      const response = await fetch('https://technoob-staging.azurewebsites.net/api/v1/authenticate/login', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        withCredentials: true
-      })
-
-      console.log(response)
-
+        body: raw,
+        credentials: 'include'
+      });
+    
+      console.log(response);
+    
       if (response.status === 200) {
         navigate("/Home");
+        const responseData = await response.json();
         const userInfo = {
-          ...response.data.data,
+          ...responseData.data,
         };
         setUserProfile(userInfo);
         setIsLoggedIn(true);
@@ -55,10 +58,11 @@ const Form = () => {
           });
         }
       }
-
+    
     } catch (error) {
-      setUser({error: error.message, UserName: "", Password: ""});
+      setUser({ error: error.message, UserName: "", Password: "" });
     }
+    
   }
     const submit = async (e) => {
       e.preventDefault();
