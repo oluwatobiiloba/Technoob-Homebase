@@ -69,6 +69,7 @@ module.exports = {
                         datePosted: jobs.datePosted,
                         expiryDate: jobs.expiryDate,
                         workplaceType: jobs.workplaceType,
+                        contractType: jobs.contractType,
                         status: "Successful"
                     }
                 }

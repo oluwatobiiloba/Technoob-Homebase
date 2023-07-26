@@ -108,8 +108,8 @@ app.use(logger("combined"));
 
 const cookieConfig = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production', // Set to true in production
-  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Use 'none' in production
+  secure: true, // Set to true in production
+  sameSite:  'none' , // Use 'none' in production
   maxAge: 60 * 60 * 1000
 };
 
