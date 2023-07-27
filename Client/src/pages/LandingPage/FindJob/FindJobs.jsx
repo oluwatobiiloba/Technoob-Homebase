@@ -15,10 +15,32 @@ const FindJobs = () => {
     const [toggle, setToggle] = useState(false);
     const [searchTitle, setSearchTitle] =  useState("");
     const [togggle, setTogggle] = useState(false);
+    const [box1, setBox1] = useState(false);
+    const [box2, setBox2] = useState(false);
+    const [box3, setBox3] = useState(false);
+    const [box4, setBox4] = useState(false);
+    const [box5, setBox5] = useState(false);
+    const [boxx1, setBoxx1] = useState(false);
+    const [boxx2, setBoxx2] = useState(false);
+    const [boxx3, setBoxx3] = useState(false);
+    const [boxx4, setBoxx4] = useState(false);
+    const [boxx5, setBoxx5] = useState(false);
+    const [boxxx1, setBoxxx1] = useState(false);
+    const [boxxx2, setBoxxx2] = useState(false);
+    const [boxxx3, setBoxxx3] = useState(false);
+    const [boxxx4, setBoxxx4] = useState(false);
+    const [boxxx5, setBoxxx5] = useState(false);
+    const [boxxxx1, setBoxxxx1] = useState(false);
+    const [boxxxx2, setBoxxxx2] = useState(false);
+    const [boxxxx3, setBoxxxx3] = useState(false);
+    const [boxxxx4, setBoxxxx4] = useState(false);
+    const [boxxxx5, setBoxxxx5] = useState(false);
+
     const [ jobData,setJobData ] = useState([]);
     const [ searchLocation, setSearchLocation] = useState("")
     const [, setJobMetrics] = useState({"total": 0,
       "views": 0})
+      
     const handleActive = () =>{
       setActive(!active)
     }
@@ -45,41 +67,70 @@ const FindJobs = () => {
         name:'Industrial Design'
       }];
 
-      const checkList = [
-        {
-          head: 'Type of Employment',
-          type1: 'Full Time',
-          check1: false,
-          type2: 'Part Time',
-          check2: false,
-          type3: 'Remote',
-          check3: false,
-          type4: 'Internship',
-          check4: false,
-          type5: 'Contract',
-          check5: false,
-        },
-        {
-          head: 'Categories',
-          type1: 'Product Design',
-          check1: false,
-          type2: 'Engineering',
-          check2: false,
-          type3: 'UX Design',
-          check3: false,
-          type4: 'Marketing',
-          check4: false,
-          type5: 'Finance',
-          check5: false,
-        },
-        {
-          head: 'Job Level',
-          type1: 'Entry Level (45) ',
-          check1: false,
-          type2: 'Mid Level (12) ',
-          check2: false,
-        }
-      ]
+
+      const handleBox1Change = (e) => {
+        setBox1(e.currentTarget.checked)
+      }
+      const handleBox2Change = (e) => {
+        setBox2(e.currentTarget.checked)
+      }
+      const handleBox3Change = (e) => {
+        setBox3(e.currentTarget.checked)
+      }
+      const handleBox4Change = (e) => {
+        setBox4(e.currentTarget.checked)
+      }
+      const handleBox5Change = (e) => {
+        setBox5(e.currentTarget.checked)
+      }
+
+      const handleBoxx1Change = (e) => {
+        setBoxx1(e.currentTarget.checked)
+      }
+      const handleBoxx2Change = (e) => {
+        setBoxx2(e.currentTarget.checked)
+      }
+      const handleBoxx3Change = (e) => {
+        setBoxx3(e.currentTarget.checked)
+      }
+      const handleBoxx4Change = (e) => {
+        setBoxx4(e.currentTarget.checked)
+      }
+      const handleBoxx5Change = (e) => {
+        setBoxx5(e.currentTarget.checked)
+      }
+
+      const handleBoxxx1Change = (e) => {
+        setBoxxx1(e.currentTarget.checked)
+      }
+      const handleBoxxx2Change = (e) => {
+        setBoxxx2(e.currentTarget.checked)
+      }
+      const handleBoxxx3Change = (e) => {
+        setBoxxx3(e.currentTarget.checked)
+      }
+      const handleBoxxx4Change = (e) => {
+        setBoxxx4(e.currentTarget.checked)
+      }
+      const handleBoxxx5Change = (e) => {
+        setBoxxx5(e.currentTarget.checked)
+      }
+
+      const handleBoxxxx1Change = (e) => {
+        setBoxxxx1(e.currentTarget.checked)
+      }
+      const handleBoxxxx2Change = (e) => {
+        setBoxxxx2(e.currentTarget.checked)
+      }
+      const handleBoxxxx3Change = (e) => {
+        setBoxxxx3(e.currentTarget.checked)
+      }
+      const handleBoxxxx4Change = (e) => {
+        setBoxxxx4(e.currentTarget.checked)
+      }
+      const handleBoxxxx5Change = (e) => {
+        setBoxxxx5(e.currentTarget.checked)
+      }
 
   const handleClick= async (e) => {
     e.preventDefault();
@@ -132,7 +183,7 @@ const FindJobs = () => {
   return (
     <div className={`${main.wraper}`}>
       <Header />
-      <div className={`absolute shadow-sm right-0 left-4 mt-20 h-[470px] z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} sm:hidden`}>
+      <div className={`absolute shadow-sm right-0 left-4 mt-20 h-auto z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} xl:hidden`}>
         <div className='flex justify-between items-center p-4 w-full'>
           <div className='flex p-2'>
             <img src={filtersearch} alt="icon" className='mr-3 w-6 h-6' />
@@ -159,6 +210,7 @@ const FindJobs = () => {
             ))}
           </ul>
         </div>
+        <Checks />
       </div>
       <div className={`${container.containerGrid}`}>
         <div className={`${container.leftGrid}`}>
@@ -183,7 +235,7 @@ const FindJobs = () => {
               ))}
             </ul>
           </div>
-          <Checks checkList={checkList} />
+          <Checks box1={box1} box2={box2} box3={box3} box4={box4} box5={box5} handleBox1Change={handleBox1Change} handleBox2Change={handleBox2Change} handleBox3Change={handleBox3Change} handleBox4Change={handleBox4Change} handleBox5Change={handleBox5Change} boxx1={boxx1} boxx2={boxx2} boxx3={boxx3} boxx4={boxx4} boxx5={boxx5} handleBoxx1Change={handleBoxx1Change} handleBoxx2Change={handleBoxx2Change} handleBoxx3Change={handleBoxx3Change} handleBoxx4Change={handleBoxx4Change} handleBoxx5Change={handleBoxx5Change} boxxx1={boxxx1} boxxx2={boxxx2} boxxx3={boxxx3} boxxx4={boxxx4} boxxx5={boxxx5} handleBoxxx1Change={handleBoxxx1Change} handleBoxxx2Change={handleBoxxx2Change} handleBoxxx3Change={handleBoxxx3Change} handleBoxxx4Change={handleBoxxx4Change} handleBoxxx5Change={handleBoxxx5Change} boxxxx1={boxxxx1} boxxxx2={boxxxx2} boxxxx3={boxxxx3} boxxxx4={boxxxx4} boxxxx5={boxxxx5} handleBoxxxx1Change={handleBoxxxx1Change} handleBoxxxx2Change={handleBoxxxx2Change} handleBoxxxx3Change={handleBoxxxx3Change} handleBoxxxx4Change={handleBoxxxx4Change} handleBoxxxx5Change={handleBoxxxx5Change} />
         </div>
         <div className={`${container.rightGrid}`}>
           <form className=' w-[95%] flex flex-col sm:flex-row justify-start md:justify-center items-centers gap-6 '>
@@ -195,8 +247,7 @@ const FindJobs = () => {
                      onChange={(e)=> setSearchTitle(e.target.value)}
               />
               <img 
-                  src={filtersearch} alt="icon" onClick={()=> {setTogggle((prev) => !prev)
-                  }} className='sm:hidden block mr-2 w-6 h-6' />                  
+                  src={filtersearch} alt="icon" onClick={()=> {setTogggle((prev) => !prev)}} className='xl:hidden block mr-2 w-6 h-6' />                  
             </div>
             <div className='flex justify-start items-center border border-[#BDBDBD] sm:w-[35%] h-[54px] rounded-md bg-transparent pl-5 ml-[-15px] '>
               <MdLocationOn className=' text-slate-400 h-8 w-8'/>

@@ -10,6 +10,6 @@ export const main = {
 
 export const container = {
     containerGrid: 'flex md:gap-[1rem] md:justify-between w-[90%] m-auto',
-    leftGrid: 'hidden xl:block sm:flex-[0.4] h-[1470px] p-4 shadow-md md:w-[30%]',
+    leftGrid: 'hidden xl:block sm:flex-[0.4] h-auto p-4 shadow-md md:w-[30%]',
     rightGrid: 'flex-[1.5] pl-4 overflow-auto'
 }
