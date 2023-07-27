@@ -210,7 +210,7 @@ const FindJobs = () => {
             ))}
           </ul>
         </div>
-        <Checks />
+        <Checks box1={box1} box2={box2} box3={box3} box4={box4} box5={box5} handleBox1Change={handleBox1Change} handleBox2Change={handleBox2Change} handleBox3Change={handleBox3Change} handleBox4Change={handleBox4Change} handleBox5Change={handleBox5Change} boxx1={boxx1} boxx2={boxx2} boxx3={boxx3} boxx4={boxx4} boxx5={boxx5} handleBoxx1Change={handleBoxx1Change} handleBoxx2Change={handleBoxx2Change} handleBoxx3Change={handleBoxx3Change} handleBoxx4Change={handleBoxx4Change} handleBoxx5Change={handleBoxx5Change} boxxx1={boxxx1} boxxx2={boxxx2} boxxx3={boxxx3} boxxx4={boxxx4} boxxx5={boxxx5} handleBoxxx1Change={handleBoxxx1Change} handleBoxxx2Change={handleBoxxx2Change} handleBoxxx3Change={handleBoxxx3Change} handleBoxxx4Change={handleBoxxx4Change} handleBoxxx5Change={handleBoxxx5Change} boxxxx1={boxxxx1} boxxxx2={boxxxx2} boxxxx3={boxxxx3} boxxxx4={boxxxx4} boxxxx5={boxxxx5} handleBoxxxx1Change={handleBoxxxx1Change} handleBoxxxx2Change={handleBoxxxx2Change} handleBoxxxx3Change={handleBoxxxx3Change} handleBoxxxx4Change={handleBoxxxx4Change} handleBoxxxx5Change={handleBoxxxx5Change} />
       </div>
       <div className={`${container.containerGrid}`}>
         <div className={`${container.leftGrid}`}>
