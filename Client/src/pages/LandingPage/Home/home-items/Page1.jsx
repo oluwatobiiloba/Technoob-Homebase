@@ -18,9 +18,12 @@ const Page1 = () => {
                     <h4 className='text-xs text-[#3a3a3a] tracking-[0.015px] leading-4 sm:text-2xl sm:text-center'>Join our community of tech newbies with resources and great initiatives from Technoob to help navigate the muddled tech space.  Network with newbies and mentors and find great job opportunities curated solely for you.</h4>
                 </div>
                 <div className='flex justify-center items-center w-full'>
-                  <Link to={'/Sign-Up'}>
-                      <Button name={'Get Started!'}/>
-                  </Link>
+                  {/*<Link to={'/Sign-Up'}>*/}
+                  {/*    <Button name={'Get Started!'}/>*/}
+                  {/*</Link>*/}
+                    <a href="https://twitter.com/i/communities/1571774895813689347" target='_blank' rel="noreferrer" >
+                        <Button name={'Get Started!'}/>
+                    </a>
 
                 </div>
           </div>
