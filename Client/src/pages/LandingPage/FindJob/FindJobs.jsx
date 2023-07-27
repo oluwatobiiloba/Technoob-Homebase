@@ -17,7 +17,7 @@ const FindJobs = () => {
     const [togggle, setTogggle] = useState(false);
     const [ jobData,setJobData ] = useState([]);
     const [ searchLocation, setSearchLocation] = useState("")
-    const [ jobMetrics, setJobMetrics] = useState({"total": 0,
+    const [, setJobMetrics] = useState({"total": 0,
       "views": 0})
     const handleActive = () =>{
       setActive(!active)
@@ -125,8 +125,8 @@ const FindJobs = () => {
   }
 
   useEffect(() => {
-    fetchJobMetrics()
-    fetchJobsPreload()
+    fetchJobMetrics().then(r => console.log("Metrics Retrieved"))
+    fetchJobsPreload().then(r => console.log("Jobs Retrieved"))
   }, []);
 
   return (
@@ -195,7 +195,7 @@ const FindJobs = () => {
                      onChange={(e)=> setSearchTitle(e.target.value)}
               />
               <img 
-                  src={filtersearch} alt="icon" onClick={(e)=> {setTogggle((prev) => !prev)
+                  src={filtersearch} alt="icon" onClick={()=> {setTogggle((prev) => !prev)
                   }} className='sm:hidden block mr-2 w-6 h-6' />                  
             </div>
             <div className='flex justify-start items-center border border-[#BDBDBD] sm:w-[35%] h-[54px] rounded-md bg-transparent pl-5 ml-[-15px] '>

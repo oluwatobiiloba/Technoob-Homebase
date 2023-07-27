@@ -3,6 +3,9 @@ import { MdOutlineNoteAdd } from 'react-icons/md';
 
 import {AiOutlineEye} from 'react-icons/ai'
 import serverApi from "../../../utility/server";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
 
 const JobManagement = () => {
   const [ jobData,setJobData ] = useState([])
@@ -34,12 +37,15 @@ const JobManagement = () => {
     event.preventDefault();
     // console.log(formInput);
     try {
+      //get access token
+      const TOKEN = cookies.get('user_token')
       const response = await serverApi.post(
           "/jobs/create",
           formInput
           ,{
             headers: {
               'content-type': 'application/json',
+              'Authorization': `Bearer ${TOKEN}`
             },
             withCredentials: true
           }
@@ -85,7 +91,9 @@ const JobManagement = () => {
   const fetchJobMetrics = async () => {
 
     try{
-      const response = await serverApi.get("/jobs/metrics",{ withCredentials: true });
+      const response = await serverApi.get("/jobs/metrics",{
+        withCredentials: true
+      });
       if(response.status === 200){
         setJobMetrics(response.data.data)
       }
@@ -97,7 +105,10 @@ const JobManagement = () => {
 
   const fetchJobsPreload = async () =>{
     try{
-      const response = await serverApi.get("/jobs/all?size=5",{ withCredentials: true });
+      const response = await serverApi.get("/jobs/all?size=5",{
+
+        withCredentials: true
+      });
       if(response.status === 200){
         setJobData(response.data.data)
       }
@@ -110,6 +121,7 @@ const JobManagement = () => {
   useEffect(() => {
     fetchJobMetrics()
      fetchJobsPreload()
+    ;
   }, []);
 
   return ( 
@@ -162,17 +174,21 @@ const JobManagement = () => {
               <div className=' block py-2 my-4'>
                 <div><label htmlFor="title" className=' text-base font-semibold p-1'>Workplace type</label></div>
                 <select  id="job" className=' border px-2 py-[6px] my-2 w-[250px]' name="workplaceType" value={formInput.workplaceType} onChange={handleChange}>
-                  <option value="On-site">On-site</option>
-                  <option value="Hybrid">Hybrid</option>
-                  <option value="Remote">Remote</option>
+                  <option value="onsite">On-site</option>
+                  <option value="remote">Hybrid</option>
+                  <option value="hybrid">Remote</option>
                 </select>
+              </div>
+              <div className=' block py-2 my-4'>
+                <div><label htmlFor="title" className=' text-base font-semibold p-1'>Expiry-Date / Deadline</label></div>
+                <input type="text" placeholder='Jan 16' className=' border px-2 py-[6px] my-2 w-[250px]' name="expiryDate" value={formInput.expiryDate} onChange={handleChange}/>
               </div>
               <div className=' block py-2 my-4'>
                 <div><label htmlFor="title" className=' text-base font-semibold p-1' >Job type</label></div>
                 <select  id="job" className=' border px-2 py-[6px] my-2 w-[250px]' name="contractType" value={formInput.contractType} onChange={handleChange}>
-                  <option value="Full-time">Full time</option>
-                  <option value="Contract">Contract</option>
-                  <option value="Internship">Internship</option>
+                  <option value="full-time">Full time</option>
+                  <option value="contract">Contract</option>
+                  <option value="internship">Internship</option>
                 </select>
               </div>
             </div>

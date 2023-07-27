@@ -4,6 +4,7 @@ import img from "../img/quino-al-xhGMQ_nYWqU-unsplash 1.png";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../../AppContext/AppContext";
 import axios from "axios";
+import serverApi from "../../../../utility/server";
 
 const cookies = new Cookies();
 
@@ -26,30 +27,39 @@ const Form = () => {
       username: user.UserName,
     });
 
+    const abortController = new AbortController();
+
     try {
-      const response = await fetch('https://technoob-staging.azurewebsites.net/api/v1/authenticate/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: raw,
-        credentials: 'include'
-      });
-    
+
+      const response = await serverApi.post(
+          '/authenticate/login',
+          raw,
+          {
+            signal: abortController.signal,
+            headers: {
+              'content-type': 'application/json',
+            },
+            withCredentials: true
+          }
+      )
       console.log(response);
     
       if (response.status === 200) {
         navigate("/Home");
-        const responseData = await response.json();
+        const responseData = response.data;
         const userInfo = {
           ...responseData.data,
         };
         setUserProfile(userInfo);
         setIsLoggedIn(true);
         cookies.set("user", JSON.stringify(userInfo), {
-          path: "/user",
+          path: "/",
           maxAge: 3600,
         });
+        cookies.set("user_token", response.data.token, {
+          path: "/"
+        }
+      )
         //localStorage.setItem("user", JSON.stringify(userInfo));
         if (userInfo.user.role === "admin") {
           setDashboardToggle({
