@@ -3,14 +3,12 @@ import { SearchIcon, filtersearch } from '../../../../data/assets';
 import Button from '../../../../utility/button';
 import Loader from '../../../../utility/Loader';
 import Card from '../../../../utility/Card';
-import { useNavigate } from 'react-router-dom';
 
 import Filter from '../../../../components/Filter';
 
 
-const Page1 = () => {
+const AllReasources = () => {
 
-    const navigate = useNavigate()
 
     const [togggle, setTogggle] = useState(false);
     const [selected, setSelected] = useState('Design');
@@ -22,12 +20,13 @@ const Page1 = () => {
 
 
 
+  
 
     const handleClick= async (e) => {
         e.preventDefault();
      const response = await fetch(URL);
      const data = await response.json()
-     setResources(data.data.slice(0,3));
+     setResources(data.data);
      
 
       }
@@ -41,7 +40,11 @@ const Page1 = () => {
                 setLoading(true)
                 const response = await fetch(URL);
                 const data = await response.json()
-                setResources(data.data.slice(0,3))
+
+                    setResources(data.data)
+                    
+                 
+
             } catch (error) {
                 console.log(error)
             }finally{
@@ -52,10 +55,6 @@ const Page1 = () => {
         fetchData();
       }, []); 
 
- 
-      
-    
-   
 
   return (
     <div className='flex flex-col w-full justify-start items-center sm:justify-center sm:items-center px-5 sm:px-0 pt-6 md:pt-16 relative'>
@@ -103,34 +102,43 @@ const Page1 = () => {
             </form>
         </div>
 
-        <div className=' flex md:gap-[1rem] h-[30rem] md:h-[35rem] md:justify-between w-[95%] md:ml-12 '>
-            <div className='hidden xl:block sm:flex-[0.4] h-[25rem] p-4  shadow-md'>
+        <div className=' flex md:gap-[1rem] h-auto md:justify-between w-[95%] md:ml-12 '>
+            <div className='hidden xl:block sm:flex-[0.4]  h-[25rem] p-4  shadow-md'>
                <Filter selected={selected} setSelected={setSelected}/>
             </div>
 
             
 
 
-            <div className=' w-full sm:min-h-[600px] md:flex-[1.5] md:pl-4 relative overflow-hidden'>
-                {searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS</h1> : <h1 className='text-2xl text-[#3A3A3A] font-semibold'><span className='text-[#5E7CE8]'>ALL</span> RESULTS</h1>}
+            <div className=' w-full min-h-[600px] md:flex-[1.5] md:pl-4'>
+                {searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '>
+                    <span className='text-[#5E7CE8]'>
+                        {resources.length}
+                    </span> RESULTS</h1> :
+                    <h1 className='text-2xl text-[#3A3A3A] font-semibold'>
+                        <span className='text-[#5E7CE8]'>
+                            ALL
+                        </span>
+                        RESULTS
+                    </h1>}
 
                 
                 <div className='border-b-[0.5px] border-[#C2C7D6] mb-[2rem] w-[95%] '/>
 
 
-                <div className='flex-col flex items-start mb-[7rem] relative overflow-x-auto w-full h-screen gap-5'>
+                <div className='flex-col flex flex-wrap items-start mb-[7rem] w-full h-auto gap-5'>
                     
                         
 
-                    <div className='flex mb-16 w-full h-full'>
-                        <div className=' border-l-[0.5px] border-[#C2C7D6] h-[20rem] pl-3 md:pl-5 pt-12'/>
+                    <div className='flex flex-wrap items-center justify-center gap-4 mb-16 w-full h-full'>
+                        {/* <div className=' border-l-[0.5px] border-[#C2C7D6] h-[20rem] pl-3 md:pl-5 pt-12'/> */}
                         {resources ? resources?.map((feeds, i) => (
 
-                        <div key={i} className='flex flex-row justify-start items-start mr-12 sm:mr-5 w-[200px] h-full sm:w-[330px] '>
-                            
+                        <div key={i} className='flex flex-wrap items-center justify-center md:justify-start md:items-start  sm:mr-5 w-[250px]  min-h-auto sm:w-[330px] '>
+
                             <Card titleText={feeds.name} photo={feeds.image_placeholder} pText={feeds.description} subTitleText={feeds.type}/>
 
-                        </div> 
+                        </div>
 
                         )) : (
 
@@ -152,10 +160,6 @@ const Page1 = () => {
                
                 </div>
 
-               {resources ? (<div onClick={()=> navigate('/all-resources')} className='cursor-pointer absolute bottom-0 right-0 bg-slate-200 rounded-md mb-2 w-[30%] md:w-[6rem] h-10 flex justify-center items-center'>
-                        <h1 className='text-tblue'>See More</h1>
-                </div>) : ''}
-
             </div>
         </div>
 
@@ -167,4 +171,4 @@ const Page1 = () => {
   )
 }
 
-export default Page1
+export default AllReasources

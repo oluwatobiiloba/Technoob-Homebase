@@ -3,7 +3,7 @@ import { image4 } from '../../../../data/assets'
 
 const Page5 = () => {
     return (
-      <div className='flex flex-col items-center justify-center bg-[#E1F9E3] h-auto sm:h-screen mb-10 sm:mb-0 py-10 sm:py-[2rem] px-20 w-FULL'>
+      <div className='flex flex-col items-center justify-center bg-[#E1F9E3] h-auto sm:h-screen mb-10 sm:mb-0 py-10 sm:py-[2rem] px-20 w-full'>
          
           <div className='bg-white rounded-lg w-[300px] sm:w-full h-auto md:h-[40rem] flex flex-wrap justify-center items-center p-5 mx-10 sm:mx-20 sm:p-[3rem] '>
                   

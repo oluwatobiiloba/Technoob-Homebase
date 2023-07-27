@@ -6,7 +6,6 @@ import { menu, close } from "../data/assets";
 import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "../AppContext/AppContext";
-
 import { Link } from "react-router-dom";
 const cookies = new Cookies();
 
@@ -109,25 +108,25 @@ const NavBar = () => {
               ))}
             </ul>
 
-            <div className="flex flex-col justify-center items-center mt-10 gap-5">
-              <Link
-                onClick={() => setToggle((prev) => !prev)}
-                to={"/User-Login"}
-              >
-                <button
-                  name={"Login"}
-                  className=" text-[#111111] bg-[#EFF0F5]   font-[600]  w-[335px] sm:w-[201px] h-[54px] text-base rounded-md py-4 px-3.5"
-                >
-                  Login
-                </button>
-              </Link>
+            {/*<div className="flex flex-col justify-center items-center mt-10 gap-5">*/}
+            {/*  <Link*/}
+            {/*    onClick={() => setToggle((prev) => !prev)}*/}
+            {/*    to={"/User-Login"}*/}
+            {/*  >*/}
+            {/*    <button*/}
+            {/*      name={"Login"}*/}
+            {/*      className=" text-[#111111] bg-[#EFF0F5]   font-[600]  w-[335px] sm:w-[201px] h-[54px] text-base rounded-md py-4 px-3.5"*/}
+            {/*    >*/}
+            {/*      Login*/}
+            {/*    </button>*/}
+            {/*  </Link>*/}
 
-              <p className="text-base font-semibold">Or</p>
+            {/*  <p className="text-base font-semibold">Or</p>*/}
 
-              <Link onClick={() => setToggle((prev) => !prev)} to={"/Sign-Up"}>
-                <Button name={"Get Started"} />
-              </Link>
-            </div>
+            {/*  <Link onClick={() => setToggle((prev) => !prev)} to={"/Sign-Up"}>*/}
+            {/*    <Button name={"Get Started"} />*/}
+            {/*  </Link>*/}
+            {/*</div>*/}
           </div>
         </div>
 
@@ -150,17 +149,17 @@ const NavBar = () => {
           </div>
         ) : (
           <div className="hidden gap-2 lg:flex">
-            <Link to={"/User-Login"}>
-              <button
-                name={"Login"}
-                className="w-[130px] sm:w-[130px] h-[54px] text-[#111111] bg-[#EFF0F5] rounded-md py-4 px-3.5 text-base font-[600]"
-              >
-                Login
-              </button>
-            </Link>
-            <Link to={"/Sign-Up"}>
-              <Button name={"Get Started"} />
-            </Link>
+            {/*<Link to={"/User-Login"}>*/}
+            {/*  <button*/}
+            {/*    name={"Login"}*/}
+            {/*    className="w-[130px] sm:w-[130px] h-[54px] text-[#111111] bg-[#EFF0F5] rounded-md py-4 px-3.5 text-base font-[600]"*/}
+            {/*  >*/}
+            {/*    Login*/}
+            {/*  </button>*/}
+            {/*</Link>*/}
+            {/*<Link to={"/Sign-Up"}>*/}
+            {/*  <Button name={"Get Started"} />*/}
+            {/*</Link>*/}
           </div>
         )}
       </div>
