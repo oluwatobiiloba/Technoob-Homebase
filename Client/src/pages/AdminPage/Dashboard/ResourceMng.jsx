@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+
+import React, { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../../../AppContext/AppContext';
+
 import { filtersearch } from "../../../data/assets";
-import { MdOutlineNoteAdd, MdPermIdentity } from "react-icons/md";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineCloudServer } from "react-icons/ai";
+import {BiArchive} from 'react-icons/bi'
 import Button from "../../../utility/button";
 import Table from "../../../components/Table";
 import Modal from "../../../Modals/Modal";
@@ -26,23 +29,50 @@ const ResourceMng = () => {
   // }
   const statistics = [
     {
-      name: "Jobs posted",
+      name: "Files Uploaded",
       amount: 45,
-      amtlabel: "Jobs",
-      tracks: "360 views",
-      icon: <MdOutlineNoteAdd />,
-      icon2: <AiOutlineEye />,
+      amtlabel: "Files Uploaded",
+      // tracks: "20 files",
+      icon: <AiOutlineCloudServer />,
+      // icon2: <AiOutlineEye />,
       style: "bg-green-100 text-tgreen",
     },
     {
-      name: "Applicants",
+      name: "Files Downloaded",
       amount: 120,
-      amtlabel: "Applicants",
-      tracks: "80 Qualifies",
-      icon: <MdPermIdentity />,
+      amtlabel: "Files Downloaded",
+      // tracks: "203 Downloads",
+      icon: <BiArchive/>,
       style: "text-[#D4C433] bg-yellow-100",
     },
   ];
+
+
+  
+  //importing custom funtion and content from appContext
+  const { data, loading, error, fetchData } = useContext(AppContext);
+
+  useEffect(() => {
+    var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY0MzQ5MmJiODYzNjBlMDU0NzY1NzZmOSIsImVtYWlsIjoib29sdXdhdG9iaWlsb2JhQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoib2x1d2F0b2JpaWxvYmEifSwiaWF0IjoxNjkwNTgwNjc1fQ.oruKVUiZxadyOC_qOkVpdM89QYwNcYk0Wf19iv1BikE");
+      myHeaders.append("Cookie", "connect.sid=s%3AMlp-rTrJ_70PsB3C3KvEwnz07lKjjy2x.SD8ltsLv%2Fr3Y6JjzYt9ibH%2BT2DrfetUid9EAxM57b%2BQ");
+
+      var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+      };
+    // Make an API call when the component mounts
+    fetchData('https://technoob-staging.azurewebsites.net/api/v1/resources/activity', requestOptions);
+
+  }, [fetchData]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.log(error)
+  }
 
   return (
     <section
@@ -92,10 +122,10 @@ const ResourceMng = () => {
                   key={i}
                   className=" px-3 pt-5 pb-6 rounded-lg w-[25rem] shadow-md lg:w-[40%] lg:mr-3 "
                 >
-                  <p className=" pt-3 pb-6 px-2 flex text-xl text-[#71717A] w-auto">
+                  <p className=" pt-3 pb-6 px-2 flex items-center justify-start text-xl text-[#71717A] w-auto">
                     {opt.name}{" "}
                     <span
-                      className={`${opt.style} p-2 rounded-full ml-3 mt-[-2px]`}
+                      className={`${opt.style} text-2xl p-2 rounded-full ml-3 mt-[-2px]`}
                     >
                       {opt.icon}
                     </span>{" "}
@@ -138,7 +168,7 @@ const ResourceMng = () => {
               </button>
             </div>
             <div className="flex overflow-x-auto">
-              <Table />
+              {data ? (<Table data={data} />) : ''}
             </div>
           </div>
         </div>

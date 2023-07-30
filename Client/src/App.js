@@ -62,7 +62,7 @@ function App() {
     <BrowserRouter>
       {displayToggle && <DashSelector />}
       {displayToggle && <div className="blur-effect" />}
-      {toggleValue === "User Dashboard" ? (
+      {!toggleValue === "User Dashboard" ? (
         <div className="bg-primary w-full overflow-auto relative">
           <div className="flex flex-start w-full top-0 lg:fixed z-50">
             <div className="w-full">

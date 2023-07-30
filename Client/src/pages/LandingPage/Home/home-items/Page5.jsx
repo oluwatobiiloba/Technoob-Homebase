@@ -1,5 +1,5 @@
 import React from 'react'
-import { image4 } from '../../../../data/assets'
+import { esther} from '../../../../data/assets'
 
 const Page5 = () => {
     return (
@@ -9,11 +9,11 @@ const Page5 = () => {
                   
                       <div className='flex flex-col text-center justify-start items-center  sm:w-full '>
                             <div className=' items-center h-auto mb-4 sm:mb-8  '>
-                              <h2 className='text-base sm:text-[3rem] sm:leading-[60px]'>“I’ve been using this platform as my got-to resource center and can’t imagine working without it.”</h2>
+                              <h2 className='text-base sm:text-[2rem] sm:leading-[60px]'>"Being a part of this tech community has been an absolute game-changer for me. As a tech newbie, working alongside other passionate members to build the website for the community was an invaluable experience. The support and mentorship I received during the process were remarkable. I can't recommend this community enough!"</h2>
                             </div> 
                             <div className='flex flex-col justify-center items-center gap-2 '>
-                                <img src={image4} alt="page5" className='rounded-full w-[36px] h-[36px] sm:w-16 sm:h-16' />
-                                <h3 className='text-[14px] sm:text-[18px] font-normal text-[#101828]'>Candice Wu</h3>
+                                <img src={esther} alt="page5" className='rounded-full w-[36px] h-[36px] sm:w-16 sm:h-16' />
+                                <h3 className='text-[14px] sm:text-[18px] font-normal text-[#101828]'>Esther </h3>
                                 <p className='sm:text-base text-[13px] text-[#667085]'>Product Manager, Meta.</p>
                             </div>  
                       </div>

@@ -1,10 +1,13 @@
-import React from 'react'
+
+
+
 import { MdOutlineNoteAdd, MdPermIdentity } from 'react-icons/md';
 import { BsFileEarmarkSpreadsheet } from 'react-icons/bs';
 import { HiArrowsRightLeft } from 'react-icons/hi2';
 import img from '../img/Annotation 2023-05-22 185307.jpg'
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
+// import { AppContext } from '../../../AppContext/AppContext';
+// import Cookies from "universal-cookie";
+// const cookies = new Cookies();
 
 const Dashboard = () => {
   const statistics = [
@@ -40,15 +43,18 @@ const Dashboard = () => {
       icon : <HiArrowsRightLeft/>,
       style : 'text-[#6835BA80] bg-purple-100'
     }
-  ]
+  ];
 
-  const user =  cookies.get("user").user
-  const username = user.username
+
+  
+
+  // const user =  cookies.get("user").user
+  const username = null;
 
   return (
     <section>
         <div className=' flex py-10 nun justify-start items-center'>
-            <h1 className=' font-semibold md:text-3xl text-xl'>Hey, {username} </h1>
+            <h1 className=' font-semibold md:text-3xl text-xl'>Hey, {username ? username : 'Esther'} </h1>
             <p className=' md:pt-2 pt-[3px] text-lg ml-3 '>-here's a look at your recent activities</p>
         </div>
         <div className=' lg:mx-5 px-10 py-5 rounded-xl bg-white w-full pb-20 '>
