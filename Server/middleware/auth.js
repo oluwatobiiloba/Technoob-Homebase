@@ -48,6 +48,7 @@ module.exports = {
                         console.log(err);
                         return next(err);
                     }
+                    console.log(user)
                     if (!user) throw err                
                     req.user = user; 
                     const sessionExpiresAt = req.session.cookie.expires;
