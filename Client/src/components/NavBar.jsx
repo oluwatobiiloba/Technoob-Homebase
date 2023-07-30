@@ -1,16 +1,16 @@
-import React, { useState, useContext } from "react";
-import Cookies from "universal-cookie";
+import React, { useState } from "react";
+// import Cookies from "universal-cookie";
 // import Button from "../utility/button";
 import { navLinks } from "../data/contact";
 import { menu, close } from "../data/assets";
 // import { useNavigate } from "react-router-dom";
 
-import { AppContext } from "../AppContext/AppContext";
+// import { AppContext } from "../AppContext/AppContext";
 import { Link } from "react-router-dom";
-const cookies = new Cookies();
+// const cookies = new Cookies();
 
 const NavBar = () => {
-  const { setIsLoggedIn, setUserProfile } = useContext(AppContext);
+  // const { setIsLoggedIn, setUserProfile } = useContext(AppContext);
 
   // const navigate = useNavigate();
 

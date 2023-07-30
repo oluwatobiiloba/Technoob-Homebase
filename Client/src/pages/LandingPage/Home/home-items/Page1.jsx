@@ -1,6 +1,6 @@
 import React from 'react'
 import { Hero, Vector1  } from '../../../../data/assets/index';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Button from '../../../../utility/button';
 // import { HomeItems } from '../../../../data/contact';
 

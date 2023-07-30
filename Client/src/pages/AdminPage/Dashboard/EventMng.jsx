@@ -1,11 +1,32 @@
 import React from 'react'
- import { acheive_icon, filtersearch, storage_icon } from '../../../data/assets'
- import AdminCard from '../../../utility/AdminCard'
- import EventInput from '../../../components/EventInput'
+ import {  filtersearch } from '../../../data/assets'
+
+ 
+import { MdEventAvailable, MdEvent } from "react-icons/md";
+import Table from '../../../components/Table';
 
  const EventMng = () => {
 
-
+  const data = null;
+  const statistics = [
+    {
+      name: "Events Hosted",
+      amount: 12,
+      amtlabel: "events hosted",
+      // tracks: "20 files",
+      icon: <MdEventAvailable />,
+      // icon2: <AiOutlineEye />,
+      style: "bg-green-100 text-tgreen",
+    },
+    {
+      name: "Upcoming Events",
+      amount: 4,
+      amtlabel: "Events",
+      // tracks: "203 Downloads",
+      icon: <MdEvent/>,
+      style: "text-[#D4C433] bg-yellow-100",
+    },
+  ];
 
    return (
 
@@ -39,11 +60,35 @@ import React from 'react'
              <p className='text-base text-[#3a3a3a] opacity-50 '>See Metrics</p>
 
              <div className='flex mt-3 p-3 gap-3 bg-slate-50 rounded-sm flex-wrap'>
-               <AdminCard name={'Event hosted'} fileType={'Event'} icon={storage_icon} Amount={45}/>
-               <AdminCard name={'Upcoming Events'} Amount={3} fileType={'Downloads'} icon={acheive_icon}/>
+             <div className="flex w-[100%] justify-start flex-wrap gap-4 rounded-sm">
+              {statistics.map((opt, i) => (
+                <div
+                  key={i}
+                  className=" px-3 pt-5 pb-6 rounded-lg w-[25rem] shadow-md lg:w-[40%] lg:mr-3 "
+                >
+                  <p className=" pt-3 pb-6 px-2 flex items-center justify-start text-xl text-[#71717A] w-auto">
+                    {opt.name}{" "}
+                    <span
+                      className={`${opt.style} text-2xl p-2 rounded-full ml-3 mt-[-2px]`}
+                    >
+                      {opt.icon}
+                    </span>{" "}
+                  </p>
+                  <div className="flex justify-start items-end w-full">
+                    <p className="p-2 mr-6 text-xl">
+                      <span className="font-bold text-3xl">{opt.amount}</span>{" "}
+                      {opt.amtlabel}{" "}
+                    </p>
+                    <p className=" p-2 text-[#35BA83] flex gap-4 items-center">
+                      <span className="text-xl ">{opt.icon2}</span> {opt.tracks}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
              </div>
 
-             <div className='mt-10 w-full flex'>
+             {/* <div className='mt-10 w-full flex'>
                <div className='flex flex-col w-full sm:mx-8'>
                  <div>
                    <div className='mb-3'> 
@@ -52,13 +97,13 @@ import React from 'react'
 
                    </div>
 
-                   <div className='flex flex-col flex-wrap'>
-                     <div className='flex justify-between gap-4 w-full sm:w-[70%] mb-10 flex-wrap'>
+                    <div className='flex flex-col flex-wrap'>
+                     <div className='flex justify-between gap-4 w-full md:w-full sm:w-[70%] mb-10 flex-wrap'>
                        <EventInput label={'event theme'} placeholder={'Resurrection night'}/>
                        <EventInput label={'event location'} placeholder={'New york, USA'}/>
                      </div>
 
-                     <div className='flex justify-between gap-4 flex-wrap mb-7 sm:w-[70%]'>
+                     <div className='flex justify-between gap-4 flex-wrap mb-7 md:w-full sm:w-[70%]'>
                        <div className='flex flex-col w-full sm:w-auto flex-wrap'>
                            <div className='mb-3 flex gap-8'>
                                <label htmlFor="input" className='ml-1 capitalize text-xl'>Ticketing</label>
@@ -92,12 +137,28 @@ import React from 'react'
                        >Publish Event</button>
 
                      </div>
-                   </div>
+                   </div> 
 
                  </div>
 
                </div>
-             </div>
+             </div> */}
+              <div className="mt-16">
+            <div className=" flex justify-between">
+              <div>
+                <h2 className=" text-xl font-semibold pt-4">Recent Jobs</h2>
+                <p className=" text-lg text-[#747272] mb-1">
+                  See list of resent jobs posted
+                </p>
+              </div>
+              <button className="float-right border py-2 px-8 my-[20px] rounded flex justify-between shadow-sm">
+                See all
+              </button>
+            </div>
+            <div className="flex overflow-x-auto">
+              {data ? (<Table  data={data} />) : ''}
+            </div>
+          </div>
 
            </div>
          </div>
