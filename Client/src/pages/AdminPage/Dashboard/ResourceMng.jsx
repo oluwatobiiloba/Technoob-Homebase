@@ -65,7 +65,9 @@ const ResourceMng = () => {
     // Make an API call when the component mounts
     fetchData('https://technoob-staging.azurewebsites.net/api/v1/resources/activity', requestOptions);
 
-  }, [fetchData]);
+  }, []);
+
+  
   if (loading) {
     return <div>Loading...</div>;
   }
