@@ -134,7 +134,7 @@ const ResourceMng = () => {
                   </p>
                   <div className="flex justify-start items-end w-full">
                     <p className="p-2 mr-6 text-xl">
-                      <span className="font-bold text-3xl">{opt.amount}</span>{" "}
+                      <span className="font-bold text-3xl">{data ? data.length : 0}</span>{" "}
                       {opt.amtlabel}{" "}
                     </p>
                     <p className=" p-2 text-[#35BA83] flex gap-4 items-center">
@@ -151,10 +151,10 @@ const ResourceMng = () => {
           </div>
           <Modal
             isOpen={isModalOpen}
-            onClose={closeModal}
+            closeModal={closeModal}
             setIsModalOpen={setIsModalOpen}
           >
-            <AddFile onClose={onclose} />
+            <AddFile closeModal={closeModal} />
           </Modal>
 
           <div className="mt-16">

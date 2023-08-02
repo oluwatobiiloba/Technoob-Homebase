@@ -126,7 +126,7 @@ const Page1 = () => {
                         <div className=' border-l-[0.5px] border-[#C2C7D6] h-[20rem] pl-3 md:pl-5 pt-12'/>
                         {resources ? resources?.map((feeds, i) => (
 
-                        <div key={i} className='flex flex-row justify-start items-start mr-12 sm:mr-5 w-[200px] h-full sm:w-[330px] '>
+                        <div key={i} className='flex flex-row justify-start items-start mr-12 sm:mr-5 w-[200px] h-full sm:w-[380px] '>
                             
                             <Card titleText={feeds.name} photo={feeds.image_placeholder} pText={feeds.description} subTitleText={feeds.type}/>
 
@@ -152,7 +152,7 @@ const Page1 = () => {
                
                 </div>
 
-               {resources ? (<div onClick={()=> navigate('/all-resources')} className='cursor-pointer absolute bottom-0 right-0 bg-slate-200 rounded-md mb-2 w-[30%] md:w-[6rem] h-10 flex justify-center items-center'>
+               {resources ? (<div onClick={()=> navigate('/all-resources')} className='cursor-pointer absolute bottom-0 right-2 bg-slate-200 rounded-md sm:mb-1 w-[30%] md:w-[6rem] h-10 flex justify-center items-center'>
                         <h1 className='text-tblue'>See More</h1>
                 </div>) : ''}
 

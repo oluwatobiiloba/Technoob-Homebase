@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-const LinkUpload = ({ onClose }) => {
+const LinkUpload = ({ closeModal }) => {
+  const [dataUpload, setDataUpload] = useState({});
+
+  const handleChange = (e) => {
+    setDataUpload({ ...dataUpload, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(dataUpload);
+  };
+  const handleClose = (e) => {
+    e.preventDefault();
+    closeModal()
+  };
+
   return (
     <div className="w-[80%] flex  justify-start my-10 p-4 items-center gap-6 flex-col h-[435px] rounded-md">
       <div className="w-full flex flex-col gap-5  lg:mx-2">
@@ -20,26 +34,31 @@ const LinkUpload = ({ onClose }) => {
             rows={4}
             className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-1 w-full rounded-md"
             placeholder="-- text here --"
+            onChange={handleChange}
           />
         </div>
         <div className="w-full">
           <label htmlFor="Name" className="">
-            File Name
+            Add Document Link
           </label>{" "}
           <br />
           <input
-            type="text"
+            type="url"
             name="Name"
             className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
-            placeholder="-- Enter --"
+            placeholder="-- paste link --"
+            onChange={handleChange}
           />
         </div>
         <div className="flex w-full justify-start items-start gap-3">
-          <button className="flex justify-center items-center text-sm md:text-lg  md:font-semibold w-[310px] h-[54px] rounded-md bg-tblue text-white mb-4">
+          <button
+            onClick={handleSubmit}
+            className="flex justify-center items-center text-sm md:text-lg  md:font-semibold w-[310px] h-[54px] rounded-md bg-tblue text-white mb-4"
+          >
             Publish Document
           </button>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="flex justify-center items-center text-sm md:text-lg font-semibold w-[150px] h-[54px] rounded-md bg-[#EFF0F5] mb-4"
           >
             Cancel

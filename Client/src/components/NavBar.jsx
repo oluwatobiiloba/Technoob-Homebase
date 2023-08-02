@@ -59,7 +59,7 @@ const NavBar = () => {
 
   return (
     <nav className="w-full bg-white shadow-md ">
-      <div className="w-full py-2 px-5 sm:px-20 flex justify-center items-center lg:h-[80px] ">
+      <div className="w-full py-2 px-5 sm:px-20 flex justify-between md:justify-center items-center lg:h-[80px] ">
         <div className="text-lg md:text-2xl font-extrabold text-[#5E7CE8] mr-32 cursor-pointer">
           <Link to={"/"}>Tech Noob</Link>
         </div>

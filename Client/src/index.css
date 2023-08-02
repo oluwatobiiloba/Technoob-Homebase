@@ -84,6 +84,21 @@
   -webkit-animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: slide-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+/* Apply custom styles to the scrollbar */
+::-webkit-scrollbar {
+  width: 4px; /* Width of the vertical scrollbar */
+}
+
+/* Track styles */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Thumb styles */
+::-webkit-scrollbar-thumb {
+  background: #5E7CE8;
+  border-radius: 5px;
+}
 
 @-webkit-keyframes slide-top {
   0% {
