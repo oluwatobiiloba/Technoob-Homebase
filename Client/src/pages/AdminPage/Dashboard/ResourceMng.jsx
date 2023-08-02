@@ -151,10 +151,10 @@ const ResourceMng = () => {
           </div>
           <Modal
             isOpen={isModalOpen}
-            onClose={closeModal}
+            closeModal={closeModal}
             setIsModalOpen={setIsModalOpen}
           >
-            <AddFile onClose={onclose} />
+            <AddFile closeModal={closeModal} />
           </Modal>
 
           <div className="mt-16">
