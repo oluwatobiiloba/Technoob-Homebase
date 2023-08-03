@@ -16,30 +16,11 @@ const FindJobs = () => {
     const [searchTitle, setSearchTitle] =  useState("");
     const [togggle, setTogggle] = useState(false);
     const [box1, setBox1] = useState(false);
-    const [box2, setBox2] = useState(false);
-    const [box3, setBox3] = useState(false);
-    const [box4, setBox4] = useState(false);
-    const [box5, setBox5] = useState(false);
-    const [boxx1, setBoxx1] = useState(false);
-    const [boxx2, setBoxx2] = useState(false);
-    const [boxx3, setBoxx3] = useState(false);
-    const [boxx4, setBoxx4] = useState(false);
-    const [boxx5, setBoxx5] = useState(false);
-    const [boxxx1, setBoxxx1] = useState(false);
-    const [boxxx2, setBoxxx2] = useState(false);
-    const [boxxx3, setBoxxx3] = useState(false);
-    const [boxxx4, setBoxxx4] = useState(false);
-    const [boxxx5, setBoxxx5] = useState(false);
-    const [boxxxx1, setBoxxxx1] = useState(false);
-    const [boxxxx2, setBoxxxx2] = useState(false);
-    const [boxxxx3, setBoxxxx3] = useState(false);
-    const [boxxxx4, setBoxxxx4] = useState(false);
-    const [boxxxx5, setBoxxxx5] = useState(false);
-
+  
     const [ jobData,setJobData ] = useState([]);
     const [ searchLocation, setSearchLocation] = useState("")
-    const [, setJobMetrics] = useState({"total": 0,
-      "views": 0})
+    // const [, setJobMetrics] = useState({"total": 0,
+    //   "views": 0})
       
     const handleActive = () =>{
       setActive(!active)
@@ -71,66 +52,7 @@ const FindJobs = () => {
       const handleBox1Change = (e) => {
         setBox1(e.currentTarget.checked)
       }
-      const handleBox2Change = (e) => {
-        setBox2(e.currentTarget.checked)
-      }
-      const handleBox3Change = (e) => {
-        setBox3(e.currentTarget.checked)
-      }
-      const handleBox4Change = (e) => {
-        setBox4(e.currentTarget.checked)
-      }
-      const handleBox5Change = (e) => {
-        setBox5(e.currentTarget.checked)
-      }
 
-      const handleBoxx1Change = (e) => {
-        setBoxx1(e.currentTarget.checked)
-      }
-      const handleBoxx2Change = (e) => {
-        setBoxx2(e.currentTarget.checked)
-      }
-      const handleBoxx3Change = (e) => {
-        setBoxx3(e.currentTarget.checked)
-      }
-      const handleBoxx4Change = (e) => {
-        setBoxx4(e.currentTarget.checked)
-      }
-      const handleBoxx5Change = (e) => {
-        setBoxx5(e.currentTarget.checked)
-      }
-
-      const handleBoxxx1Change = (e) => {
-        setBoxxx1(e.currentTarget.checked)
-      }
-      const handleBoxxx2Change = (e) => {
-        setBoxxx2(e.currentTarget.checked)
-      }
-      const handleBoxxx3Change = (e) => {
-        setBoxxx3(e.currentTarget.checked)
-      }
-      const handleBoxxx4Change = (e) => {
-        setBoxxx4(e.currentTarget.checked)
-      }
-      const handleBoxxx5Change = (e) => {
-        setBoxxx5(e.currentTarget.checked)
-      }
-
-      const handleBoxxxx1Change = (e) => {
-        setBoxxxx1(e.currentTarget.checked)
-      }
-      const handleBoxxxx2Change = (e) => {
-        setBoxxxx2(e.currentTarget.checked)
-      }
-      const handleBoxxxx3Change = (e) => {
-        setBoxxxx3(e.currentTarget.checked)
-      }
-      const handleBoxxxx4Change = (e) => {
-        setBoxxxx4(e.currentTarget.checked)
-      }
-      const handleBoxxxx5Change = (e) => {
-        setBoxxxx5(e.currentTarget.checked)
-      }
 
   const handleClick= async (e) => {
     e.preventDefault();
@@ -150,34 +72,19 @@ const FindJobs = () => {
     }
 
   }
-  const fetchJobMetrics = async () => {
-
-    try{
-      const response = await serverApi.get("/jobs/metrics",{ withCredentials: true });
-      if(response.status === 200){
-        setJobMetrics(response.data.data)
-      }
-    }catch (e) {
-      alert(e.message)
-    }
-
-  }
-
-  const fetchJobsPreload = async () =>{
-    try{
-      const response = await serverApi.get("/jobs/all",{ withCredentials: true });
-      if(response.status === 200){
-        setJobData(response.data.data)
-      }
-    }catch (e) {
-      alert(e.message)
-    }
-
-  }
+  
 
   useEffect(() => {
-    fetchJobMetrics().then(r => console.log("Metrics Retrieved"))
-    fetchJobsPreload().then(r => console.log("Jobs Retrieved"))
+
+  //fetch data from first endpoint
+  async function fetchFirstData(){
+   await serverApi.get("/jobs/all")
+   .then(res => {setJobData(res.data.data)})
+   .catch(err => {console.error('error fetching data from endpoint 1', err)})
+  }
+  console.log(jobData)
+      
+    fetchFirstData()
   }, []);
 
   return (
@@ -210,7 +117,7 @@ const FindJobs = () => {
             ))}
           </ul>
         </div>
-        <Checks box1={box1} box2={box2} box3={box3} box4={box4} box5={box5} handleBox1Change={handleBox1Change} handleBox2Change={handleBox2Change} handleBox3Change={handleBox3Change} handleBox4Change={handleBox4Change} handleBox5Change={handleBox5Change} boxx1={boxx1} boxx2={boxx2} boxx3={boxx3} boxx4={boxx4} boxx5={boxx5} handleBoxx1Change={handleBoxx1Change} handleBoxx2Change={handleBoxx2Change} handleBoxx3Change={handleBoxx3Change} handleBoxx4Change={handleBoxx4Change} handleBoxx5Change={handleBoxx5Change} boxxx1={boxxx1} boxxx2={boxxx2} boxxx3={boxxx3} boxxx4={boxxx4} boxxx5={boxxx5} handleBoxxx1Change={handleBoxxx1Change} handleBoxxx2Change={handleBoxxx2Change} handleBoxxx3Change={handleBoxxx3Change} handleBoxxx4Change={handleBoxxx4Change} handleBoxxx5Change={handleBoxxx5Change} boxxxx1={boxxxx1} boxxxx2={boxxxx2} boxxxx3={boxxxx3} boxxxx4={boxxxx4} boxxxx5={boxxxx5} handleBoxxxx1Change={handleBoxxxx1Change} handleBoxxxx2Change={handleBoxxxx2Change} handleBoxxxx3Change={handleBoxxxx3Change} handleBoxxxx4Change={handleBoxxxx4Change} handleBoxxxx5Change={handleBoxxxx5Change} />
+        <Checks box1={box1} handleBox1Change={handleBox1Change} />
       </div>
       <div className={`${container.containerGrid}`}>
         <div className={`${container.leftGrid}`}>
@@ -235,7 +142,7 @@ const FindJobs = () => {
               ))}
             </ul>
           </div>
-          <Checks box1={box1} box2={box2} box3={box3} box4={box4} box5={box5} handleBox1Change={handleBox1Change} handleBox2Change={handleBox2Change} handleBox3Change={handleBox3Change} handleBox4Change={handleBox4Change} handleBox5Change={handleBox5Change} boxx1={boxx1} boxx2={boxx2} boxx3={boxx3} boxx4={boxx4} boxx5={boxx5} handleBoxx1Change={handleBoxx1Change} handleBoxx2Change={handleBoxx2Change} handleBoxx3Change={handleBoxx3Change} handleBoxx4Change={handleBoxx4Change} handleBoxx5Change={handleBoxx5Change} boxxx1={boxxx1} boxxx2={boxxx2} boxxx3={boxxx3} boxxx4={boxxx4} boxxx5={boxxx5} handleBoxxx1Change={handleBoxxx1Change} handleBoxxx2Change={handleBoxxx2Change} handleBoxxx3Change={handleBoxxx3Change} handleBoxxx4Change={handleBoxxx4Change} handleBoxxx5Change={handleBoxxx5Change} boxxxx1={boxxxx1} boxxxx2={boxxxx2} boxxxx3={boxxxx3} boxxxx4={boxxxx4} boxxxx5={boxxxx5} handleBoxxxx1Change={handleBoxxxx1Change} handleBoxxxx2Change={handleBoxxxx2Change} handleBoxxxx3Change={handleBoxxxx3Change} handleBoxxxx4Change={handleBoxxxx4Change} handleBoxxxx5Change={handleBoxxxx5Change} />
+          <Checks box1={box1} handleBox1Change={handleBox1Change}  />
         </div>
         <div className={`${container.rightGrid}`}>
           <form className=' w-[95%] flex flex-col sm:flex-row justify-start md:justify-center items-centers gap-6 '>

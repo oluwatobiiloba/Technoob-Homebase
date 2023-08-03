@@ -1,31 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import People from './Peoplee'
-import img1 from '../img/Frame 12302.png'
-import img2 from '../img/Frame 12303.png'
-import img3 from '../img/Frame 12304.png'
+import serverApi from '../../../../utility/server'
 
 
 const SectionThree = () => {
-    const [people] = useState([
-        {
-            id : 1,
-            img : img1,
-            personName : 'Ololade mrs money',
-            role : 'Fullstack Developer, meta'
-        },
-        {
-            id : 2,
-            img : img2,
-            personName : 'Amina Starr',
-            role : 'Senior Product designer, Amazon'
-        },
-        {
-            id : 3,
-            img : img3,
-            personName : 'Kelani wayy',
-            role : 'Product lead, Paystack'
+    const [people, setPeople] =useState(null)
+    
+
+    useEffect(() => {
+
+        //fetch data from first endpoint
+        async function fetchFirstData(){
+         await serverApi.get("/admin/contributors")
+         .then(res => {setPeople(res.data)})
+         .catch(err => {console.error('error fetching data from endpoint 1', err)})
         }
-    ])
+        console.log(people);
+       
+          fetchFirstData()
+        }, []);
+
   return (
     <section className="nun py-6 xl:px-20">
         <h1 className='font-bold md:font-extrabold text-center lg:text-6xl text-[38px] py-1 lg:h-[24px] lg:my-20 md:my-10'><span className=' text-tgreen'>Meet The </span> <span className=' text-tblue'>Team</span></h1>

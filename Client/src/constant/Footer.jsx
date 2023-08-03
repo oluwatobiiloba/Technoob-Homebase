@@ -3,6 +3,7 @@ import { TechNoob } from "../data/assets";
 // import { footerLinks } from '../data/contact';
 
 import { BsTwitter, BsInstagram} from "react-icons/bs";
+import { Link } from "react-router-dom";
 // import { FaFacebookF } from "react-icons/fa";
 
 const Footer = () => {
@@ -40,7 +41,7 @@ const Footer = () => {
           <div className=" flex flex-col items-center justify-start w-full gap-y-4">
             <img src={TechNoob} alt="logo" className="w-[190px] h-[36px]" />
 
-            <p className="text-sm w-[60%] sm:w-[35%] text-center text-[#F8F8F8]">
+            <p className="text-sm w-[80%] sm:w-[35%] text-center text-[#F8F8F8]">
               Integrated People Platform for HR, Benefits, and Payroll. Drive
               better engagement and keep track of the indices that help your
               business grow.
@@ -48,9 +49,14 @@ const Footer = () => {
 
             <div className="flex gap-5 text-2xl text-white">
               {/* <BsWhatsapp className=''/> */}
-              <BsTwitter className="cursor-pointer" />
+              <Link to={'https://twitter.com/i/communities/1571774895813689347'} target="_blank" >
+                <BsTwitter className="cursor-pointer" />
+              </Link>
+
+              <Link to={'https://www.instagram.com/'} target="_blank">
+                <BsInstagram className="cursor-pointer" />
+              </Link>
               {/* <FaFacebookF/> */}
-              <BsInstagram className="cursor-pointer" />
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@ import JobCard from '../../../../utility/jobCards';
 
 const MainSection = (data) => {
     const jobs = data.data;
-    {console.log(data)}
     return (
         <div>
             <div className='nun mt-16 w-full'>
