@@ -1,12 +1,13 @@
 import React from 'react';
 import JobCard from '../../../../utility/jobCards';
+import Pagination from './Pagination';
 
 const MainSection = (data) => {
     const jobs = data.data;
     {console.log(data)}
     return (
         <div>
-            <div className='nun mt-16 w-full'>
+            <div className='nun mt-16 mb-10 w-full'>
                 <p className='text-lg font-bold'>All Jobs</p>
                 <p className='text-[#71717A] text-[10px]'>Showing {jobs.length} Results</p>
                 <div className='border-b-[0.5px] border-[#C2C7D6] mb-7 py-1' />
@@ -28,6 +29,7 @@ const MainSection = (data) => {
                         </div>
                     ))}
                 </div>
+                <Pagination />
             </div>
         </div>
     );
