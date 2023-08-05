@@ -17,8 +17,9 @@ const JobCard = ({
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-start h-full">
 
           {/* <img src={poster} alt={title} className=" rounded-lg sm:mt-0 w-[20px] h-[20px] sm:w-20 sm:h-20 " /> */}
-          <div className=' mt-3   sm:mt-0 w-20 h-20 sm:w-[15rem] sm:h-full  sm:rounded-l-md flex sm:items-center sm:justify-center p-5 mr-0'>
-                    <img src={poster} alt={title} className='object-contain rounded-lg ' />
+          {/* w-20 h-20 sm:w-[15rem] sm:h-1/2  */}
+          <div className='w-30 h-20 sm:w-[10rem] sm:h-1/2 mt-3 sm:mt-0  sm:rounded-l-md flex sm:items-center sm:justify-center p-5 mr-0'>
+                    <img src={poster} alt={title} className='object-fit rounded-lg  w-20 h-20 sm:w-full sm:h-full ' />
                 </div>
 
         <div className="flex flex-col pl-5 pt-6 gap-4 w-full">
@@ -33,7 +34,7 @@ const JobCard = ({
             <h2 className="text-xs  border-2 border-yellow-400 text-yellow-400 flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
               {contractType ? contractType : "contract"}
             </h2>
-            <h2 className="text-xs border-2 border-red-400 text-blue-400  flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
+            <h2 className="text-xs border-2 border-blue-400 text-blue-400  flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
               {exp}
             </h2>
           </div>

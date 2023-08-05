@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function JobDescription() {
   return (
@@ -19,11 +19,20 @@ function JobDescription() {
         </svg>
       </div>
 
-      <div className="flex flex-col py-3 px-10 border border-[#BDBDBD] rounded-md mb-10 max-w-fit" >
+      <div className="flex flex-col sm:flex-row py-3 px-10 border border-[#BDBDBD] rounded-md mb-10 max-w-fit">
+        <div className="w-30 h-20 sm:w-[10rem] sm:h-1/2 mt-3 sm:mt-0  sm:rounded-l-md flex sm:items-center sm:justify-center p-5 mr-0">
+          <img
+            src=""
+            alt=""
+            className="object-fit rounded-lg  w-20 h-20 sm:w-full sm:h-full "
+          />
+        </div>
+
+        <div className="flex flex-col">
         <div className="mb-5">
-          <div className="">
+          {/* <div className="">
             <img src="" alt="" />
-          </div>
+          </div> */}
           <div className="">
             <h2 className="font-semibold text-lg">Product Designer</h2>
             <h3>Dropbox . San francisco,USA</h3>
@@ -34,33 +43,66 @@ function JobDescription() {
             Full-Time
           </h2>
           <h2 className="text-xs  border-2 border-yellow-400 text-yellow-400  flex justify-center items-center p-2 sm:py-2 sm:px-4 rounded-md sm:text-sm font-normal">
-            Marketing  
+            Marketing
           </h2>
           <h2 className="text-xs border-2 border-blue-400 text-blue-400 flex justify-center items-center p-2 sm:py-2 sm:px-4 rounded-md sm:text-sm font-normal">
             Design
           </h2>
         </div>
+        </div>
+        
       </div>
 
       <div className="mb-10">
         <h1 className="font-bold text-lg mb-5">About the Role:</h1>
-        <p className="mb-5">As a Product Designer at Dropbox, you will be defining product specifications, responsible for creating digital assets and designing fully-functional products. You will also be expected to translate requirements into practical product features by building visually appealing outputs for potential</p>
+        <p className="mb-5">
+          As a Product Designer at Dropbox, you will be defining product
+          specifications, responsible for creating digital assets and designing
+          fully-functional products. You will also be expected to translate
+          requirements into practical product features by building visually
+          appealing outputs for potential
+        </p>
         <p className="mb-5 font-semibold">Deliverables:</p>
-        <ul className='mb-5 list-disc list-inside'>
-            <li>Set design requirements based on information from internal teams and user research. </li>
-            <li>Identify new product improvement opportunities</li>
-            <li>Analyze how a new product satisfies market needs and consumer preferences.</li>
-            <li>Stay up to date on current industry trends and market conditions.</li>
-            <li>Coordinate with other design team members to ensure consistent and accurate communication.</li>
-            <li>Modify and revise existing designs to meet changing customer preferences.</li>
-            <li>Present product design ideas to cross-functional teams and senior leadership.</li>
+        <ul className="mb-5 list-disc list-inside">
+          <li>
+            Set design requirements based on information from internal teams and
+            user research.{" "}
+          </li>
+          <li>Identify new product improvement opportunities</li>
+          <li>
+            Analyze how a new product satisfies market needs and consumer
+            preferences.
+          </li>
+          <li>
+            Stay up to date on current industry trends and market conditions.
+          </li>
+          <li>
+            Coordinate with other design team members to ensure consistent and
+            accurate communication.
+          </li>
+          <li>
+            Modify and revise existing designs to meet changing customer
+            preferences.
+          </li>
+          <li>
+            Present product design ideas to cross-functional teams and senior
+            leadership.
+          </li>
         </ul>
         <p className="mb-5 font-semibold">Area of Assignment: </p>
         <p className="mb-5">Product Design and UX Writing Department</p>
         <p className="mb-5 font-semibold">Qualifications:</p>
-        <p className="">Bachelor’s degree in any related field; Experience in related fields can make up for a degree.</p>
+        <p className="">
+          Bachelor’s degree in any related field; Experience in related fields
+          can make up for a degree.
+        </p>
         <p className="">Experience: 1-2 years experience in a related role;</p>
-        <p className="">Skills: A high degree of technical knowledge balanced with creative ability and a hands-on approach, Visual and spatial awareness, Attention to Detail, Prototyping & Wire-framing, Strong UX skills, and Design Thinking.</p>
+        <p className="">
+          Skills: A high degree of technical knowledge balanced with creative
+          ability and a hands-on approach, Visual and spatial awareness,
+          Attention to Detail, Prototyping & Wire-framing, Strong UX skills, and
+          Design Thinking.
+        </p>
       </div>
 
       <div className=" mb-5 flex">
@@ -72,9 +114,8 @@ function JobDescription() {
           Back
         </button>
       </div>
-
     </div>
   );
 }
 
-export default JobDescription
+export default JobDescription;
