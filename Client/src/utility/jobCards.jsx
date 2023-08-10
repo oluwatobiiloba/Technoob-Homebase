@@ -32,7 +32,7 @@ const JobCard = ({
               {company}
             </h2>
             <h2 className="text-xs  border-2 border-yellow-400 text-yellow-400 flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
-              {contractType ? contractType.toUpperCase() : "contract"}
+              {contractType ? contractType : "contract"}
             </h2>
             <h2 className="text-xs border-2 border-blue-400 text-blue-400  flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
               {exp}
