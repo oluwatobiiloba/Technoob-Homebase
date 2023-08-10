@@ -7,7 +7,6 @@ import Cookies from "universal-cookie";
 import { NavBar, Footer } from "./components/index.js";
 
 import { SignUp } from "./pages/Auth";
-
 import {
   ContactUs,
   Resources,
@@ -29,6 +28,9 @@ import {
 } from "./pages/AdminPage/Dashboard";
 import DashSelector from "./utility/DashSelector";
 import AllReasources from "./pages/LandingPage/Resources/AllReasources/All_reasources";
+
+// import JobDetails from "./pages/LandingPage/FindJob/JobDetails"
+import JobDescription from "./pages/LandingPage/FindJob/JobDescription";
 
 const cookies = new Cookies();
 
@@ -62,7 +64,7 @@ function App() {
     <BrowserRouter>
       {displayToggle && <DashSelector />}
       {displayToggle && <div className="blur-effect" />}
-      {!toggleValue === "User Dashboard" ? (
+      {toggleValue === "User Dashboard" ? (
         <div className="bg-primary w-full overflow-auto relative">
           <div className="flex flex-start w-full top-0 lg:fixed z-50">
             <div className="w-full">
@@ -81,6 +83,7 @@ function App() {
                 <Route path="/all-resources" element={<AllReasources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
                 <Route path="/User-Login" element={<UserLogin />} />
+                <Route path="/Job-Description" element={<JobDescription />} />
               </Routes>
             </Wrapper>
           </main>
@@ -113,6 +116,7 @@ function App() {
                   element={<ResourceManagement />}
                 />
                 <Route path="/Event-Management" element={<EventManagement />} />
+                
               </Routes>
             </div>
           </div>
