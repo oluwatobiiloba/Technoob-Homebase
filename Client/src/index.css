@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --black-gradient: linear-gradient(
     144.39deg,
@@ -87,11 +88,20 @@
 /* Apply custom styles to the scrollbar */
 ::-webkit-scrollbar {
   width: 4px; /* Width of the vertical scrollbar */
+  height: 4px; /* Adjust the height of the scrollbar track */
 }
-
+.scroll-container {
+  overflow: hidden; /* This hides both horizontal and vertical scrollbars */
+}
 /* Track styles */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
+}
+.scrollable-container::-webkit-scrollbar {
+  width: 4px; /* Adjust the width as needed */
+}
+.scrollable-container::-webkit-scrollbar {
+  height: 4px; /* Adjust the height of the scrollbar track */
 }
 
 /* Thumb styles */
