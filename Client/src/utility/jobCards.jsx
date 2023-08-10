@@ -32,7 +32,7 @@ const JobCard = ({
               {company}
             </h2>
             <h2 className="text-xs  border-2 border-yellow-400 text-yellow-400 flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
-              {contractType ? contractType : "contract"}
+              {contractType ? contractType.toUpperCase() : "contract"}
             </h2>
             <h2 className="text-xs border-2 border-blue-400 text-blue-400  flex justify-center items-center p-2 rounded-md sm:text-sm font-normal">
               {exp}
@@ -43,7 +43,7 @@ const JobCard = ({
 
       <div className="w-full flex justify-center items-center my-10  sm:mr-5">
         <button className="w-[80%] sm:w-[201px] h-[54px] text-base font-[400] bg-[#5E7CE8] rounded-md text-[#F2F2F2] py-4 px-3.5 ">
-          Apply
+         <a href = {link}>Apply</a>
         </button>
       </div>
     </div>
