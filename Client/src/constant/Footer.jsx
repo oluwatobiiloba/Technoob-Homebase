@@ -20,18 +20,6 @@ const Footer = () => {
       id: "3",
       item: "Privacy Policy",
     },
-    {
-      id: "4",
-      item: "Security Policy",
-    },
-    {
-      id: "5",
-      item: "Careers",
-    },
-    {
-      id: "6",
-      item: "Support",
-    },
   ];
 
   return (
@@ -41,11 +29,11 @@ const Footer = () => {
           <div className=" flex flex-col items-center justify-start w-full gap-y-4">
             <img src={TechNoob} alt="logo" className="w-[190px] h-[36px]" />
 
-            <p className="text-sm w-[80%] sm:w-[35%] text-center text-[#F8F8F8]">
+            {/* <p className="text-sm w-[80%] sm:w-[35%] text-center text-[#F8F8F8]">
               Integrated People Platform for HR, Benefits, and Payroll. Drive
               better engagement and keep track of the indices that help your
               business grow.
-            </p>
+            </p> */}
 
             <div className="flex gap-5 text-2xl text-white">
               {/* <BsWhatsapp className=''/> */}
@@ -53,7 +41,7 @@ const Footer = () => {
                 <BsTwitter className="cursor-pointer" />
               </Link>
 
-              <Link to={'https://www.instagram.com/'} target="_blank">
+              <Link to={'https://www.instagram.com/technoobng'} target="_blank">
                 <BsInstagram className="cursor-pointer" />
               </Link>
               {/* <FaFacebookF/> */}
@@ -101,8 +89,7 @@ const Footer = () => {
         </div>
 
         <p className="text-sm">
-          © Copyright 2020 Layers INC. All Rights Reserved. , #1, Lekki 1,
-          Lagos, Nigeria
+          © Copyright 2023 TechNoob. All Rights Reserved.
         </p>
       </div>
     </div>

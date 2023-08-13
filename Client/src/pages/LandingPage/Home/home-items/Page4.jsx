@@ -13,7 +13,7 @@ const Page4 = () => {
                 <h1 className=' font-[700] sm:font-[900] text-2xl sm:text-[58px] text-[#5E7CE8] sm:mb-6 '>
                 Start your journey <span className='text-[#27AE60]'> Today</span> 
                 </h1>
-                <p className='text-xs sm:w-[707px] sm:text-[20px] mb-3 text-[#828282]'>Join over 4,000+ newbies already growing and getting equipped to break into tech.</p>
+                <p className='text-xs sm:w-[707px] sm:text-[20px] mb-3 text-[#828282]'>Join our newbies already growing and getting equipped to break into tech.</p>
 
                 <a href="https://twitter.com/i/communities/1571774895813689347" target='_blank' rel="noreferrer" >
                 <Button name={'Join the community'}/>
