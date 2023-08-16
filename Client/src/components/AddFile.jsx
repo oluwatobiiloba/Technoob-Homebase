@@ -34,7 +34,7 @@ const AddFile = ({ closeModal }) => {
             }`}
           >
             {toggle === "Document" ? (
-              <UploadFile closeModal={closeModal} />
+              <UploadFile closeModal={closeModal}/>
             ) : (
               <LinkUpload closeModal={closeModal} />
             )}

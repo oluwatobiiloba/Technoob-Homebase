@@ -73,8 +73,8 @@ const handleClick = async (e) =>{
                 <p className='text-xs w-[90%] sm:w-auto sm:text-lg text-[#667085] sm:mb-6'>want to be the first to know when we have exciting news?
                      subscribe to our list</p>
 
-                     <div className='flex flex-col justify-center items-center sm:flex-row my-16 sm:my-6 gap-2'>
-                        <input placeholder='Enter your email address' type='email' value={email} onChange={handleChange} className='bg-white w-[335px] h-[56px] border rounded-md ring-2 outline-0 text-base pl-4 placeholder:italic'/>
+                     <div className='flex flex-col justify-center items-center sm:flex-row my-16 sm:my-6 gap-4'>
+                        <input placeholder='Enter your email address' type='email' value={email} onChange={handleChange} className='bg-white w-[355px] h-[56px] border rounded-md ring-2 outline-0 text-base pl-4 placeholder:italic'/>
                         <Button name={'Subscribe'} type={'submit'} handleClick={handleClick}/>
                         
                      </div>

@@ -14,7 +14,7 @@ const Page5 = () => {
                             <div className='flex flex-col justify-center items-center gap-2 '>
                                 <img src={esther} alt="page5" className='rounded-full w-[36px] h-[36px] sm:w-16 sm:h-16' />
                                 <h3 className='text-[14px] sm:text-[18px] font-normal text-[#101828]'>Esther </h3>
-                                <p className='sm:text-base text-[13px] text-[#667085]'>Product Manager, Meta.</p>
+                                <p className='sm:text-base text-[13px] text-[#667085]'>Product Manager.</p>
                             </div>  
                       </div>
                   

@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react -s build",
     "build": "react-scripts build",
     "dev": "react-scripts build && serve -s build",
     "test": "react-scripts test",

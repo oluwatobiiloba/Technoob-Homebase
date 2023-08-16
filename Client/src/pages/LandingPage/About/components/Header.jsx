@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <header  className='px-5 pb-5 flex flex-col justify-center mb-4 items-center'>
+    <header  className='px-5 pb-5 flex flex-col justify-center mb-0 sm:mb-4 items-center'>
       <div className='uni text-center md:text-6xl text-3xl py-5 md:pb-10 mb-4 font-bold'>
         <span className=' text-tblue'>About </span> <span className=' text-tgreen'>Us</span>
       </div> 
