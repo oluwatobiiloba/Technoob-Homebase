@@ -29,8 +29,8 @@ const Footer = () => {
           <div className=" flex flex-col items-center justify-start w-full gap-y-4">
             <img src={TechNoob} alt="logo" className="w-[190px] h-[36px]" />
 
-            {/* <p className="text-sm w-[80%] sm:w-[35%] text-center text-[#F8F8F8]">
-              Integrated People Platform for HR, Benefits, and Payroll. Drive
+            <p className="text-sm w-[80%] sm:w-[35%] text-center text-[#F8F8F8]">
+              Integrated People Platform for the easy to go community. Drive
               better engagement and keep track of the indices that help your
               business grow.
             </p> */}

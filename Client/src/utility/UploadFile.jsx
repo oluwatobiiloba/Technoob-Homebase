@@ -8,10 +8,39 @@ const UploadFile = ({ closeModal }) => {
   const [image, setImage] = useState();
 
   const onFileDrop = (files) => {
-    setUploadedFile(files[0]);
-    setImage(URL.createObjectURL(files[0]));
-    console.log(files[0]);
+    setUploadedFile(files);
+    setImage(URL.createObjectURL(files));
+    console.log(files);
   };
+
+  const handlePublish = () => {
+
+  }
+    // async function handleChange(e) {
+    //   e.preventDefault();
+    //   setImgLoader(true);
+    //   const file = e.target.files[0];
+    //   console.log("line0", e.target);
+    //   console.log("line1", file);
+    //   const formData = new FormData();
+    //   formData.append("avatar", file);
+  
+    //   await axios
+    //     .post(`https://caroapp-2sc7.onrender.com/api/product/upload/`, formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     })
+    //     .then((result) => {
+    //       console.log("Post request, results", result);
+    //       setImgUrl(result.data);
+    //       setImgLoader(false);
+    //     })
+    //     .catch((error) => {
+    //       console.log("Errors", error);
+    //       setImgLoader(false);
+    //     });
+    // }
 
   return (
     <div className="flex justify-center items-center w-full pt-10">
@@ -72,6 +101,7 @@ const UploadFile = ({ closeModal }) => {
                   <input
                     type="file"
                     id="file"
+                    multiple
                     onChange={({ target: { files } }) => onFileDrop(files)}
                     className="hidden"
                   />
@@ -141,7 +171,7 @@ const UploadFile = ({ closeModal }) => {
             </div>
           </div>
           <div className="flex w-full justify-start items-start gap-3">
-            <button className="flex justify-center items-center text-sm md:text-lg  md:font-semibold w-[310px] h-[54px] rounded-md bg-tblue text-white mb-4">
+            <button onClick={handlePublish} className="flex justify-center items-center text-sm md:text-lg  md:font-semibold w-[310px] h-[54px] rounded-md bg-tblue text-white mb-4">
               Publish Document
             </button>
             <button

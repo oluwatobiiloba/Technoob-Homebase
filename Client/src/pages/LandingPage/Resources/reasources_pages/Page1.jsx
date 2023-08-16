@@ -83,7 +83,7 @@ const Page1 = () => {
                     type="text" 
                     placeholder='Books on Design'
                     onChange={(e)=> setSearchTearm(e.target.value)} 
-                    className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-full h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />
+                    className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-[280px] h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />
 
                     
                     <img 

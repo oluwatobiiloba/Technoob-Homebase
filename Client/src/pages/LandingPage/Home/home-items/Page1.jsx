@@ -27,7 +27,10 @@ const Page1 = () => {
 
                 </div>
           </div>
-          <img src={Hero} alt="heroImg" className='w-[320px] h-[219px] sm:w-[823px] sm:h-[562px] '/>
+          <div className='w-full flex justify-center'>
+            <img src={Hero} alt="heroImg" className='w-[320px] h-[219px] sm:w-[823px] sm:h-[562px] '/>
+
+          </div>
           {/* <div className='flex flex-col justify-start items-center w-full h-[270px] sm:h-[710px] relative'>
 
 
