@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import People from './Peoplee'
 import serverApi from '../../../../utility/server'
 
@@ -7,18 +7,16 @@ const SectionThree = () => {
     const [people, setPeople] =useState(null)
     
 
-    useEffect(() => {
+  const fetchdata = async () =>{
 
         //fetch data from first endpoint
-        async function fetchFirstData(){
          await serverApi.get("/admin/contributors")
          .then(res => {setPeople(res.data)})
          .catch(err => {console.error('error fetching data from endpoint 1', err)})
-        }
-        console.log(people);
-       
-          fetchFirstData()
-        }, []);
+        
+      }
+      console.log(fetchdata);
+      
 
   return (
     <section className="nun py-6 xl:px-20">
