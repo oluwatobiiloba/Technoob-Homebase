@@ -8,7 +8,7 @@ module.exports = {
             const resources = await resource.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${resources.length} resource(s) retrieved`,
+                message: `${resources.count} resource(s) retrieved`,
                 data: resources
             })
         } catch (error) {
@@ -37,6 +37,22 @@ module.exports = {
         }
     },
 
+    async getMetrics(req, res, next) {
+        try {
+            const resources = await resource.getMetrics()
+            res.status(200).json({
+                status: "success",
+                message: `Resource Metrics retrieved`,
+                data: resources
+            })
+        } catch (error) {
+            res.status(400).json({
+                status: "fail",
+                message: error.message
+            })
+        }
+    },
+
     async create (req, res, next) { 
         const body = req.body
         if (!body.uploader_id) {
@@ -44,7 +60,7 @@ module.exports = {
         }
         try {
             const resources = await resource.create(body)
-            res.status(200).json({
+            res.status(201).json({
                 status: "success",
                 message: `resource created`,
                 data: resources
@@ -135,7 +151,7 @@ module.exports = {
         }
         try {
             const resources = await resource.rate(id, rating)
-            res.status(200).json({
+            res.status(201).json({
                 status: "success",
                 message: `resource rated`,
                 data: resources

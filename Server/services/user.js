@@ -93,10 +93,24 @@ module.exports = {
         }
     },
 
-    async getAll() {
+    async getAll(query) {
         try {
+            let page = query.page || 1;
+            let limit = query.limit || 5;
+            let skip = (page - 1) * limit;
+            let count = 0;
             const users = await User.find().select('+active')
-            return users
+                .skip(skip)
+                .limit(limit);
+            if (users) {
+                count = users.length
+            }
+            return {
+                users,
+                page,
+                limit,
+                count
+            };
         } catch (err) {
             throw err
         }
@@ -135,12 +149,11 @@ module.exports = {
             const total = users.length
             const active = users.filter(user => user.active === true).length
             const inactive = users.filter(user => user.active === false).length
-            const metrics = {
+            return {
                 total,
                 active,
                 inactive
             }
-            return metrics
         } catch (err) {
             throw err
         }

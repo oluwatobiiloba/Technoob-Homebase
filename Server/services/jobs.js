@@ -5,6 +5,11 @@ module.exports = {
     get_all: async (query) => {
         try {
             let prompt = {};
+            let page = query.page || 1;
+            let limit = query.limit || 5;
+            let skip = (page - 1) * limit;
+            let count = 0;
+
             if (query.title) {
                 prompt.title = { $regex: query.title, $options: 'i' };
             }
@@ -32,8 +37,18 @@ module.exports = {
                 prompt.location = query.location
             }
 
-            const jobs = await Jobs.find(prompt);
-            return jobs;
+            const jobs = await Jobs.find(prompt)
+                .skip(skip)
+                .limit(limit);
+            if (jobs) {
+                count = jobs.length
+            }
+            return {
+                jobs,
+                page,
+                limit,
+                count
+            };
         } catch (error) {
             throw error;
         }

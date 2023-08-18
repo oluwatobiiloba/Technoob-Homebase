@@ -169,12 +169,12 @@ module.exports = {
     },
 
     async getAll(req, res) {
-        const params = req.query
+        const query = req.query
         try {
-            const user = await users.getAll()
+            const user = await users.getAll(query)
             return res.status(201).json({
                 status: "success",
-                message: `${user.length} users found`,
+                message: `${user.count} users found`,
                 data: user
             })
         } catch (err) {

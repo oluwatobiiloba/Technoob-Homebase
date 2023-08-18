@@ -164,10 +164,24 @@ module.exports = {
             throw err
         }
     },
-    async getMailTemplates() {
+    async getMailTemplates(query) {
         try {
-            const templates = await Templates.find();
-            return templates
+            let page = query.page || 1;
+            let limit = query.limit || 5;
+            let skip = (page - 1) * limit;
+            let count = 0;
+            const templates = await Templates.find()
+                .skip(skip)
+                .limit(limit);
+            if (templates) {
+                count = templates.length
+            }
+            return {
+                templates,
+                page,
+                limit,
+                count
+            };
         }
         catch (err) {
             console.log(err)
@@ -386,17 +400,32 @@ module.exports = {
         }
     },
 
-    async getMailingList() {
+    async getMailingList(query) {
         try {
-            const mailingList = await mailing_list.find();
-            return mailingList
+            let page = query.page || 1;
+            let limit = query.limit || 5;
+            let skip = (page - 1) * limit;
+            let count = 0;
+            const mailingList = await mailing_list.find()
+                .skip(skip)
+                .limit(limit);
+
+            if (mailingList) {
+                count = mailingList.length
+            }
+            return {
+                mailingList,
+                page,
+                limit,
+                count
+            };
         } catch (err) {
             console.log(err)
             throw err
         }
     },
     
-    async getContactUs() {
+    async getContactUs(query) {
         try {
             const contactUs = await contact_us.find();
             return contactUs
@@ -442,18 +471,6 @@ module.exports = {
         }
     },
 
-    async getMailingList(id) {
-        try {
-            const mailingList = await mailing_list.findById(id);
-            if (!mailingList) {
-                throw new Error('Mailing List not found')
-            }
-            return mailingList
-        } catch (err) {
-            console.log(err)
-            throw err
-        }
-    },
 
     async addMailingList(email) {
         try {

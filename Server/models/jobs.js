@@ -28,7 +28,7 @@ const jobs = new Schema({
     },
     contractType:{
         type: String,
-        enum: ["full-time", "contract"],
+        enum: ["full-time", "contract","internship","part-time","gig"],
         required: [true, 'Please provide the contract type'],
     },
 
@@ -66,7 +66,16 @@ const jobs = new Schema({
     views: {
         type: Number,
         default: 0
-    }
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    },
 
 });
 

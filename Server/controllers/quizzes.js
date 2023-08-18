@@ -8,7 +8,7 @@ module.exports = {
             const quizzes = await Quizzes.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${quizzes.length} quiz(es) retrieved`,
+                message: `${quizzes.count} quiz(es) retrieved`,
                 data: quizzes
             })
         } catch (error) {
@@ -24,7 +24,7 @@ module.exports = {
         const user = req.user?._id || 0
         try {
             const quizzes = await Quizzes.get(id,user)
-            res.status(200).json({
+            res.status(201).json({
                 status: "success",
                 message: `Quiz retrieved`,
                 data: quizzes

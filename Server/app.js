@@ -139,7 +139,7 @@ app.use(Honeybadger.requestHandler);
 
 // Set up rate limit on our APIs
 const limiter = rateLimit({
-  max: 100,
+  max: config.REQUEST_LIMIT ,
   windowMs: 60 * 60 * 1000,
   message: "Too many requests from this IP, please try again in an hour",
 });

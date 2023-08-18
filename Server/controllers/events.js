@@ -4,12 +4,11 @@ const events = services.events;
 module.exports = {
      async get_all (req, res) { 
         const query = req.query
-        console.log(query)
         try {
             const event = await events.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${event.length} event(s) retrieved`,
+                message: `${event.count} event(s) retrieved`,
                 data: event
             })
         } catch (error) {
@@ -61,7 +60,7 @@ module.exports = {
         }
         try {
             const event = await events.create(body)
-            res.status(200).json({
+            res.status(201).json({
                 status: "success",
                 message: `event created`,
                 data: event

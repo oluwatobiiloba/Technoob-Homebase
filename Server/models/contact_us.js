@@ -3,8 +3,6 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/../config/config.js`)[env];
 const Schema = mongoose.Schema;
 
-
-
 const contact_us = new Schema({
     name: {
         type: String,

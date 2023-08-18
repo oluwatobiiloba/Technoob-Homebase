@@ -25,7 +25,8 @@ module.exports = {
         HONEYBADGER_KEY: process.env.HONEYBADGER_KEY,
         AZURE_STORAGE_CONNECTION_STRING: process.env.AZURE_STORAGE_CONNECTION_STRING,
         AZURE_QUEUE_NAME: process.env.AZURE_QUEUE_NAME,
-        AZURE_QUEUE_URL: process.env.AZURE_QUEUE_URL
+        AZURE_QUEUE_URL: process.env.AZURE_QUEUE_URL,
+        REQUEST_LIMIT: process.env.REQUEST_LIMIT || 500
     },
     test: {
         NODE_ENV: "test"

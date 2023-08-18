@@ -18,7 +18,16 @@ const activity = new Schema({
     activity: {
         type: Object,
         required: true
-    }
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    },
 });
 
 

@@ -48,7 +48,9 @@ module.exports = {
                         console.log(err);
                         return next(err);
                     }
-                    if (!user) throw err                
+                    if (!user) throw err
+                    console.log(req.body)
+                    console.log(req.files)
                     req.user = user; 
                     const sessionExpiresAt = req.session.cookie.expires;
                     if (sessionExpiresAt && new Date() > sessionExpiresAt) {

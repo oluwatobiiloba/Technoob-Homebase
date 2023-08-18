@@ -8,7 +8,7 @@ module.exports = {
             const job = await jobs.get_all(query)
             res.status(200).json({
                 status: "success",
-                message: `${job.length} Job(s) retrieved`,
+                message: `${job.count} Job(s) retrieved`,
                 data: job
             })
         } catch (error) {

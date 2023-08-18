@@ -253,7 +253,7 @@ module.exports = {
 
         try {
             const result = await admin.add_permission(email, permission);
-            return res.status(200).json({
+            return res.status(201).json({
                 status: "success",
                 message: `Added permission`,
                 data: result
@@ -438,7 +438,7 @@ module.exports = {
         const { name, description, url } = req.body;
         try {
             const resource = await admin.createFrontendResource({ name, description, url });
-            return res.status(200).json({
+            return res.status(201).json({
                 status: "success",
                 message: `Created frontend resource`,
                 data: resource
@@ -477,7 +477,7 @@ module.exports = {
         const { first_name, last_name, designation, image } = req.body;
         try {
             const contributor = await admin.addContributors({ first_name, last_name, designation,image});
-            return res.status(200).json({
+            return res.status(201).json({
                 status: "success",
                 message: `Added Contributor`,
                 data: contributor

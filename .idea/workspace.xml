@@ -4,14 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00e7749f-a6c8-47fc-9b50-e9b4de138a83" name="Changes" comment="Add contributors">
-      <change afterPath="$PROJECT_DIR$/Client/src/utility/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/pages/LandingPage/Resources/AllReasources/All_reasources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/pages/LandingPage/Resources/AllReasources/All_reasources.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.bin/loose-envify.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.bin/loose-envify.ps1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+    <list default="true" id="00e7749f-a6c8-47fc-9b50-e9b4de138a83" name="Changes" comment="bug fixes and pagination">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/controllers/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/controllers/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/controllers/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/jobs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/controllers/quizzes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/quizzes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/controllers/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/resources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/middleware/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/middleware/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/middleware/uploadStrategy.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/middleware/uploadStrategy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/models/activity.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/activity.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/models/contact_us.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/contact_us.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/models/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/jobs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/routes/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/routes/resources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/services/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/services/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/services/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/jobs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/services/quizzes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/quizzes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/services/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/resources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/services/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,14 +43,24 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Oluwatobiloba &lt;oluwatobiloba.f.a@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev_client" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": -1
+  "associatedIndex": 2
 }]]></component>
   <component name="ProjectId" id="2T4VJW2olZcvLpq3gYuIbtLwLjU" />
   <component name="ProjectLevelVcsManager">
@@ -48,7 +75,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "integrate__endpoint",
+    "git-widget-placeholder": "dev__server",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -64,7 +91,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
     <configuration name="default" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/Client/package.json" />
       <command value="run" />
@@ -75,8 +102,20 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/Server/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.default" />
         <item itemvalue="npm.default" />
       </list>
     </recent_temporary>
@@ -90,10 +129,16 @@
       <option name="presentableId" value="Default" />
       <updated>1690302273569</updated>
       <workItem from="1690302295113" duration="5475000" />
+      <workItem from="1692370181089" duration="7910000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="upload progress pending server tweak" />
+    <MESSAGE value="bug fixes and pagination" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes and pagination" />
   </component>
 </project>

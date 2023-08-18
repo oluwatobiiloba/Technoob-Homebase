@@ -190,7 +190,6 @@ user.methods.changedPasswordAfter = function (JWTTimestamp) {
         return JWTTimestamp < changedTimestamp;
     }
 
-    // False means NOT changed
     return false;
 }
 

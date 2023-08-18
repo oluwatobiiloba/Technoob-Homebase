@@ -5,6 +5,10 @@ module.exports = {
     get_all: async (query) => {
         try {
             let prompt = {};
+            let page = query.page || 1;
+            let limit = query.limit || 5;
+            let skip = (page - 1) * limit;
+            let count = 0;
             if (query.theme) {
                 prompt.theme = { $regex: query.theme, $options: 'i' };
             }
@@ -25,8 +29,20 @@ module.exports = {
                 prompt.price = { $lte: query.price}
             }
 
-            const events = await Events.find(prompt);
-            return events;
+            const events = await Events.find(prompt)
+                .skip(skip)
+                .limit(limit);
+
+            if (events) {
+                count = events.length
+            }
+            return {
+                events,
+                page,
+                limit,
+                count
+            };
+
         } catch (error) {
             throw error;
         }
