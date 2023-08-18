@@ -3,7 +3,6 @@ const inMemoryStorage = multer.memoryStorage();
 
 
 /**
- * A middleware function that filters file type  errors by creating a new error object using the imported AppError class
  * @function multerFilter
  * @param {object} req
  * @param {object} file
@@ -32,6 +31,7 @@ const uploadParams = {
         }
         callback(null, true);
     },
+    storage: inMemoryStorage
 };
 
     module.exports = {
@@ -46,7 +46,7 @@ const uploadParams = {
                 });
             } else if (err) {
                 // handle custom errors
-                res.status(500).json({
+                res.status(400).json({
                     Status: "Failed",
                     Name: "Invalid File Type",
                     Message: err.message
@@ -58,6 +58,7 @@ const uploadParams = {
             },
         file: (req, res, next) => { 
             multer(uploadParams).single('file')(req, res, (err) => {
+                
                 if (err instanceof multer.MulterError) {
                     // handle multer errors
                     res.status(400).json({

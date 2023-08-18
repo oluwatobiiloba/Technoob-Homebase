@@ -7,28 +7,8 @@
     <list default="true" id="00e7749f-a6c8-47fc-9b50-e9b4de138a83" name="Changes" comment="bug fixes and pagination">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/controllers/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/controllers/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/controllers/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/jobs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/controllers/quizzes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/quizzes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/controllers/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/resources.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/controllers/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/middleware/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/middleware/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/middleware/uploadStrategy.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/middleware/uploadStrategy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/models/activity.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/activity.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/models/contact_us.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/contact_us.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/models/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/jobs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/routes/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/routes/resources.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/services/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/services/events.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/services/jobs.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/jobs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/services/quizzes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/quizzes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/services/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/resources.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/services/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/services/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +39,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2T4VJW2olZcvLpq3gYuIbtLwLjU" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -70,19 +50,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev__server",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev__server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -114,6 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.default" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.default" />
         <item itemvalue="npm.default" />
