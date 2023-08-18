@@ -1,21 +1,56 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { storage } from "../data/assets";
+import FileUploadSingle from "./Uploader";
 
 const UploadFile = ({ closeModal }) => {
   // const [file, setFile] = useState(null);
-  const [uploadedFile, setUploadedFile] = useState();
-  const [image, setImage] = useState();
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [placeholderImage, setplaceholderImage] = useState(null);
+  const [formInput, setFormInput] = useState(
+      {
+        name:"",
+        version: "",
+        stack:"" ,
+        description:"",
+        type:"",
+        file:"",
+        image_placeholder:"",
+        url:"",
+      }
+  );
 
   const onFileDrop = (files) => {
-    setUploadedFile(files);
-    setImage(URL.createObjectURL(files));
-    console.log(files);
+    console.log(files)
+    setUploadedFile(files.name);
+    console.log(files)
+    //setImage(URL.createObjectURL(files));
+    console.log(uploadedFile);
+  };
+
+  console.log(uploadedFile);
+
+  const onPlaceHolderDrop = (images) => {
+    setplaceholderImage(images.name)
+    //setImage(URL.createObjectURL(files));
+    console.log(placeholderImage);
+  };
+
+  console.log(placeholderImage);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormInput((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   const handlePublish = () => {
 
   }
+
+  console.log(uploadedFile)
     // async function handleChange(e) {
     //   e.preventDefault();
     //   setImgLoader(true);
@@ -58,73 +93,35 @@ const UploadFile = ({ closeModal }) => {
               <br />
               <input
                 type="text"
-                name="Name"
+                name="name"
                 className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
-                placeholder="-- Enter --"
+                value={formInput.company}
+                onChange={handleChange}
+                placeholder="Enter Resource Name"
               />
             </div>
             <div className="w-full">
               <label htmlFor="Name">Tech Stack</label>
               <select
-                type="text"
-                name="Name"
-                className="placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC]  p-3 w-full rounded-md mt-2 "
-                placeholder="select"
-              >
-                <option value="date">Select a date</option>
+                  id="stack"
+                  name="stack"
+                  className="placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC]  p-3 w-full rounded-md mt-2 "
+                  placeholder="select"
+                  value={formInput.stack}
+                  onChange={handleChange}
+                >
+                <option value="Software Development ">Software Development</option>
+                <option value="Product Design">Product Design</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Cloud Engineering">Cloud Engineering</option>
+                <option value="Data Engineering">Data Engineering</option>
+                <option value="Project Management">Project Management</option>
               </select>
             </div>
           </div>
-          <div className="">
-            <label htmlFor="Name" className="text-black text-base">
-              File Description{" "}
-              <span className="ml-5 text-sm text-slate-300">Optional</span>
-            </label>{" "}
-            <br />
-            <textarea
-              name="Desc"
-              rows={4}
-              className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-1 w-full rounded-md"
-              placeholder="-- text here --"
-            />
-          </div>
-          <div className="border-2 border-dashed border-[#DAE8F6] w-full h-[278px] flex flex-col justify-center items-center mt-6 lg:mt-12 hover:bg-gray-200 hover:border-gray-300 rounded-lg">
-            <div className="flex flex-col items-center justify-center w-full h-full rounded-md cursor-pointer bg-gray-50  ">
-              <label
-                htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-start w-full h-full rounded-lg cursor-pointer bg-gray-50  "
-              >
-                <div className="flex flex-col w-full h-full items-center justify-center  pt-5 pb-6">
-                  <img src={storage} alt="upload" className="w-16 mb-3" />
-                  <p className="mb-1 text-base  ">Drag and Drop files here</p>
-                  <p className="text-lg">OR</p>
-                  <input
-                    type="file"
-                    id="file"
-                    multiple
-                    onChange={({ target: { files } }) => onFileDrop(files)}
-                    className="hidden"
-                  />
-                  <label
-                    htmlFor="file"
-                    className="flex justify-center items-center text-lg font-semibold w-[190px] h-[44px] rounded-md bg-[#EFF0F5] text-[#114ff5] mb-4"
-                  >
-                    Browse Files
-                  </label>
-
-                  <div className="text-center text-[#7A90A7] text-sm">
-                    <p>
-                      *supported file type: pdf, doc, xlsx, csv, ppt and png or
-                      jpg.
-                      <br />
-                      Please select a file smaller than 10MB.
-                    </p>
-                  </div>
-                </div>
-                <input id="dropzone-file" type="file" className="hidden" />
-              </label>
-            </div>
-          </div>
+         <FileUploadSingle name={"Resource File"} setlink={setUploadedFile} type={"image"}></FileUploadSingle>
+          <FileUploadSingle name={"Resource Image"} setlink={setplaceholderImage} type={"file"}></FileUploadSingle>
           <div className="mt-5 min-h-[150px]">
             <div className="border-t-2 border-gray-200 mb-3" />
             <h1 className="text-[#7A90A7] text-xs ">Uploading</h1>
@@ -142,7 +139,7 @@ const UploadFile = ({ closeModal }) => {
                   <div className="flex h-16">
                     <div className="flex items-start">
                       <img
-                        src={image}
+                        src={placeholderImage}
                         alt="_img"
                         className="w-13 h-full object-contain mr-3 p-1"
                       />

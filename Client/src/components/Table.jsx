@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Table = ({data}) => {
+const Table = ({resourceActivity}) => {
 
-  console.log('here', data);
+  const activityData = resourceActivity || [];
 
   // const arrayOfObjects = data.activity
   
@@ -26,7 +26,7 @@ const Table = ({data}) => {
 
 
     <tbody>
-      {data ? data?.map((item) => (
+      {activityData ? resourceActivity?.activity.map((item) => (
        
         <tr>
           { console.log('item', item.activity.activity)}

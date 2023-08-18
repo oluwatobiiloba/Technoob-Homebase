@@ -6,58 +6,89 @@ import Card from '../../../../utility/Card';
 import { useNavigate } from 'react-router-dom';
 
 import Filter from '../../../../components/Filter';
+import serverApi from "../../../../utility/server";
+import {fetchFilteredData, fetchFirstData} from "../../../../utility/filterGather";
 
 
 const Page1 = () => {
 
     const navigate = useNavigate()
 
-    const [togggle, setTogggle] = useState(false);
     const [selected, setSelected] = useState('Design');
-    const [searchTearm, setSearchTearm] = useState('');
     const [resources, setResources] = useState(null);
+    const [filtered, setFiltered] = useState(false);
     const [loading, setLoading] = useState(false);
-    
-    const URL = `https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=${searchTearm}`;
+    const [searchTerm, setSearchTerm] = useState('');
+    const [options , setOptions] = useState([]);
+    const [passedOptions, setpassedOptions] = useState({})
+    const [box1, setBox1] = useState([]);
+    const [reset, setReset] = useState(false);
 
-
+    const handleBox1Change = (e) => {
+        e.preventDefault();
+        const newValue= e.currentTarget.value.trim();
+        const updatedSelectedValues = box1.includes(newValue)
+            ? box1.filter((val) => val !== newValue)
+            : [...box1, newValue];
+        setBox1(updatedSelectedValues)
+        console.log(updatedSelectedValues)
+        if(updatedSelectedValues.length === 0){
+            setReset(true)
+        }
+    }
 
 
     const handleClick= async (e) => {
         e.preventDefault();
-     const response = await fetch(URL);
-     const data = await response.json()
-     setResources(data.data.slice(0,3));
-     
-
-      }
-
-      useEffect( () => {
-        async function fetchData() {
-            const URL = `https://technoob-staging.azurewebsites.net/api/v1/resources/all?name=`;
-          // You can await here
-
-              try {
-                setLoading(true)
-                const response = await fetch(URL);
-                const data = await response.json()
-                setResources(data.data.slice(0,3))
-            } catch (error) {
-                console.log(error)
-            }finally{
-                setLoading(false)
+        try{
+            let params = {}
+            if(searchTerm) {
+                params.name = searchTerm
             }
-          
+            const response = await serverApi.get(`resources/all`,
+                {
+                    params
+                });
+            if(response.status === 200){
+                let responseData = response.data.data
+                setResources(responseData)
+            } else {
+                alert("No result found")
+            }
+        }catch (e) {
+            console.log(e)
         }
-        fetchData();
-      }, []); 
+    }
 
- 
-      
-    
-   
+    useEffect( () => {
+        setLoading(true);
+        fetchFirstData("/resources/all",setResources,setOptions)
+            .then(_r => {
+                setLoading(false);
+                setFiltered(false);
+            });
+    }, []);
 
-  return (
+    useEffect( () => {
+        let params = {};
+        if (box1.length > 0 && !loading){
+            params[passedOptions.name] = box1.join(',');
+            fetchFilteredData(params, "/resources/all", setResources).then(_r  => {})
+        }
+
+        if(reset){
+            fetchFirstData("/resources/all",setResources,setOptions)
+                .then(_r => {
+                    setLoading(false);
+                    setFiltered(false);
+                });
+        }
+
+
+    }, [passedOptions.name, loading, box1, reset]);
+
+
+    return (
     <div className='flex flex-col w-full justify-start items-center sm:justify-center sm:items-center px-5 sm:px-0 pt-6 md:pt-16 relative'>
 
         
@@ -66,11 +97,6 @@ const Page1 = () => {
             <span className=' text-tblue'>RESOURCES</span>
             </header>
         </div>
-                 <div className={`absolute shadow-sm right-0 left-4 mt-20 h-auto z-10 bg-white w-[85%] flex flex-col justify-start items-start ${togggle ? 'block' : 'hidden'} sm:hidden`}>
-                        
-                      <Filter selected={selected} setSelected={setSelected}/>
-                </div>  
-
         <div className=' w-full flex justify-center items-start md:justify-center md:items-center mb-[3rem]'>
             
 
@@ -78,21 +104,21 @@ const Page1 = () => {
                 <div className='flex justify-start items-center border border-[#BDBDBD] sm:w-[80%] h-[54px] rounded-lg bg-transparent pl-7 '>
 
                     <img src={SearchIcon} alt="icon" className='h-5 w-5' />
-                    
-                    <input 
-                    type="text" 
+
+                    <input
+                    type="text"
                     placeholder='Books on Design'
-                    onChange={(e)=> setSearchTearm(e.target.value)} 
+                    onChange={(e)=> setSearchTerm(e.target.value)}
                     className='placeholder:italic placeholder:text-slate-400 focus:outline-none text-base w-[280px] h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] ' />
 
-                    
-                    <img 
-                        src={filtersearch} 
-                        alt="icon" 
-                        onClick={(e)=> {setTogggle((prev) => !prev)
-                        }} 
+
+                    <img
+                        src={filtersearch}
+                        alt="icon"
+                        // onClick={(_e)=> {setToggle((prev) => !prev)
+                        // }}
                         className='sm:hidden block mr-2 w-6 h-6' />
-                      
+
                 </div>
 
                 <div>
@@ -104,15 +130,13 @@ const Page1 = () => {
         </div>
 
         <div className=' flex md:gap-[1rem] h-[30rem] md:h-[35rem] md:justify-between w-[95%] md:ml-12 '>
-            <div className='hidden xl:block sm:flex-[0.4] h-[25rem] p-4  shadow-md'>
-               <Filter selected={selected} setSelected={setSelected}/>
+            <div className='hidden xl:block sm:flex-[0.4] h-[35rem] p-4  shadow-md'>
+               <Filter passedOptions={passedOptions} setpassedOptions={setpassedOptions} options={options} selected={selected} setSelected={setSelected} handleBox1Change={handleBox1Change} box1={box1}/>
             </div>
-
-            
 
 
             <div className=' w-full sm:min-h-[600px] md:flex-[1.5] md:pl-4 relative overflow-hidden'>
-                {searchTearm ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS</h1> : <h1 className='text-2xl text-[#3A3A3A] font-semibold'><span className='text-[#5E7CE8]'>ALL</span> RESULTS</h1>}
+                {searchTerm || filtered ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS</h1> : <h1 className='text-2xl text-[#3A3A3A] font-semibold'><span className='text-[#5E7CE8]'>ALL</span> RESULTS</h1>}
 
                 
                 <div className='border-b-[0.5px] border-[#C2C7D6] mb-[2rem] w-[95%] '/>
@@ -128,7 +152,7 @@ const Page1 = () => {
 
                         <div key={i} className='flex flex-row justify-start items-start mr-12 sm:mr-5 w-[200px] h-full sm:w-[380px] '>
                             
-                            <Card titleText={feeds.name} photo={feeds.image_placeholder} pText={feeds.description} subTitleText={feeds.type}/>
+                            <Card titleText={feeds.name} photo={feeds.image_placeholder} pText={feeds.description} subTitleText={feeds.type} link={feeds.file || feeds.url}/>
 
                         </div> 
 

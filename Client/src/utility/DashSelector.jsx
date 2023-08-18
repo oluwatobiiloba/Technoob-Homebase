@@ -49,10 +49,13 @@ const DashSelector = () => {
     });
   };
   const onSelectHandler = (props) => {
-    setDashboardToggle({
+    const selection = {
       displayToggle: false,
       toggleValue: props.target.innerText,
-    });
+    }
+    setDashboardToggle(selection);
+    sessionStorage.setItem("viewPreference",JSON.stringify(selection))
+
   };
   return (
     <Fragment>

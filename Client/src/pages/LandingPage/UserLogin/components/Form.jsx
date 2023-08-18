@@ -3,10 +3,8 @@ import Cookies from "universal-cookie";
 import img from "../img/quino-al-xhGMQ_nYWqU-unsplash 1.png";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../../AppContext/AppContext";
-// import axios from "axios";
 import serverApi from "../../../../utility/server";
 
-const cookies = new Cookies();
 
 const Form = () => {
   const navigate = useNavigate();
@@ -50,16 +48,10 @@ const Form = () => {
         const userInfo = {
           ...responseData.data,
         };
-        setUserProfile(userInfo);
+        setUserProfile(userInfo.user);
         setIsLoggedIn(true);
-        cookies.set("user", JSON.stringify(userInfo), {
-          path: "/",
-          maxAge: 3600,
-        });
-        cookies.set("user_token", response.data.token, {
-          path: "/"
-        }
-      )
+        sessionStorage.setItem("userData", JSON.stringify(userInfo.user));
+        sessionStorage.setItem("user_token", response.data.token);
         //localStorage.setItem("user", JSON.stringify(userInfo));
         if (userInfo.user.role === "admin") {
           setDashboardToggle({
@@ -70,7 +62,7 @@ const Form = () => {
       }
     
     } catch (error) {
-      setUser({ error: error.message, UserName: "", Password: "" });
+      setUser({ error: error.response?.data?.message || "Failed, Please contact admin", UserName: "", Password: "" });
     }
     
   }

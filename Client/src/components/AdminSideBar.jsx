@@ -6,9 +6,7 @@ import {FiSettings} from "react-icons/fi";
 import {BiLogOut} from "react-icons/bi";
 import serverApi from "../utility/server";
 import {AppContext} from "../AppContext/AppContext";
-import Cookies from "universal-cookie";
 
-const cookies = new Cookies();
 
 const AdminSideBar = () => {
   const isActive = false;
@@ -68,7 +66,7 @@ function SignOut(){
       navigate("/Home");
       setIsLoggedIn(false);
       setUserProfile(null);
-      cookies.remove("user");
+      sessionStorage.clear();
       setDashboardToggle({
         displayToggle: false,
         toggleValue: "User Dashboard",

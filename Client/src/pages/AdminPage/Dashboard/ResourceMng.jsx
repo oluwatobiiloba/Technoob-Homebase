@@ -9,71 +9,87 @@ import Button from "../../../utility/button";
 import Table from "../../../components/Table";
 import Modal from "../../../Modals/Modal";
 import AddFile from "../../../components/AddFile";
+import {fetchFirstData} from "../../../utility/filterGather";
+import Loader from "../../../utility/Loader";
 
 const ResourceMng = () => {
   //const [fileType, setfileType] = useState('')
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [statistics, setStatistics] = useState([]);
+  const [resourceActivity, setResourceActivity] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
   const closeModal = () => {
     setIsModalOpen(false);
   };
   const openModal = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
-    console.log("open modal");
   };
 
   // const handleChange = (e) => {
   //   setfileType(e.target.value)
   //   console.log(e.target.value)
   // }
-  const statistics = [
-    {
-      name: "Files Uploaded",
-      amount: 45,
-      amtlabel: "Files Uploaded",
-      // tracks: "20 files",
-      icon: <AiOutlineCloudServer />,
-      // icon2: <AiOutlineEye />,
-      style: "bg-green-100 text-tgreen",
-    },
-    {
-      name: "Files Downloaded",
-      amount: 120,
-      amtlabel: "Files Downloaded",
-      // tracks: "203 Downloads",
-      icon: <BiArchive/>,
-      style: "text-[#D4C433] bg-yellow-100",
-    },
-  ];
+  // const statistics = [
+  //   {
+  //     name: "Files Uploaded",
+  //     amount: 45,
+  //     amtlabel: "Files Uploaded",
+  //     // tracks: "20 files",
+  //     icon: <AiOutlineCloudServer />,
+  //     // icon2: <AiOutlineEye />,
+  //     style: "bg-green-100 text-tgreen",
+  //   },
+  //   {
+  //     name: "Files Downloaded",
+  //     amount: 120,
+  //     amtlabel: "Files Downloaded",
+  //     // tracks: "203 Downloads",
+  //     icon: <BiArchive/>,
+  //     style: "text-[#D4C433] bg-yellow-100",
+  //   },
+  // ];
 
 
   
-  //importing custom funtion and content from appContext
-  const { data, loading, error, fetchData } = useContext(AppContext);
+
+  const { UserProfile } = useContext(AppContext);
+
 
   useEffect(() => {
-    var myHeaders = new Headers();
-      myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY0MzQ5MmJiODYzNjBlMDU0NzY1NzZmOSIsImVtYWlsIjoib29sdXdhdG9iaWlsb2JhQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoib2x1d2F0b2JpaWxvYmEifSwiaWF0IjoxNjkwNTgwNjc1fQ.oruKVUiZxadyOC_qOkVpdM89QYwNcYk0Wf19iv1BikE");
-      myHeaders.append("Cookie", "connect.sid=s%3AMlp-rTrJ_70PsB3C3KvEwnz07lKjjy2x.SD8ltsLv%2Fr3Y6JjzYt9ibH%2BT2DrfetUid9EAxM57b%2BQ");
-
-      var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-      };
-    // Make an API call when the component mounts
-    fetchData('https://technoob-staging.azurewebsites.net/api/v1/resources/activity', requestOptions);
-
+      fetchFirstData("/resources/activity",setResourceActivity,null,true).then(_r => setIsLoading(false))
+      fetchFirstData("/resources/metrics",setStatistics,null).then(_r => setIsLoading(false))
   }, []);
 
   
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return  (
+        <div className='flex w-full justify-center items-start  '>
+
+          {isLoading ? <Loader/> : (
+              <div className='flex flex-col justify-center items-center gap-4'>
+                <h1 className='text-base text-center md:text-3xl text-black font-semibold'>Something went wrong, <br className='block md:hidden'/> Please try again...</h1>
+                {/* <span onClick={handleClick} className='underline text-cyan-600 text-[14px] cursor-pointer'>Retry...</span> */}
+
+              </div>
+
+          )}
+
+        </div>
+    );
   }
 
   if (error) {
-    console.log(error)
+   return (
+        <div className='flex flex-col justify-center items-center gap-4'>
+          <h1 className='text-base text-center md:text-3xl text-black font-semibold'>Something went wrong, <br className='block md:hidden'/> Please try again...</h1>
+          {/* <span onClick={handleClick} className='underline text-cyan-600 text-[14px] cursor-pointer'>Retry...</span> */}
+
+        </div>
+
+    )
   }
 
   return (
@@ -84,9 +100,9 @@ const ResourceMng = () => {
     >
       <div className="flex justify-between ">
         <div className="flex  sm:flex-row mb-5 md:mb-0 py-1 sm:py-10 justify-start sm:justify-center items-start sm:items-center ">
-          <h1 className=" md:text-3xl text-xl font-semibold">Hey, Esther -</h1>
+          <h1 className=" md:text-3xl text-xl font-semibold">Hey, {UserProfile.firstname} -</h1>
           <p className="md:pt-2 pt-1 text-sm ml-3 sm:text-lg text-[#3A3A3A66] sm:text-black">
-            Welcome your resource page.
+            Welcome to the resource page.
           </p>
         </div>
       </div>
@@ -98,28 +114,25 @@ const ResourceMng = () => {
                 Resource Management
               </h1>
             </div>
-            <div className="flex items-center gap-3 mt-4 sm:m-4">
-              <input
-                type="text"
-                placeholder="Search resources"
-                className="placeholder:italic placeholder:text-slate-400 border rounded-md w-[423px] focus:outline-none text-base h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] "
-              />
-              <img
-                src={filtersearch}
-                alt="filter"
-                className="w-[24px] h-[24px]"
-              />
-            </div>
+            {/*<div className="flex items-center gap-3 mt-4 sm:m-4">*/}
+            {/*  <input*/}
+            {/*    type="text"*/}
+            {/*    placeholder="Search resources"*/}
+            {/*    className="placeholder:italic placeholder:text-slate-400 border rounded-md w-[423px] focus:outline-none text-base h-[100%] p-3 mr-2 focus:border-none focus:ring-[0] "*/}
+            {/*  />*/}
+            {/*  <img*/}
+            {/*    src={filtersearch}*/}
+            {/*    alt="filter"*/}
+            {/*    className="w-[24px] h-[24px]"*/}
+            {/*  />*/}
+            {/*</div>*/}
           </div>
 
           <div className="mt-4 lg:mt-2">
             <p className="text-xl mb-1">Statistics</p>
-            <p className=" text-[#71717A] lg:mb-8 text-[12px] md:text-sm">
-              See Metrics
-            </p>
 
             <div className="flex w-[100%] justify-start flex-wrap gap-4 rounded-sm">
-              {statistics.map((opt, i) => (
+              {statistics.length && statistics.map((opt, i) => (
                 <div
                   key={i}
                   className=" px-3 pt-5 pb-6 rounded-lg w-[25rem] shadow-md lg:w-[40%] lg:mr-3 "
@@ -134,7 +147,7 @@ const ResourceMng = () => {
                   </p>
                   <div className="flex justify-start items-end w-full">
                     <p className="p-2 mr-6 text-xl">
-                      <span className="font-bold text-3xl">{data ? data.length : 0}</span>{" "}
+                      <span className="font-bold text-3xl">{resourceActivity ? resourceActivity.length : 0}</span>{" "}
                       {opt.amtlabel}{" "}
                     </p>
                     <p className=" p-2 text-[#35BA83] flex gap-4 items-center">
@@ -162,15 +175,15 @@ const ResourceMng = () => {
               <div>
                 <h2 className=" text-xl font-semibold pt-4">Recent Jobs</h2>
                 <p className=" text-lg text-[#747272] mb-1">
-                  See list of resent jobs posted
+                  See list of recently uploaded resources.
                 </p>
               </div>
-              <button className="float-right border py-2 px-8 my-[20px] rounded flex justify-between shadow-sm">
-                See all
-              </button>
+              {/*<button className="float-right border py-2 px-8 my-[20px] rounded flex justify-between shadow-sm">*/}
+              {/*  See all*/}
+              {/*</button>*/}
             </div>
             <div className="flex overflow-x-auto">
-              {data ? (<Table data={data} />) : ''}
+              {resourceActivity.activity ? (<Table resourceActivity={resourceActivity} />) : ''}
             </div>
           </div>
         </div>

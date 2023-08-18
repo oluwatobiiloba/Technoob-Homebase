@@ -2,7 +2,6 @@ import React, { useState, createContext } from "react";
 
  const AppContext = createContext({
     Notification: false,
-    UserProfile: false,
     isLoggedIn: false,
     isAdmin: false,
 
@@ -18,24 +17,7 @@ const AppProvider = ({ children }) => {
         toggleValue: "User Dashboard"
     });
 
-    //custom fuction to make API calls
-    const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  const fetchData = async (url, options) => {
-    try {
-      setLoading(true);
-      const response = await fetch(url, options);
-      const jsonData = await response.json();
-      setData(jsonData.data.activity);
-       console.log(jsonData.data);
-      setLoading(false);
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-  };
     
     return (
         <AppContext.Provider
@@ -49,9 +31,7 @@ const AppProvider = ({ children }) => {
             isAdmin,
             setIsAdmin,
             dashboardToggle,
-            setDashboardToggle,
-
-            data, loading, error, fetchData,
+            setDashboardToggle
         }}
         >
         {children}

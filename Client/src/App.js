@@ -27,7 +27,7 @@ import {
   EventManagement,
 } from "./pages/AdminPage/Dashboard";
 import DashSelector from "./utility/DashSelector";
-import AllReasources from "./pages/LandingPage/Resources/AllReasources/All_reasources";
+import AllResources from "./pages/LandingPage/Resources/reasources_pages/Page1";
 
 // import JobDetails from "./pages/LandingPage/FindJob/JobDetails"
 import JobDescription from "./pages/LandingPage/FindJob/JobDescription";
@@ -35,21 +35,26 @@ import JobDescription from "./pages/LandingPage/FindJob/JobDescription";
 const cookies = new Cookies();
 
 function App() {
-  const { isLoggedIn, setIsLoggedIn, dashboardToggle, setUserProfile } =
+  const { isLoggedIn, setIsLoggedIn, setDashboardToggle, dashboardToggle, setUserProfile } =
     useContext(AppContext);
   const { displayToggle, toggleValue } = dashboardToggle;
 
   useEffect(() => {
-    const checkUserLogin = cookies.get("user");
+    const checkUserLogin = sessionStorage.getItem("userData");
+    const checkUserViewPreference = sessionStorage.getItem("viewPreference")
     // const sessionCookie = cookies.get('session')
 
     if (checkUserLogin) {
       setIsLoggedIn(true);
-      setUserProfile(checkUserLogin);
+      setUserProfile(JSON.parse(checkUserLogin));
     } else {
       setIsLoggedIn(false);
     }
-  }, [isLoggedIn, setIsLoggedIn, setUserProfile]);
+
+    if(checkUserViewPreference) {
+      setDashboardToggle(JSON.parse(checkUserViewPreference))
+    }
+  }, [isLoggedIn, setDashboardToggle, setIsLoggedIn, setUserProfile]);
 
   //const [isAdmin] = useContext(AppContext)
 
@@ -80,10 +85,10 @@ function App() {
                 <Route path="/Find-Jobs" element={<FindJobs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
-                <Route path="/all-resources" element={<AllReasources />} />
+                <Route path="/all-resources" element={<AllResources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
                 <Route path="/User-Login" element={<UserLogin />} />
-                <Route path="/Job-Description" element={<JobDescription />} />
+                {/*<Route path="/Job-Description" element={<JobDescription />} />*/}
               </Routes>
             </Wrapper>
           </main>

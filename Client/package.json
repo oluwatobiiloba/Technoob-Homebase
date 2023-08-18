@@ -19,7 +19,8 @@
     "react-scripts": "5.0.1",
     "serve": "^14.2.0",
     "universal-cookie": "^4.0.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@react-buddy/ide-toolbox": "^2.4.0"
   },
   "scripts": {
     "start": "react -s build",

@@ -154,12 +154,12 @@ const JobManagement = () => {
                 <input type="text" placeholder='Product Design' className=' border px-2 py-[6px] my-2 w-[250px]' name="title" value={formInput.title} onChange={handleChange}/>
               </div>
               <div className=' block py-2 my-4'>
-                <div><label htmlFor="title" className=' text-base font-semibold p-1'>Company</label></div>
+                <div><label htmlFor="company" className=' text-base font-semibold p-1'>Company</label></div>
                 <input type="text" placeholder='Meta' className=' border px-2 py-[6px] my-2 w-[250px]' name="company" value={formInput.company} onChange={handleChange}/>
               </div>
               <div className=' block py-2 my-4'>
-                <div><label htmlFor="title" className=' text-base font-semibold p-1'>Your experience</label></div>
-                <select  id="job" className=' border px-2 py-[6px] my-2 w-[250px]' name="exp" value={formInput.exp} onChange={handleChange}>
+                <div><label htmlFor="experience" className=' text-base font-semibold p-1'>Your experience</label></div>
+                <select  id="exp" className=' border px-2 py-[6px] my-2 w-[250px]' name="exp" value={formInput.exp} onChange={handleChange}>
                   <option value="0-1 year">0-1 year</option>
                   <option value="1-3 years">1-3 years</option>
                   <option value="3-5 years +">3-5 years +</option>
