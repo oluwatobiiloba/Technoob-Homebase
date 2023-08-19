@@ -21,6 +21,8 @@ const contributor = new Schema({
         type: String,
         required: [true, 'Please provide user image'],
     }
+},{
+    timestamps: true
 });
 
 

@@ -1,12 +1,13 @@
 const Jobs = require('../models/jobs.js');
 const Activity = require('../models/activity.js')
+const Resources = require("../models/resources");
 
 module.exports = {
     get_all: async (query) => {
         try {
             let prompt = {};
-            let page = query.page || 1;
-            let limit = query.limit || 5;
+            let page = query.page * 1 || 1;
+            let limit = query.limit || 10;
             let skip = (page - 1) * limit;
             let count = 0;
 
@@ -43,11 +44,16 @@ module.exports = {
             if (jobs) {
                 count = jobs.length
             }
+            const total  = await Jobs.countDocuments();
+            const totalPages = Math.ceil(total / limit);
+
             return {
                 jobs,
                 page,
                 limit,
-                count
+                count,
+                total,
+                totalPages
             };
         } catch (error) {
             throw error;
@@ -134,11 +140,18 @@ module.exports = {
                 count = activity.length
             }
 
+            const total  = await Activity.countDocuments({
+                module: "job"
+            });
+            const totalPages = Math.ceil(total / limit);
+
             return {
                 activity,
                 page,
                 limit,
-                count
+                count,
+                total,
+                totalPages
             }
         } catch (error) {
             throw error

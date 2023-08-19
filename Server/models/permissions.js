@@ -33,6 +33,8 @@ const permissions = new Schema({
     },
 
 
+},{
+    timestamps: true
 })
 
 module.exports = mongoose.model('Permissions', permissions);

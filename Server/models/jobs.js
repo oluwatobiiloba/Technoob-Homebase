@@ -77,6 +77,8 @@ const jobs = new Schema({
         default: Date.now()
     },
 
+},{
+    timestamps: true
 });
 
 

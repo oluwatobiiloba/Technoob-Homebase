@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 const trafficMetric = new Schema({
   endpoint: String,
   method: String,
-  timestamp: { type: Date, default: Date.now },
+
+},{
+  timestamps: true
 });
 
 module.exports = mongoose.model('TrafficMetric', trafficMetric);

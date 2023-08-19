@@ -58,7 +58,6 @@ const resources = new Schema({
 
     createdAt: {
         type: Date,
-        default: Date.now
     },
     updatedAt: {
         type: Date,
@@ -106,6 +105,8 @@ const resources = new Schema({
     }
 
 
+},{
+    timestamps: true
 })
 
 resources.pre('save', async function (next) {

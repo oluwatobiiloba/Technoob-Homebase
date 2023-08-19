@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const quizTracker = new Schema({
     date_started: {
         type: Date,
-        default: Date.now()
       },
     
       duration_in_secs: {
@@ -46,6 +45,8 @@ const quizTracker = new Schema({
         default: false
       }
 
+},{
+    timestamps: true
 });
 
 module.exports = mongoose.model('QuizTracker', quizTracker);

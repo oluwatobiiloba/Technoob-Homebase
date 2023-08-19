@@ -24,6 +24,8 @@ const contact_us = new Schema({
 
     }
 
+},{
+    timestamps: true
 });
 
 

@@ -36,12 +36,6 @@ const quizzes = new Schema({
         type: Date 
     },
 
-    datePosted: {
-        type: Date,
-        required: true,
-        default: Date.now() - 1000
-    },
-
     uploader_id: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -58,6 +52,8 @@ const quizzes = new Schema({
         default: 3
     },
 
+},{
+    timestamps: true
 });
 
 

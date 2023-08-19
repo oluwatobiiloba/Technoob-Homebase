@@ -5,8 +5,8 @@ module.exports = {
     get_all: async (query) => {
         try {
             let prompt = {};
-            let page = query.page || 1;
-            let limit = query.limit || 5;
+            let page = query.page * 1 || 1;
+            let limit = query.limit || 10;
             let skip = (page - 1) * limit;
             let count = 0;
             if (query.stack) {
@@ -34,11 +34,16 @@ module.exports = {
                 count = resources.length
             }
 
+            const total  = await Resources.countDocuments();
+            const totalPages = Math.ceil(total / limit);
+
             return {
                 resources,
                 page,
                 limit,
-                count
+                count,
+                total,
+                totalPages
             };
         } catch (error) {
             throw error;
@@ -142,11 +147,19 @@ module.exports = {
                 count = activity.length
             }
 
+            const totalActivity = await Activity.countDocuments({
+                module: "resource"
+            })
+
+            const totalPages = Math.ceil(totalActivity / limit);
+
             return {
                 activity,
                 page,
                 limit,
-                count
+                count,
+                totalActivity,
+                totalPages
             }
         } catch (error) {
             throw error

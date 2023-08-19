@@ -102,14 +102,6 @@ const user = new Schema({
         enum: ['user', 'admin'],
         default: 'user'
     },
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now()
-    },
     verificationToken: {
         type: String
     },
@@ -125,6 +117,8 @@ const user = new Schema({
     }
 
 
+},{
+    timestamps: true
 });
 
 user.pre('save', async function (next) {

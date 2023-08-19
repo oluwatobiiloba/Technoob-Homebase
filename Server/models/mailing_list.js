@@ -13,6 +13,8 @@ const mailing_list = new Schema({
         unique: true
     },
 
+},{
+    timestamps: true
 });
 
 

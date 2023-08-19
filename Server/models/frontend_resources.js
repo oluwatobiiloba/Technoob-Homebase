@@ -24,6 +24,8 @@ const frontend_resources = new Schema({
         trim: true,
         required: [true, 'Please provide link to this resouce'],
     },
+},{
+    timestamps: true
 });
 
 module.exports = mongoose.model('frontend_resources', frontend_resources);

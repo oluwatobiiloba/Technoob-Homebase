@@ -25,6 +25,8 @@ const admin = new Schema({
         default: true,
         trim: true
     },
+},{
+    timestamps: true
 });
 
 // Define findOrCreate static method

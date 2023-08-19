@@ -52,6 +52,8 @@ const events = new Schema({
     },
 
 
+},{
+    timestamps: true
 });
 
 events.pre("save", (next) => {

@@ -20,6 +20,8 @@ const email = new Schema({
         unique: [true, 'This template id is already taken'],
         trim: true
     },
+},{
+    timestamps: true
 });
 
 
