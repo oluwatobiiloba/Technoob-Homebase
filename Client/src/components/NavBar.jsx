@@ -1,19 +1,18 @@
-import React, { useState, useContext } from "react";
-import Cookies from "universal-cookie";
-import Button from "../utility/button";
+import React, { useState } from "react";
+// import Cookies from "universal-cookie";
+// import Button from "../utility/button";
 import { navLinks } from "../data/contact";
 import { menu, close } from "../data/assets";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-import { AppContext } from "../AppContext/AppContext";
+// import { AppContext } from "../AppContext/AppContext";
 import { Link } from "react-router-dom";
-const cookies = new Cookies();
+// const cookies = new Cookies();
 
 const NavBar = () => {
-  const { isLoggedIn, UserProfile, setIsLoggedIn, setUserProfile } =
-    useContext(AppContext);
+  // const { setIsLoggedIn, setUserProfile } = useContext(AppContext);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [toggle, setToggle] = useState(false);
   const [active, setActive] = useState("");
@@ -22,46 +21,46 @@ const NavBar = () => {
     setActive(e.target.innerText);
   };
 
-  const logOut = async () => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+  // const logOut = async () => {
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/json");
 
-    let requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      redirect: "follow",
-      credentials: "include",
-    };
+  //   let requestOptions = {
+  //     method: "POST",
+  //     headers: myHeaders,
+  //     redirect: "follow",
+  //     credentials: "include",
+  //   };
 
-    let user = cookies.get("user");
+  //   let user = cookies.get("user");
 
-    if (user) {
-      fetch(
-        "https://technoob-staging.azurewebsites.net/api/v1/authenticate/logout",
-        requestOptions
-      )
-        .then((response) => {
-          if (response.status === 200) {
-            setIsLoggedIn(false);
-            setUserProfile(null);
-            cookies.remove("user");
-          }
-          return response.json();
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
-    }
-  };
-  const handleClick = async () => {
-    await logOut();
-    navigate("/Home");
-  };
+  //   if (user) {
+  //     fetch(
+  //       "https://technoob-staging.azurewebsites.net/api/v1/authenticate/logout",
+  //       requestOptions
+  //     )
+  //       .then((response) => {
+  //         if (response.status === 200) {
+  //           setIsLoggedIn(false);
+  //           setUserProfile(null);
+  //           cookies.remove("user");
+  //         }
+  //         return response.json();
+  //       })
+  //       .catch((error) => {
+  //         console.log("error", error);
+  //       });
+  //   }
+  // };
+  // const handleClick = async () => {
+  //   await logOut();
+  //   navigate("/Home");
+  // };
 
   return (
     <nav className="w-full bg-white shadow-md ">
-      <div className="w-full py-2 px-5 sm:px-20 flex justify-between items-center lg:h-[80px] ">
-        <div className="text-lg md:text-2xl font-extrabold text-[#5E7CE8] cursor-pointer">
+      <div className="w-full py-2 px-5 sm:px-20 flex justify-between md:justify-center items-center lg:h-[80px] ">
+        <div className="text-lg md:text-2xl font-extrabold text-[#5E7CE8] mr-32 cursor-pointer">
           <Link to={"/"}>Tech Noob</Link>
         </div>
 
@@ -107,8 +106,8 @@ const NavBar = () => {
                 </li>
               ))}
             </ul>
-
-            {/*<div className="flex flex-col justify-center items-center mt-10 gap-5">*/}
+            {/* 
+            <div className="flex flex-col justify-center items-center mt-10 gap-5">
             {/*  <Link*/}
             {/*    onClick={() => setToggle((prev) => !prev)}*/}
             {/*    to={"/User-Login"}*/}
@@ -128,9 +127,9 @@ const NavBar = () => {
             {/*  </Link>*/}
             {/*</div>*/}
           </div>
-        </div>
+          {/* </div> */}
 
-        {isLoggedIn ? (
+          {/* {isLoggedIn ? (
           <div className="hidden lg:flex gap-2 items-center">
             <div className="hidden lg:flex w-[20%] gap-2 text-center">
               <div className="gap-2">
@@ -150,18 +149,18 @@ const NavBar = () => {
         ) : (
           <div className="hidden gap-2 lg:flex">
             {/*<Link to={"/User-Login"}>*/}
-            {/*  <button*/}
-            {/*    name={"Login"}*/}
-            {/*    className="w-[130px] sm:w-[130px] h-[54px] text-[#111111] bg-[#EFF0F5] rounded-md py-4 px-3.5 text-base font-[600]"*/}
-            {/*  >*/}
-            {/*    Login*/}
-            {/*  </button>*/}
-            {/*</Link>*/}
-            {/*<Link to={"/Sign-Up"}>*/}
-            {/*  <Button name={"Get Started"} />*/}
-            {/*</Link>*/}
-          </div>
-        )}
+          {/*  <button*/}
+          {/*    name={"Login"}*/}
+          {/*    className="w-[130px] sm:w-[130px] h-[54px] text-[#111111] bg-[#EFF0F5] rounded-md py-4 px-3.5 text-base font-[600]"*/}
+          {/*  >*/}
+          {/*    Login*/}
+          {/*  </button>*/}
+          {/*</Link>*/}
+          {/*<Link to={"/Sign-Up"}>*/}
+          {/*  <Button name={"Get Started"} />*/}
+          {/*</Link>*/}
+          {/* </div> */}
+        </div>
       </div>
     </nav>
   );

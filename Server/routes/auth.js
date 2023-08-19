@@ -9,7 +9,7 @@ let auth = controller.auth;
 /* GET users listing. */
 router.post('/login', auth.login);
 // router.post('/login', passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/failed', failureFlash: true }));
-
+//comment
 router.post('/register', auth.register);
 router.post('/logout', auth.logout);
 router.post('verify-email', auth.verifyEmail)

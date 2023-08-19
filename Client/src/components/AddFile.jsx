@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "../utility/UploadFile";
 import LinkUpload from "../utility/LinkUpload";
 
-const AddFile = ({ onClose }) => {
+const AddFile = ({ closeModal }) => {
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -34,9 +34,9 @@ const AddFile = ({ onClose }) => {
             }`}
           >
             {toggle === "Document" ? (
-              <UploadFile onClose={onClose} />
+              <UploadFile closeModal={closeModal}/>
             ) : (
-              <LinkUpload onClose={onClose} />
+              <LinkUpload closeModal={closeModal} />
             )}
           </div>
         </div>

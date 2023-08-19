@@ -1,53 +1,46 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect, useLayoutEffect} from "react";
 import "./App.css";
-
-import { useLayoutEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import Cookies from "universal-cookie";
-import { NavBar, Footer } from "./components/index.js";
+import {Footer, NavBar} from "./components/index.js";
 
-import { SignUp } from "./pages/Auth";
+import {SignUp} from "./pages/Auth";
+import {AboutUs, ContactUs, FindJobs, Home, Resources, UserLogin,} from "./pages/LandingPage";
 
-import {
-  ContactUs,
-  Resources,
-  AboutUs,
-  FindJobs,
-  Home,
-  UserLogin,
-} from "./pages/LandingPage";
-
-import { AppContext } from "./AppContext/AppContext";
+import {AppContext} from "./AppContext/AppContext";
 import AdminNavBar from "./components/AdminNavBar";
 import AdminSideBar from "./components/AdminSideBar";
 
-import {
-  AdminDashboard,
-  JobManagement,
-  ResourceManagement,
-  EventManagement,
-} from "./pages/AdminPage/Dashboard";
+import {AdminDashboard, EventManagement, JobManagement, ResourceManagement,} from "./pages/AdminPage/Dashboard";
 import DashSelector from "./utility/DashSelector";
-import AllReasources from "./pages/LandingPage/Resources/AllReasources/All_reasources";
+import AllResources from "./pages/LandingPage/Resources/reasources_pages/Page1";
+
+// import JobDetails from "./pages/LandingPage/FindJob/JobDetails"
 
 const cookies = new Cookies();
 
 function App() {
-  const { isLoggedIn, setIsLoggedIn, dashboardToggle, setUserProfile } =
+  const { isLoggedIn, setIsLoggedIn, setDashboardToggle, dashboardToggle, setUserProfile } =
     useContext(AppContext);
   const { displayToggle, toggleValue } = dashboardToggle;
 
   useEffect(() => {
-    const checkUserLogin = cookies.get("user");
+    const checkUserLogin = sessionStorage.getItem("userData");
+    const checkUserViewPreference = sessionStorage.getItem("viewPreference")
+
     // const sessionCookie = cookies.get('session')
 
     if (checkUserLogin) {
       setIsLoggedIn(true);
-      setUserProfile(checkUserLogin);
+      setUserProfile(JSON.parse(checkUserLogin));
     } else {
       setIsLoggedIn(false);
     }
-  }, [isLoggedIn, setIsLoggedIn, setUserProfile]);
+
+    if(checkUserViewPreference) {
+      setDashboardToggle(JSON.parse(checkUserViewPreference))
+    }
+  }, [isLoggedIn, setDashboardToggle, setIsLoggedIn, setUserProfile]);
 
   //const [isAdmin] = useContext(AppContext)
 
@@ -78,9 +71,10 @@ function App() {
                 <Route path="/Find-Jobs" element={<FindJobs />} />
                 <Route path="/Contact-Us" element={<ContactUs />} />
                 <Route path="/Resources" element={<Resources />} />
-                <Route path="/all-resources" element={<AllReasources />} />
+                <Route path="/all-resources" element={<AllResources />} />
                 <Route path="/Sign-Up" element={<SignUp />} />
                 <Route path="/User-Login" element={<UserLogin />} />
+                {/*<Route path="/Job-Description" element={<JobDescription />} />*/}
               </Routes>
             </Wrapper>
           </main>
@@ -113,6 +107,7 @@ function App() {
                   element={<ResourceManagement />}
                 />
                 <Route path="/Event-Management" element={<EventManagement />} />
+                
               </Routes>
             </div>
           </div>

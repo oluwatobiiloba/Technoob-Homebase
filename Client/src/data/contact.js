@@ -37,37 +37,37 @@ export const features = [
   {
     id: "feature-1",
     icon: icon3,
-    title: "Connect with hiring managers",
+    title: "Supportive Learning Environment",
     content:
-      "It doesn’t matter what job position you apply to, you get direct access to hiring managers and have an understanding of what the vacancy requires",
+      "Join our  welcoming community where questions are encouraged, and you can learn without judgments.",
   },
   {
     id: "feature-2",
     icon: icon6,
-    title: "Flash Apply",
+    title: "Mentorship and Networking",
     content:
-      "Apply to multiple positions that fit your resume and get more value from us.",
+      "Join our community so you can connect with experienced mentors and like-minded newbies to guide and support you.",
   },
   {
     id: "feature-3",
     icon: icon1,
-    title: "Manage your application",
+    title: "Learning Resources",
     content:
-      "Measure what matters with our application metrics. You can filter, export, and drilldown on what works and what’s not.",
+      "Access a wealth of resources and articles to kickstart your tech journey.",
   },
   {
     id: "feature-4",
     icon: icon4,
-    title: "Connect with mentors and peers",
+    title: "Career Development",
     content:
-      "connect to fellow job seekers, seniors and experienced persons in the same role you’re applying and get tips",
+      "Explore a plethora of tech-related job opportunities, and excel in your tech career with us.",
   },
   {
     id: "feature-5",
     icon: icon5,
-    title: "Explore latest resources",
+    title: "Collaboration",
     content:
-      "Go through hundreds on standardized resources made available across tech stacks and  be prepared for anything.",
+      "Participate in engaging classes and workshops to expand your tech knowledge and skills. ",
   },
   {
     id: "feature-6",

@@ -1,16 +1,21 @@
-import React, {Suspense, useEffect, useState} from 'react';
-import { MdOutlineNoteAdd } from 'react-icons/md';
-
+import React, {Suspense, useContext, useEffect, useState} from 'react';
+import {MdOutlineNoteAdd} from 'react-icons/md';
+import {AppContext} from '../../../AppContext/AppContext';
 import {AiOutlineEye} from 'react-icons/ai'
 import serverApi from "../../../utility/server";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
+import {fetchFirstData} from "../../../utility/filterGather";
+import Table from "../../../components/JobActivityTable";
 
 
 const JobManagement = () => {
   const [ jobData,setJobData ] = useState([])
-  const [ jobMetrics, setJobMetrics] = useState({"total": 0,
-    "views": 0})
+  const [jobMetrics, setJobMetrics] = useState({
+    "total": 0,
+    "views": 0
+  });
+  const [jobActivity, setJobActivity] = useState([]);
+  const {UserProfile} = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(true);
   const [formInput, setFormInput] = useState(
       {
         title:"",
@@ -37,18 +42,10 @@ const JobManagement = () => {
     event.preventDefault();
     // console.log(formInput);
     try {
-      //get access token
-      const TOKEN = cookies.get('user_token')
+      serverApi.requiresAuth(true)
       const response = await serverApi.post(
           "/jobs/create",
           formInput
-          ,{
-            headers: {
-              'content-type': 'application/json',
-              'Authorization': `Bearer ${TOKEN}`
-            },
-            withCredentials: true
-          }
       )
 
       if(response.status === 201 || 200){
@@ -103,31 +100,16 @@ const JobManagement = () => {
 
   }
 
-  const fetchJobsPreload = async () =>{
-    try{
-      const response = await serverApi.get("/jobs/all?size=5",{
-
-        withCredentials: true
-      });
-      if(response.status === 200){
-        setJobData(response.data.data)
-      }
-    }catch (e) {
-      alert(e.message)
-    }
-
-  }
-
   useEffect(() => {
     fetchJobMetrics()
-     fetchJobsPreload()
+    fetchFirstData("/jobs/activity", setJobActivity, null, true, "activity").then(_r => setIsLoading(false))
     ;
   }, []);
 
   return ( 
     <section>
       <div className=' flex py-10 nun justify-start items-center'>
-        <h1 className='  md:text-3xl text-xl font-semibold'>Hey, Esther  -</h1>
+        <h1 className='  md:text-3xl text-xl font-semibold'>Hey,{UserProfile.firstname} -</h1>
         <p className='md:pt-2 pt-1 text-sm ml-3 sm:text-lg text-[#3A3A3A66] sm:text-black '>Welcome the  job management console.</p>
       </div>
       <div className=' lg:mx-4 p-5  rounded-md bg-white shadow-md w-full '>
@@ -154,12 +136,12 @@ const JobManagement = () => {
                 <input type="text" placeholder='Product Design' className=' border px-2 py-[6px] my-2 w-[250px]' name="title" value={formInput.title} onChange={handleChange}/>
               </div>
               <div className=' block py-2 my-4'>
-                <div><label htmlFor="title" className=' text-base font-semibold p-1'>Company</label></div>
+                <div><label htmlFor="company" className=' text-base font-semibold p-1'>Company</label></div>
                 <input type="text" placeholder='Meta' className=' border px-2 py-[6px] my-2 w-[250px]' name="company" value={formInput.company} onChange={handleChange}/>
               </div>
               <div className=' block py-2 my-4'>
-                <div><label htmlFor="title" className=' text-base font-semibold p-1'>Your experience</label></div>
-                <select  id="job" className=' border px-2 py-[6px] my-2 w-[250px]' name="exp" value={formInput.exp} onChange={handleChange}>
+                <div><label htmlFor="experience" className=' text-base font-semibold p-1'>Your experience</label></div>
+                <select  id="exp" className=' border px-2 py-[6px] my-2 w-[250px]' name="exp" value={formInput.exp} onChange={handleChange}>
                   <option value="0-1 year">0-1 year</option>
                   <option value="1-3 years">1-3 years</option>
                   <option value="3-5 years +">3-5 years +</option>
@@ -206,56 +188,19 @@ const JobManagement = () => {
         <div className='mt-16'>
             <div className=' flex justify-between'>
               <div>
-                <h2 className=' text-xl font-semibold pt-4'>Recent Jobs</h2>
+                <h2 className=" text-xl font-semibold pt-4">Recent Jobs</h2>
+                <p className=" text-lg text-[#747272] mb-1">
+                  See list of recently uploaded jobs.
+                </p>
               </div>
+
               <button className='float-right border py-2 px-8 my-[20px] rounded flex justify-between shadow-sm'>See all</button>
             </div>
-            <div className='flex overflow-x-auto'>
-              <table className=' border-t border-b w-full overflow-x-auto'>
-                <thead>
-                  <tr>
-                  <td><h4 className=' font-semibold text-lg mt-2'>Title</h4></td>
-                  <td><h4 className=' px-10 font-semibold text-lg'>Company</h4></td>
-                  <td><h4 className=' px-10 font-semibold text-lg'>Workplace</h4></td>
-                  <td><h4 className=' px-10 font-semibold text-lg'>Location</h4></td>
-                  <td><h4 className=' px-10 font-semibold text-lg'>Experience</h4></td>
-                  <td><h4 className=' px-10 font-semibold text-lg'>Job Type</h4></td>
-                  <td> <span>...</span></td>
-                </tr>
-                </thead>
 
+          <div className='flex overflow-x-auto'>
                 <Suspense fallback={<p>loading</p>}>
-                  <tbody>
-                  {jobData !== null
-                      ? jobData.map((job) => (
-                          <tr key={job.id}>
-                            <td>
-                              <p className='text-sm my-4'>{job.title}</p>
-                            </td>
-                            <td>
-                              <p className='px-10 text-sm'>{job.company}</p> {/* Replace 'someField' with the actual field name */}
-                            </td>
-                            <td>
-                              <p className='px-10 text-sm'>{job.workplaceType}</p> {/* Replace 'anotherField' with another field name */}
-                            </td>
-                            {/* Add other table cells as needed */}
-                            <td>
-                              <p className='px-10 text-sm'>{job.location}</p> {/* Replace 'someOtherField' with another field name */}
-                            </td>
-                            <td>
-                              <p className='px-10 text-sm'> {job.exp}</p> {/* Replace 'yetAnotherField' with another field name */}
-                            </td>
-                            <td>
-                              <p className='px-10 text-sm'> {job.contractType}</p> {/* Replace 'yetAnotherField' with another field name */}
-                            </td>
-                            <td></td>
-                          </tr>
-                      ))
-                      : null}
-
-                  </tbody>
+                  {jobActivity.length ? (<Table jobActivity={jobActivity}/>) : ''}
                 </Suspense>
-              </table>
             </div>
           </div>
       </div>

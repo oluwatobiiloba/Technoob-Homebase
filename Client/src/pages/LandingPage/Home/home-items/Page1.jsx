@@ -1,13 +1,13 @@
 import React from 'react'
 import { Hero, Vector1  } from '../../../../data/assets/index';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Button from '../../../../utility/button';
-import { HomeItems } from '../../../../data/contact';
+// import { HomeItems } from '../../../../data/contact';
 
 const Page1 = () => {
   return (
-    <div className='flex flex-col bg-[#F5F5F5] items-start sm:items-center w-full sm:mb-36 sm:pt-10'>
-         <div className='flex flex-col justify-start w-full items-start px-4 sm:justify-center sm:items-center sm:mb-10'>
+    <div className='flex flex-col bg-[#F5F5F5] items-start sm:items-center w-full sm:pt-10'>
+         <div className='flex flex-col justify-start w-full items-start px-4 sm:justify-center sm:items-center'>
                 <div className='w-full md:w-[720px] flex flex-col relative mt-5 mb-2 sm:mb-4'>
                   <header className='uni text-left sm:text-center  md:text-6xl text-2xl font-bold md:py-5 relative'>
                     <span className=' text-tblue'>Learn, Grow,</span> <span className='text-tgreen'> Connect</span>
@@ -27,8 +27,11 @@ const Page1 = () => {
 
                 </div>
           </div>
-          <div className='flex flex-col justify-start items-center w-full h-[270px] sm:h-[710px] relative'>
+          <div className='w-full flex justify-center'>
             <img src={Hero} alt="heroImg" className='w-[320px] h-[219px] sm:w-[823px] sm:h-[562px] '/>
+
+          </div>
+          {/* <div className='flex flex-col justify-start items-center w-full h-[270px] sm:h-[710px] relative'>
 
 
             <div className='bg-[#E1F9E3] h-[62px] sm:h-[191px] w-full absolute bottom-0 sm:bottom-0 flex flex-col justify-center items-center'>
@@ -43,8 +46,8 @@ const Page1 = () => {
                       </div>
                     ))}
                 </div>
-            </div>
-          </div>
+            </div> 
+          </div> */}
     </div>
   )
 }

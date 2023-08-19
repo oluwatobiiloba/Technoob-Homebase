@@ -1,33 +1,30 @@
 import React, {useState} from 'react'
 import {RiArrowDownSLine} from 'react-icons/ri'
 import { filtersearch } from '../data/assets';
+import Checks from "../pages/LandingPage/FindJob/components/Checks";
 
-const Filter = ({ selected, setSelected }) => {
+const Filter = ({ selected, setSelected,options,passedOptions, setpassedOptions,handleBox1Change, box1 }) => {
 
     
-    const [active, setActive] = useState(true)
-    
+    const [active, setActive] = useState(true);
 
-    const Options = [
-        {
-        id: 1,
-        name:'Product Design'}, 
-        {
-            id:2,
-            name:'Graphics Design'
-        }, 
-        {
-            id:3,
-            name:'UX Design', 
-        }, 
-        {
-            id:4,
-            name:'Interior Design',
-        }, 
-        {
-            id:5,
-            name:'Industrial Design'
-        }];
+    const Options = options.map((option, index) => {
+
+        let alias;
+        let key = option.key
+
+        if(key === "averageRating") alias = "Ratings";
+        if(key === "stack") alias = "Stack";
+        if(key === "type") alias = "Type";
+
+        return {
+            "id": index,
+            "alias": alias,
+            "name": option.key,
+            "values": option.value
+        };
+    });
+
   return (
     <div>    
         <div className='flex justify-start items-center p-4 '>
@@ -48,21 +45,21 @@ const Filter = ({ selected, setSelected }) => {
                     <ul className={`${active ? 'block' : 'hidden'}`}>
                         {Options.map((option, i) => (
                             <li key={i} onClick={()=>{
-                                
-                                    setActive(false);
-                                    setSelected(option.name)
-                                
+                                setActive(false);
+                                setSelected(option.alias);
+                                setpassedOptions(option);
                             }        
                             } 
                             className='text-sm p-3 pl-4 hover:bg-[#F0F4FE] rounded-md cursor-pointer'>
-                                {option.name}
+                                {option.alias}
                                 </li>
                         ))}
                     </ul>
                 </div>
-
+        <Checks passOptions={passedOptions} handleBox1Change={handleBox1Change} box1={box1} />
     </div>
   )
 }
+
 
 export default Filter

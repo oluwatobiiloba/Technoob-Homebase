@@ -2,7 +2,6 @@ import React, { useState, createContext } from "react";
 
  const AppContext = createContext({
     Notification: false,
-    UserProfile: false,
     isLoggedIn: false,
     isAdmin: false,
 
@@ -16,7 +15,9 @@ const AppProvider = ({ children }) => {
     const [dashboardToggle, setDashboardToggle] = useState({
         displayToggle: false,
         toggleValue: "User Dashboard"
-    })
+    });
+
+
     
     return (
         <AppContext.Provider
