@@ -45,12 +45,41 @@ const AdminSideBar = () => {
           <span className="flex  justify-start items-center gap-4 text-lg cursor-pointer font-semibold">
             <FiSettings className="" /> Settings
           </span>
+            <SwitchToUser></SwitchToUser>
           <SignOut></SignOut>
         </div>
       </div>
     </div>
   );
 };
+
+function SwitchToUser() {
+    const navigate = useNavigate();
+    const {setDashboardToggle} = useContext(AppContext);
+
+    const switchView = async () => {
+        navigate("/Home");
+        setDashboardToggle({
+            displayToggle: true,
+            toggleValue: "User Dashboard",
+        });
+
+
+    }
+
+    const submit = async (e) => {
+        e.preventDefault();
+        await switchView();
+    };
+
+    return (
+        <button onClick={submit}>
+      <span className="flex justify-start items-center gap-4 text-red-400 text-lg cursor-pointer font-semibold">
+           <BiLogOut className=""/> {"Switch to user view "}
+          </span>
+        </button>
+    );
+}
 
 function SignOut(){
   const [loading, setLoading] = useState(false);
@@ -66,11 +95,12 @@ function SignOut(){
       navigate("/Home");
       setIsLoggedIn(false);
       setUserProfile(null);
-      sessionStorage.clear();
       setDashboardToggle({
         displayToggle: false,
         toggleValue: "User Dashboard",
       });
+        sessionStorage.clear();
+
     }
 
   }

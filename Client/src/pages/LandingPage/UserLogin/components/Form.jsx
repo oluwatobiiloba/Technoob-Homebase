@@ -1,8 +1,7 @@
-import { useState, useContext } from "react";
-import Cookies from "universal-cookie";
+import {useContext, useState} from "react";
 import img from "../img/quino-al-xhGMQ_nYWqU-unsplash 1.png";
-import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../../../AppContext/AppContext";
+import {useNavigate} from "react-router-dom";
+import {AppContext} from "../../../../AppContext/AppContext";
 import serverApi from "../../../../utility/server";
 
 
@@ -36,8 +35,7 @@ const Form = () => {
             signal: abortController.signal,
             headers: {
               'content-type': 'application/json',
-            },
-            withCredentials: true
+            }
           }
       )
       console.log(response);

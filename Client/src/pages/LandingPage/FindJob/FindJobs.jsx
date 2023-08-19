@@ -3,10 +3,10 @@ import Header from './components/Header'
 import MainSection from './components/MainSection'
 import Checks from './components/Checks'
 import Button from '../../../utility/button'
-import { main, container } from '../style/style'
-import { RiArrowDownSLine } from 'react-icons/ri'
-import { MdLocationOn } from 'react-icons/md'
-import { filtersearch, close, SearchIcon } from '../../../data/assets'
+import {container, main} from '../style/style'
+import {RiArrowDownSLine} from 'react-icons/ri'
+import {MdLocationOn} from 'react-icons/md'
+import {close, filtersearch, SearchIcon} from '../../../data/assets'
 import serverApi from "../../../utility/server";
 import {fetchFilteredData, fetchFirstData} from "../../../utility/filterGather.jsx";
 
@@ -57,10 +57,11 @@ const FindJobs = () => {
     let params = {};
       if (box1.length > 0 && !isLoading){
           params[passedOptions.name] = box1.join(',');
-          fetchFilteredData(params, `/jobs/all`, setJobData).then(r  => {})
+          fetchFilteredData(params, `/jobs/all`, setJobData, "jobs").then(r => {
+          })
       }
       if( reset){
-          fetchFirstData("/jobs/all",setJobData,setOptions).then(_r => setIsLoading(false));
+          fetchFirstData("/jobs/all", setJobData, setOptions, false, "jobs").then(_r => setIsLoading(false));
       }
 
   }, [passedOptions.name, isLoading, box1, reset]);
@@ -92,12 +93,14 @@ const FindJobs = () => {
         if(searchTitle) {
             params.searchTitle = encodeURIComponent(searchTitle)
         }
+
+        params.limit = 30;
         const response = await serverApi.get(`/jobs/all`,
             {
                 params
             });
         if(response.status === 200){
-            let responseData = response.data.data
+            let responseData = response.data?.data?.jobs
             setJobData(responseData)
         } else {
             alert("No result found")
@@ -111,7 +114,7 @@ const FindJobs = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchFirstData("/jobs/all",setJobData,setOptions).then(_r => setIsLoading(false));
+      fetchFirstData("/jobs/all", setJobData, setOptions, false, "jobs").then(_r => setIsLoading(false));
 
   }, []);
 

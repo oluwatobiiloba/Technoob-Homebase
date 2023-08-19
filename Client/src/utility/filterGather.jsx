@@ -1,11 +1,12 @@
 import serverApi from "./server";
 
-export function getFilters(data) {
+export function getFilters(data, component) {
     const filters = {};
 
     const excluded_keys = ["ratings","file", "description", "updatedAt", "name", "version","users","url","traffic", "meta","downloads","createdAt","image_placeholder","company","datePosted","expiryDate","link","poster","uploader_id","comments", "_id", "__v", "views"]
 
-    data.forEach(item => {
+
+    data[`${component}`].forEach(item => {
         for (const key in item) {
             if (!excluded_keys.includes(key)) {
                 if (!filters[key]) {
@@ -27,9 +28,9 @@ export function getFilters(data) {
     return filtersArray;
 }
 
-export async function fetchFilteredData(params, url, setData) {
+export async function fetchFilteredData(params, url, setData, component) {
     try {
-        console.log((serverApi))
+        params.limit = 30;
         const response = await serverApi.get(url,
             {
                 params
@@ -37,31 +38,43 @@ export async function fetchFilteredData(params, url, setData) {
 
         if (response.status === 200) {
             let responseData = response.data.data
-            setData(responseData)
+            setData(responseData[`${component}`])
 
         } else {
             alert("No result found")
         }
     } catch (err) {
-        console.log(err)
+
+        alert(err.message)
     }
 
 }
 
-export async function fetchFirstData( url, setData,setFilterOptions,requiresAuth = false){
+export async function fetchFirstData(url, setData, setFilterOptions, requiresAuth = false, component) {
     if(requiresAuth){
         serverApi.requiresAuth(true)
     }
-    console.log("serverHeaders",serverApi.defaults.headers)
-    return serverApi.get(url)
+
+    return serverApi.get(url, {
+        params: {
+            limit: component === "metrics" ? null : 30,
+        }
+    })
         .then(res => {
             const responseData = res.data.data
-            setData(responseData)
+            if (component !== "metrics") setData(responseData[`${component}`])
+            if (component === "metrics") {
+                setData(responseData)
+                console.log(responseData)
+            }
             if(setFilterOptions){
-                const filters = getFilters(responseData);
+                const filters = getFilters(responseData, component);
                 setFilterOptions(filters)
             }
 
         })
-        .catch(err => {console.error('error fetching data from endpoint ', err)})
+        .catch(err => {
+            console.error('error fetching data from endpoint ', err)
+            alert(err.message)
+        })
 }

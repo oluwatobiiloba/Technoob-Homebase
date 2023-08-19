@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import LoaderIcon from "react-loader-icon";
 
-import { storage } from "../data/assets";
 import FileUploadSingle from "./Uploader";
+import serverApi from "./server";
 
 const UploadFile = ({ closeModal }) => {
   // const [file, setFile] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [placeholderImage, setplaceholderImage] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const [fileInfo, setFileInfo] = useState({});
+    const [imageInfo, setImageInfo] = useState({});
   const [formInput, setFormInput] = useState(
       {
         name:"",
@@ -14,29 +19,10 @@ const UploadFile = ({ closeModal }) => {
         stack:"" ,
         description:"",
         type:"",
-        file:"",
-        image_placeholder:"",
-        url:"",
+          file: ""
       }
   );
 
-  const onFileDrop = (files) => {
-    console.log(files)
-    setUploadedFile(files.name);
-    console.log(files)
-    //setImage(URL.createObjectURL(files));
-    console.log(uploadedFile);
-  };
-
-  console.log(uploadedFile);
-
-  const onPlaceHolderDrop = (images) => {
-    setplaceholderImage(images.name)
-    //setImage(URL.createObjectURL(files));
-    console.log(placeholderImage);
-  };
-
-  console.log(placeholderImage);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -46,36 +32,56 @@ const UploadFile = ({ closeModal }) => {
     }));
   };
 
-  const handlePublish = () => {
+    const handlePublish = async (e) => {
+        e.preventDefault();
+        try {
+            const payload = {
+                ...formInput,
+                image_placeholder: placeholderImage,
+                url: uploadedFile
+            }
 
-  }
+            const abortController = new AbortController();
+            setUploading(true);
+            const response = await serverApi.post(
+                "/resources/create",
+                payload,
+                {
+                    signal: abortController.signal,
+                    headers: {
+                        'content-type': 'application/json',
+                    }
+                }
+            )
 
-  console.log(uploadedFile)
-    // async function handleChange(e) {
-    //   e.preventDefault();
-    //   setImgLoader(true);
-    //   const file = e.target.files[0];
-    //   console.log("line0", e.target);
-    //   console.log("line1", file);
-    //   const formData = new FormData();
-    //   formData.append("avatar", file);
-  
-    //   await axios
-    //     .post(`https://caroapp-2sc7.onrender.com/api/product/upload/`, formData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     })
-    //     .then((result) => {
-    //       console.log("Post request, results", result);
-    //       setImgUrl(result.data);
-    //       setImgLoader(false);
-    //     })
-    //     .catch((error) => {
-    //       console.log("Errors", error);
-    //       setImgLoader(false);
-    //     });
-    // }
+            if (response.status === 200 || 201) {
+                let message = response.data.message
+
+                setFormInput({
+                    name: "",
+                    version: "",
+                    stack: "",
+                    description: "",
+                    type: "",
+                    file: ""
+                });
+                setUploadedFile(null);
+                setplaceholderImage(null);
+                setUploading(false);
+                setUploadingImage(null);
+                setFileInfo(null);
+                setImageInfo(null);
+                closeModal()
+                alert(message)
+            } else {
+                alert("Resource upload failed")
+            }
+            return
+        } catch (e) {
+            alert(e.message)
+        }
+    }
+
 
   return (
     <div className="flex justify-center items-center w-full pt-10">
@@ -88,18 +94,33 @@ const UploadFile = ({ closeModal }) => {
           <div className="flex gap-3 w-full mb-5">
             <div className="w-full">
               <label htmlFor="Name" className="">
-                File Name
+                  Resource Name
               </label>{" "}
               <br />
               <input
                 type="text"
                 name="name"
                 className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
-                value={formInput.company}
+                value={formInput.name}
                 onChange={handleChange}
                 placeholder="Enter Resource Name"
               />
             </div>
+
+              <div className="w-full">
+                  <label htmlFor="Name" className="">
+                      Version
+                  </label>{" "}
+                  <br/>
+                  <input
+                      type="text"
+                      name="version"
+                      className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
+                      value={formInput.version}
+                      onChange={handleChange}
+                      placeholder="Enter the version "
+                  />
+              </div>
             <div className="w-full">
               <label htmlFor="Name">Tech Stack</label>
               <select
@@ -109,8 +130,9 @@ const UploadFile = ({ closeModal }) => {
                   placeholder="select"
                   value={formInput.stack}
                   onChange={handleChange}
-                >
-                <option value="Software Development ">Software Development</option>
+              >
+                  <option>Select a stack</option>
+                  <option value="Software Development">Software Development</option>
                 <option value="Product Design">Product Design</option>
                 <option value="Product Management">Product Management</option>
                 <option value="Data Science">Data Science</option>
@@ -119,58 +141,99 @@ const UploadFile = ({ closeModal }) => {
                 <option value="Project Management">Project Management</option>
               </select>
             </div>
+              <div className="w-full">
+                  <label htmlFor="Name">Type</label>
+                  <select
+                      id="type"
+                      name="type"
+                      className="placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC]  p-3 w-full rounded-md mt-2 "
+                      placeholder="select"
+                      value={formInput.type}
+                      onChange={handleChange}
+                  >
+                      <option>Select a type</option>
+                      <option value="api" defaultValue={"api"}>API</option>
+                      <option value="design">Design</option>
+                      <option value="props">Props</option>
+                      <option value="database">Databases</option>
+                      <option value="storage">Storage</option>
+                      <option value="e-book">E-book/PDF</option>
+                      <option value="video">Video</option>
+                      <option value="documentation">Documentation</option>
+                      <option value="audio">Audio</option>
+                      <option value="projects">Projects</option>
+                      <option value="other">Others</option>
+                      <option value="blog">Blog</option>
+                      <option value="repo">Repository</option>
+              </select>
+            </div>
           </div>
-         <FileUploadSingle name={"Resource File"} setlink={setUploadedFile} type={"image"}></FileUploadSingle>
-          <FileUploadSingle name={"Resource Image"} setlink={setplaceholderImage} type={"file"}></FileUploadSingle>
-          <div className="mt-5 min-h-[150px]">
-            <div className="border-t-2 border-gray-200 mb-3" />
-            <h1 className="text-[#7A90A7] text-xs ">Uploading</h1>
-
+            <FileUploadSingle name={"Resource File"} setlink={setUploadedFile} type={"file"} setUploading={setUploading}
+                              setFileInfo={setFileInfo}></FileUploadSingle>
+            <FileUploadSingle name={"Resource Image"} setlink={setplaceholderImage} type={"image"}
+                              setUploadingImage={setUploadingImage} setImageInfo={setImageInfo}></FileUploadSingle>
             <div className="w-full">
+                <label htmlFor="Name" className="">
+                    Description
+                </label>{" "}
+                <br/>
+                <input
+                    type="text"
+                    name="description"
+                    className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
+                    value={formInput.description}
+                    onChange={handleChange}
+                    placeholder="Enter Resource Name"
+                />
+            </div>
+
+            <div className="mt-5 min-h-[150px]">
+
+                <div className="w-full border-t-2 border-gray-200 mb-3">
               <div className="text-center text-xs">
-                {uploadedFile ? (
-                  <p>Uploads in Progress...</p>
+                  {uploading ? (
+                      <LoaderIcon type={"spinningBubbles"}/>
                 ) : (
-                  <p>No Uploads in Progress</p>
+                      <p></p>
                 )}
               </div>
-              {uploadedFile && (
-                <div className="border-t-2 border-gray-200 mb-3 pt-3">
-                  <div className="flex h-16">
-                    <div className="flex items-start">
-                      <img
-                        src={placeholderImage}
-                        alt="_img"
-                        className="w-13 h-full object-contain mr-3 p-1"
-                      />
-                      <div>
-                        <h1 className="truncate text-xs md:text-base w-[190px]">
-                          {uploadedFile.name}
-                        </h1>
-                        {uploadedFile.name && (
-                          <p className="text-sm text-green-500 flex flex-col-reverse md:flex-row ">
-                            Upload successfull{" "}
-                            <li className="text-[#7A90A7] ml-2">
-                              {" "}
-                              {uploadedFile.size}kb
-                            </li>
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div></div>
-
-                    <div></div>
-                  </div>
-                </div>
-              )}
+                    {placeholderImage && uploadedFile && (
+                        <div className="border-t-2 border-gray-200 mb-3 pt-3">
+                            <div className="flex h-16">
+                                <div className="flex items-start">
+                                    <img
+                                        src={placeholderImage}
+                                        alt="_img"
+                                        className="w-13 h-full object-contain mr-3 p-1"
+                                    />
+                                    <div>
+                                        <h1 className="truncate text-xs md:text-base w-[190px]">
+                                            {fileInfo.name}
+                                        </h1>
+                                        {fileInfo.name && (
+                                            <p className="text-sm text-green-500 flex flex-col-reverse md:flex-row ">
+                                                Upload successful ✅{" "}
+                                                <li className="text-[#7A90A7] ml-2">
+                                                    {" "}
+                                                    {fileInfo.size / 1000}kb
+                                                </li>
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
             </div>
           </div>
           <div className="flex w-full justify-start items-start gap-3">
-            <button onClick={handlePublish} className="flex justify-center items-center text-sm md:text-lg  md:font-semibold w-[310px] h-[54px] rounded-md bg-tblue text-white mb-4">
+              {
+                  placeholderImage && uploadedFile && (<button onClick={handlePublish}
+                                                               className="flex justify-center items-center text-sm md:text-lg  md:font-semibold w-[310px] h-[54px] rounded-md bg-tblue text-white mb-4">
               Publish Document
-            </button>
+                  </button>)
+              }
+            
             <button
               onClick={closeModal}
               className="flex justify-center items-center text-sm md:text-lg font-semibold w-[150px] h-[54px] rounded-md bg-[#EFF0F5] mb-4"

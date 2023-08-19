@@ -1,7 +1,7 @@
-import React, { Fragment, useContext } from "react";
-import { createPortal } from "react-dom";
+import React, {Fragment, useContext} from "react";
+import {createPortal} from "react-dom";
 import classes from "./DashSelector.module.css";
-import { AppContext } from "../AppContext/AppContext";
+import {AppContext} from "../AppContext/AppContext";
 import DashSelectorCard from "./DashSelectorCard";
 
 const Backdrop = (props) => {
@@ -54,7 +54,7 @@ const DashSelector = () => {
       toggleValue: props.target.innerText,
     }
     setDashboardToggle(selection);
-    sessionStorage.setItem("viewPreference",JSON.stringify(selection))
+    sessionStorage.setItem("viewPreference", JSON.stringify(selection));
 
   };
   return (

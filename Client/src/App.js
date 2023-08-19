@@ -1,36 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect, useLayoutEffect} from "react";
 import "./App.css";
-
-import { useLayoutEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation} from "react-router-dom";
 import Cookies from "universal-cookie";
-import { NavBar, Footer } from "./components/index.js";
+import {Footer, NavBar} from "./components/index.js";
 
-import { SignUp } from "./pages/Auth";
-import {
-  ContactUs,
-  Resources,
-  AboutUs,
-  FindJobs,
-  Home,
-  UserLogin,
-} from "./pages/LandingPage";
+import {SignUp} from "./pages/Auth";
+import {AboutUs, ContactUs, FindJobs, Home, Resources, UserLogin,} from "./pages/LandingPage";
 
-import { AppContext } from "./AppContext/AppContext";
+import {AppContext} from "./AppContext/AppContext";
 import AdminNavBar from "./components/AdminNavBar";
 import AdminSideBar from "./components/AdminSideBar";
 
-import {
-  AdminDashboard,
-  JobManagement,
-  ResourceManagement,
-  EventManagement,
-} from "./pages/AdminPage/Dashboard";
+import {AdminDashboard, EventManagement, JobManagement, ResourceManagement,} from "./pages/AdminPage/Dashboard";
 import DashSelector from "./utility/DashSelector";
 import AllResources from "./pages/LandingPage/Resources/reasources_pages/Page1";
 
 // import JobDetails from "./pages/LandingPage/FindJob/JobDetails"
-import JobDescription from "./pages/LandingPage/FindJob/JobDescription";
 
 const cookies = new Cookies();
 
@@ -42,6 +27,7 @@ function App() {
   useEffect(() => {
     const checkUserLogin = sessionStorage.getItem("userData");
     const checkUserViewPreference = sessionStorage.getItem("viewPreference")
+
     // const sessionCookie = cookies.get('session')
 
     if (checkUserLogin) {

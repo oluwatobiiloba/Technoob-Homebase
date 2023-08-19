@@ -1,16 +1,26 @@
-
 import serverApi from "./server";
 
-const uploadFile =  (file,type) => {
-    return serverApi.post(
-        type === "image" ? "/utils/upload-image" : "/utils/upload-file",
-        file,
-        {
-            headers: {
-                'content-type': file.type,
-                'content-length': `${file.size}`,
+const uploadFile = async (file, type) => {
+    try {
+
+        const formData = new FormData();
+        formData.append(type, file);
+
+        const response = await serverApi.post(
+            type === "image" ? "/utils/upload-image" : "/utils/upload-file",
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             }
-        }
-    )
-}
-export default uploadFile
+        );
+
+        return response.data;
+    } catch (error) {
+        console.error("Error uploading file:", error);
+        throw error;
+    }
+};
+
+export default uploadFile;

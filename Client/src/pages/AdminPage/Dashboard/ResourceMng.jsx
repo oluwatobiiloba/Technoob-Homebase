@@ -1,9 +1,7 @@
+import React, {useContext, useEffect, useState} from 'react';
+import {AppContext} from '../../../AppContext/AppContext';
 
-import React, { useState, useContext, useEffect } from 'react';
-import { AppContext } from '../../../AppContext/AppContext';
-
-import { filtersearch } from "../../../data/assets";
-import { AiOutlineCloudServer } from "react-icons/ai";
+import {AiOutlineCloudServer} from "react-icons/ai";
 import {BiArchive} from 'react-icons/bi'
 import Button from "../../../utility/button";
 import Table from "../../../components/Table";
@@ -17,6 +15,7 @@ const ResourceMng = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [statistics, setStatistics] = useState([]);
+    const [statsMap, setStatsMap] = useState([])
   const [resourceActivity, setResourceActivity] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -32,38 +31,32 @@ const ResourceMng = () => {
   //   setfileType(e.target.value)
   //   console.log(e.target.value)
   // }
-  // const statistics = [
-  //   {
-  //     name: "Files Uploaded",
-  //     amount: 45,
-  //     amtlabel: "Files Uploaded",
-  //     // tracks: "20 files",
-  //     icon: <AiOutlineCloudServer />,
-  //     // icon2: <AiOutlineEye />,
-  //     style: "bg-green-100 text-tgreen",
-  //   },
-  //   {
-  //     name: "Files Downloaded",
-  //     amount: 120,
-  //     amtlabel: "Files Downloaded",
-  //     // tracks: "203 Downloads",
-  //     icon: <BiArchive/>,
-  //     style: "text-[#D4C433] bg-yellow-100",
-  //   },
-  // ];
-
-
-  
-
   const { UserProfile } = useContext(AppContext);
 
 
   useEffect(() => {
-      fetchFirstData("/resources/activity",setResourceActivity,null,true).then(_r => setIsLoading(false))
-      fetchFirstData("/resources/metrics",setStatistics,null).then(_r => setIsLoading(false))
+      fetchFirstData("/resources/activity", setResourceActivity, null, true, "activity").then(_r => setIsLoading(false))
+      fetchFirstData("/resources/metrics", setStatistics, null, true, "metrics").then(_r => setIsLoading(false))
+      setStatsMap([
+          {
+              name: "Files Uploaded",
+              amount: statistics.uploads || '',
+              amtlabel: "Files Uploaded",
+              icon: <AiOutlineCloudServer/>,
+              style: "bg-green-100 text-tgreen",
+          },
+          {
+              name: "Files Downloaded",
+              amount: statistics.downloads || '',
+              amtlabel: "Files Downloaded",
+              // tracks: "203 Downloads",
+              icon: <BiArchive/>,
+              style: "text-[#D4C433] bg-yellow-100",
+          }
+      ])
   }, []);
 
-  
+
   if (isLoading) {
     return  (
         <div className='flex w-full justify-center items-start  '>
@@ -132,7 +125,7 @@ const ResourceMng = () => {
             <p className="text-xl mb-1">Statistics</p>
 
             <div className="flex w-[100%] justify-start flex-wrap gap-4 rounded-sm">
-              {statistics.length && statistics.map((opt, i) => (
+                {statsMap.length && statsMap.map((opt, i) => (
                 <div
                   key={i}
                   className=" px-3 pt-5 pb-6 rounded-lg w-[25rem] shadow-md lg:w-[40%] lg:mr-3 "
@@ -148,7 +141,7 @@ const ResourceMng = () => {
                   <div className="flex justify-start items-end w-full">
                     <p className="p-2 mr-6 text-xl">
                       <span className="font-bold text-3xl">{resourceActivity ? resourceActivity.length : 0}</span>{" "}
-                      {opt.amtlabel}{" "}
+                        {`${opt.amount} ${opt.amtlabel}`}{" "}
                     </p>
                     <p className=" p-2 text-[#35BA83] flex gap-4 items-center">
                       <span className="text-xl ">{opt.icon2}</span> {opt.tracks}

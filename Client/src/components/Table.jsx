@@ -29,7 +29,6 @@ const Table = ({resourceActivity}) => {
       {activityData ? resourceActivity?.activity.map((item) => (
        
         <tr>
-          { console.log('item', item.activity.activity)}
         <td><p className=' text-sm my-4'>{item?.activity.activity}</p></td>
         <td><p className=' px-10 text-sm'>{item?.activity.fileName}</p></td>
         <td><p className=' px-10 text-sm'>{item?.activity.stack}</p></td>

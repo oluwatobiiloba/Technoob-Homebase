@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { SearchIcon, filtersearch } from '../../../../data/assets';
+import React, {useEffect, useState} from 'react';
+import {filtersearch, SearchIcon} from '../../../../data/assets';
 import Button from '../../../../utility/button';
 import Loader from '../../../../utility/Loader';
 import Card from '../../../../utility/Card';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import Filter from '../../../../components/Filter';
 import serverApi from "../../../../utility/server";
@@ -31,7 +31,7 @@ const Page1 = () => {
             ? box1.filter((val) => val !== newValue)
             : [...box1, newValue];
         setBox1(updatedSelectedValues)
-        console.log(updatedSelectedValues)
+
         if(updatedSelectedValues.length === 0){
             setReset(true)
         }
@@ -45,12 +45,13 @@ const Page1 = () => {
             if(searchTerm) {
                 params.name = searchTerm
             }
+            params.limit = 30;
             const response = await serverApi.get(`resources/all`,
                 {
                     params
                 });
             if(response.status === 200){
-                let responseData = response.data.data
+                let responseData = response.data?.data?.resources
                 setResources(responseData)
             } else {
                 alert("No result found")
@@ -62,7 +63,7 @@ const Page1 = () => {
 
     useEffect( () => {
         setLoading(true);
-        fetchFirstData("/resources/all",setResources,setOptions)
+        fetchFirstData("/resources/all", setResources, setOptions, false, "resources")
             .then(_r => {
                 setLoading(false);
                 setFiltered(false);
@@ -77,7 +78,7 @@ const Page1 = () => {
         }
 
         if(reset){
-            fetchFirstData("/resources/all",setResources,setOptions)
+            fetchFirstData("/resources/all", setResources, setOptions, false, "resources")
                 .then(_r => {
                     setLoading(false);
                     setFiltered(false);
@@ -136,7 +137,10 @@ const Page1 = () => {
 
 
             <div className=' w-full sm:min-h-[600px] md:flex-[1.5] md:pl-4 relative overflow-hidden'>
-                {searchTerm || filtered ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span className='text-[#5E7CE8]'>{resources.length}</span> RESULTS</h1> : <h1 className='text-2xl text-[#3A3A3A] font-semibold'><span className='text-[#5E7CE8]'>ALL</span> RESULTS</h1>}
+                {resources ? <h1 className='text-2xl text-[#3A3A3A] font-semibold mb-3 '><span
+                        className='text-[#5E7CE8]'>{resources.length}</span> RESULTS</h1> :
+                    <h1 className='text-2xl text-[#3A3A3A] font-semibold'><span
+                        className='text-[#5E7CE8]'>ALL</span> RESULTS</h1>}
 
                 
                 <div className='border-b-[0.5px] border-[#C2C7D6] mb-[2rem] w-[95%] '/>

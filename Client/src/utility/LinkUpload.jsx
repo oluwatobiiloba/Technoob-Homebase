@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import serverApi from "./server";
 
 const LinkUpload = ({ closeModal }) => {
   const [dataUpload, setDataUpload] = useState({});
@@ -6,9 +7,37 @@ const LinkUpload = ({ closeModal }) => {
   const handleChange = (e) => {
     setDataUpload({ ...dataUpload, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(dataUpload);
+        try {
+            const payload = dataUpload
+
+            const abortController = new AbortController();
+            const response = await serverApi.post(
+                "/resources/create",
+                payload,
+                {
+                    signal: abortController.signal,
+                    headers: {
+                        'content-type': 'application/json',
+                    }
+                }
+            )
+
+            if (response.status === 200 || 201) {
+                let message = response.data.message
+
+                setDataUpload({});
+                closeModal()
+                alert(message)
+            } else {
+                alert("Resource upload failed")
+            }
+            return
+        } catch (e) {
+            alert(e.message)
+        }
   };
   const handleClose = (e) => {
     e.preventDefault();
@@ -18,9 +47,65 @@ const LinkUpload = ({ closeModal }) => {
   return (
     <div className="w-[80%] flex  justify-start my-10 p-4 items-center gap-6 flex-col h-[435px] rounded-md">
       <div className="w-full flex flex-col gap-5  lg:mx-2">
-        <h1 className="text-xl font-bold">Add Document Link</h1>
-        <span className="text-sm text-gray-300">Add link details</span>
+          <div className="w-full">
+              <label htmlFor="Name" className="">
+                  Resource Name
+              </label>{" "}
+              <br/>
+              <input
+                  type="text"
+                  name="name"
+                  className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
+                  onChange={handleChange}
+                  placeholder="Enter Resource Name"
+              />
+          </div>
+          <div className="w-full">
+              <label htmlFor="Name">Tech Stack</label>
+              <select
+                  id="stack"
+                  name="stack"
+                  className="placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC]  p-3 w-full rounded-md mt-2 "
+                  placeholder="select"
+                  onChange={handleChange}
+              >
+                  <option>Select a stack</option>
+                  <option value="Software Development ">Software Development</option>
+                  <option value="Product Design">Product Design</option>
+                  <option value="Product Management">Product Management</option>
+                  <option value="Data Science">Data Science</option>
+                  <option value="Cloud Engineering">Cloud Engineering</option>
+                  <option value="Data Engineering">Data Engineering</option>
+                  <option value="Project Management">Project Management</option>
+              </select>
+          </div>
+          <span className="text-sm text-gray-300">For resources with links</span>
       </div>
+        <div className="w-full">
+            <label htmlFor="Name">Type</label>
+            <select
+                id="type"
+                name="type"
+                className="placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC]  p-3 w-full rounded-md mt-2 "
+                placeholder="select"
+                onChange={handleChange}
+            >
+                <option>Select a type</option>
+                <option value="api">API</option>
+                <option value="design">Design</option>
+                <option value="props">Props</option>
+                <option value="database">Databases</option>
+                <option value="storage">Storage</option>
+                <option value="e-book">E-book/PDF</option>
+                <option value="video">Video</option>
+                <option value="documentation">Documentation</option>
+                <option value="audio">Audio</option>
+                <option value="projects">Projects</option>
+                <option value="other">Others</option>
+                <option value="blog">Blog</option>
+                <option value="repo">Repository</option>
+            </select>
+        </div>
 
       <form className="flex flex-col gap-4 w-full">
         <div className="">
@@ -30,23 +115,23 @@ const LinkUpload = ({ closeModal }) => {
           </label>{" "}
           <br />
           <textarea
-            name="Desc"
+              name="description"
             rows={4}
             className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-1 w-full rounded-md"
-            placeholder="-- text here --"
+              placeholder="Describe the resource"
             onChange={handleChange}
           />
         </div>
         <div className="w-full">
           <label htmlFor="Name" className="">
-            Add Document Link
+              Resource URL
           </label>{" "}
           <br />
           <input
             type="url"
-            name="Name"
+            name="url"
             className=" placeholder:italic border border-[#DAE8F6] bg-[#F9FAFC] p-3 mt-2 w-full rounded-md"
-            placeholder="-- paste link --"
+            placeholder="Input resource link"
             onChange={handleChange}
           />
         </div>
