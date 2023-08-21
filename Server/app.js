@@ -23,15 +23,10 @@ const swaggerUI = require('swagger-ui-express');
 const yamljs = require('yamljs');
 //const swaggerDocument = yamljs.load('./swagger.yaml');
 
-const swaggerDocument = yamljs.load(path.join(__dirname,'swagger.yaml'));
+const swaggerDocument = yamljs.load(path.join(__dirname, 'swagger.yaml'));
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://technoob-client-staging.herokuapp.com",
-  "https://technoob-client.herokuapp.com",
-  "http://127.0.0.1:3000",
-  "https://technoob-staging.azurewebsites.net"
-];
+
+const allowedOrigins = [config.ALLOWED_ORIGINS];
 
 // const swaggerOptions = { 
 //   failOnErrors: true,
