@@ -158,22 +158,23 @@ module.exports = {
         }
     },
 
-    remove: async (id) => {
+    remove: async (id,user_id) => {
         try {
             const job = await Jobs.findById(id);
             if (job) {
                 await Jobs.findByIdAndDelete(id);
                 const activity = {
-                    user_id: job.uploader_id,
+                    user_id: user_id,
                     module: "job",
                     activity: {
-                        activity: "job Removal",
-                        theme: job.theme,
+                        activity: "Job Removal",
+                        title: job.title,
                         location: job.location,
-                        ticketing: job.ticketing,
-                        date: job.date,
-                        price: job.price,
-                        currency: job.currency,
+                        company: job.company,
+                        datePosted: job.datePosted,
+                        expiryDate: job.expiryDate,
+                        workplaceType: job.workplaceType,
+                        contractType: job.contractType,
                         status: "Successful"
                     }
                 }
@@ -184,6 +185,7 @@ module.exports = {
             }
             return null
         } catch (error) {
+            
             throw error;
         }
     },

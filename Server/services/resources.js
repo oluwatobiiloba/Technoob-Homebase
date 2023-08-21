@@ -166,9 +166,22 @@ module.exports = {
         }
     },
 
-    remove: async (id) => {
+    remove: async (id,user_id) => {
         try {
             const resources = await Resources.findByIdAndDelete(id);
+            const activity = {
+                user_id: user_id,
+                module: "resource",
+                activity: {
+                    activity: "Resource Removal",
+                    fileName: resources.name,
+                    stack: resources.stack,
+                    type: resources.type,
+                    status: "Successful"
+                }
+            }
+
+            await Activity.create(activity)
             return resources;
         } catch (error) {
             throw error;

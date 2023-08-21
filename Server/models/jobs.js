@@ -35,7 +35,6 @@ const jobs = new Schema({
     datePosted: {
         type: Date,
         required: true,
-        default: Date.now() - 1000
     },
 
     expiryDate: {
@@ -69,12 +68,10 @@ const jobs = new Schema({
     },
 
     createdAt: {
-        type: Date,
-        default: Date.now()
+        type: Date
     },
     updatedAt: {
-        type: Date,
-        default: Date.now()
+        type: Date
     },
 
 },{

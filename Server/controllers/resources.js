@@ -92,7 +92,7 @@ module.exports = {
     async remove(req, res, next) {
         const id = req.params.id
         try {
-            const resources = await resource.remove(id)
+            const resources = await resource.remove(id, req.user?._id )
             res.status(200).json({
                 status: "success",
                 message: `resource deleted`,

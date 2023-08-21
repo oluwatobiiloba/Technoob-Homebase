@@ -52,16 +52,14 @@ const resources = new Schema({
 
     image_placeholder: {
         type: String,
-        trim: true,
-        default: 'https://res.cloudinary.com/dx0hz2ziy/image/upload/v1595513899/placeholder.png'
+        trim: true
     },
 
     createdAt: {
         type: Date,
     },
     updatedAt: {
-        type: Date,
-        default: null
+        type: Date
     },
 
     meta: {
