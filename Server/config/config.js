@@ -27,17 +27,19 @@ module.exports = {
         AZURE_QUEUE_NAME: process.env.AZURE_QUEUE_NAME,
         AZURE_QUEUE_URL: process.env.AZURE_QUEUE_URL,
         REQUEST_LIMIT: process.env.REQUEST_LIMIT || 500,
-        ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS || `
-        "http://localhost:3000",
-        "https://technoob-client-staging.herokuapp.com",
-        "https://technoob-client.herokuapp.com",
-        "http://127.0.0.1:3000",
-        "https://technoob-staging.azurewebsites.net",
-        "https://technoob.tech",
-        "https://www.technoob.tech",
-        "http://technoob.tech",
-        "http://www.technoob.tech",
-        `
+        ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS ? JSON.parse(process.env.ALLOWED_ORIGINS) :
+            [
+                "http://localhost:3000",
+                "https://technoob-client-staging.herokuapp.com",
+                "https://technoob-client.herokuapp.com",
+                "http://127.0.0.1:3000",
+                "https://technoob-staging.azurewebsites.net",
+                "https://technoob.tech",
+                "https://www.technoob.tech",
+                "http://technoob.tech",
+                "http://www.technoob.tech"
+            ]
+        
     },
     test: {
         NODE_ENV: "test"
