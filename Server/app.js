@@ -26,7 +26,7 @@ const yamljs = require('yamljs');
 const swaggerDocument = yamljs.load(path.join(__dirname, 'swagger.yaml'));
 
 
-const allowedOrigins = [config.ALLOWED_ORIGINS];
+const allowedOrigins = config.ALLOWED_ORIGINS;
 
 // const swaggerOptions = { 
 //   failOnErrors: true,
