@@ -29,7 +29,8 @@ module.exports = {
             let resources = await Resources
                 .find(prompt)
                 .skip(skip)
-                .limit(limit);
+                .limit(limit)
+                .sort({ createdAt: -1 });
             if (resources) {
                 count = resources.length
             }
@@ -141,7 +142,7 @@ module.exports = {
         try {
             const activity = await Activity.find({
                 module: "resource"
-            }).skip(skip).limit(limit)
+            }).skip(skip).limit(limit).sort({createdAt: -1})
 
             if (activity) {
                 count = activity.length

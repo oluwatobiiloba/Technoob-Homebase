@@ -40,7 +40,9 @@ module.exports = {
 
             const jobs = await Jobs.find(prompt)
                 .skip(skip)
-                .limit(limit);
+                .limit(limit)
+                .sort({createdAt: -1})
+                ;
             if (jobs) {
                 count = jobs.length
             }
@@ -135,10 +137,11 @@ module.exports = {
         try {
             const activity = await Activity.find({
                 module: "job"
-            }).skip(skip).limit(limit)
+            }).skip(skip).limit(limit).sort({createdAt: -1})
             if (activity) {
                 count = activity.length
             }
+            
 
             const total  = await Activity.countDocuments({
                 module: "job"
